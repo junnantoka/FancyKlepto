@@ -31,6 +31,7 @@ namespace FancyKlepto.GameObjects
                 Fancy_Klepto.KeyboardState.IsKeyUp(Keys.W))
             {
                 velocity.Y = -PLAYERSPD;
+                Console.WriteLine("yahoo");
             }
             if (Fancy_Klepto.previousState.IsKeyDown(Keys.A) &&
                 Fancy_Klepto.KeyboardState.IsKeyUp(Keys.A))
