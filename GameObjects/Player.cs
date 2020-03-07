@@ -8,13 +8,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using FancyKlepto.GameManagement;
 
-namespace FancyKlepto.GameObjects
+namespace FancyKlepto
 {
     class Player : GameObject
     {
-        const int PLAYERSPD = 40;
-        public Player() : base("spr_circle")
+        private KeyboardState oldState = Keyboard.GetState();
+        public Player() : base("player_brown")
         {
+            Reset();
+            position = new Vector2(150, 440);
+            velocity = new Vector2(10, 10);
         }
 
         public override void Reset()
@@ -25,32 +28,21 @@ namespace FancyKlepto.GameObjects
         public override void Update()
         {
             base.Update();
-            velocity.X = 0;
-            velocity.Y = 0;
-            if (Fancy_Klepto.previousState.IsKeyDown(Keys.W) &&
-                Fancy_Klepto.KeyboardState.IsKeyUp(Keys.W))
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.A) && oldState.IsKeyUp(Keys.A))
             {
-                velocity.Y = -PLAYERSPD;
-                Console.WriteLine("yahoo");
+                position.X -= velocity.X;
+                Console.WriteLine("heyo");
             }
-            if (Fancy_Klepto.previousState.IsKeyDown(Keys.A) &&
-                Fancy_Klepto.KeyboardState.IsKeyUp(Keys.A))
-            {
-                velocity.X = -PLAYERSPD;
-            }
-            if (Fancy_Klepto.previousState.IsKeyDown(Keys.S) &&
-                Fancy_Klepto.KeyboardState.IsKeyUp(Keys.S))
-            {
-                velocity.Y = PLAYERSPD;
-            }
-            if (Fancy_Klepto.previousState.IsKeyDown(Keys.D) &&
-                Fancy_Klepto.KeyboardState.IsKeyUp(Keys.D))
-            {
-                velocity.X = PLAYERSPD;
-            }
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.D) && oldState.IsKeyUp(Keys.D))
+            { position.X += velocity.X; }
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.W) && oldState.IsKeyUp(Keys.W))
+            { position.Y -= velocity.Y; }
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.S) && oldState.IsKeyUp(Keys.S))
+            { position.Y += velocity.Y; }
 
-            position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
-            position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
+            oldState = GameEnvironment.KeyboardState;
+            //position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
+            //position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
         }
     }
 }

@@ -22,7 +22,6 @@ namespace FancyKlepto.GameManagement
 
         public virtual void Update()
         {
-            position += velocity;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

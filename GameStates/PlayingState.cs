@@ -13,7 +13,10 @@ namespace FancyKlepto.GameStates
     {
         public PlayingState()
         {
-            gameObjectList.Add(new GameObject("spr_background"));
+            //Map
+            gameObjectList.Add(new Map("Level_A"));
+            //background Wit
+            //gameObjectList.Add(new GameObject("spr_background"));
             gameObjectList.Add(new Player());
             //StartPositie, SpriteName,LengteEnBreedte,Angle
             gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_green", new Vector2(100, 5), (float)Math.PI / 2));
@@ -21,6 +24,7 @@ namespace FancyKlepto.GameStates
             gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel", new Vector2(100, 5), (float)Math.PI * 1.5f));
             gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_purple", new Vector2(100, 5), (float)Math.PI * 2f));
             gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_yellow", new Vector2(100, 5), (float)Math.PI / 4f));
+
         }
     }
 }
