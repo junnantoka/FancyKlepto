@@ -22,7 +22,7 @@ namespace FancyKlepto.GameStates
             gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel", new Vector2(100, 5), (float)Math.PI * 1.5f));
             gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_purple", new Vector2(100, 5), (float)Math.PI * 2f));
             gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_yellow", new Vector2(100, 5), (float)Math.PI / 4f));
-            gameObjectList.Add(new Guard(new Vector2(400, 100), new Vector2(40, 40)));
+            gameObjectList.Add(new Guard(new Vector2(400, 100), new Vector2(10, 10)));
         }
     }
 }
