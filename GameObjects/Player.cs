@@ -31,18 +31,23 @@ namespace FancyKlepto
             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.A) && oldState.IsKeyUp(Keys.A))
             {
                 position.X -= velocity.X;
-                Console.WriteLine("heyo");
             }
             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.D) && oldState.IsKeyUp(Keys.D))
-            { position.X += velocity.X; }
+            {
+                position.X += velocity.X;
+            }
             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.W) && oldState.IsKeyUp(Keys.W))
-            { position.Y -= velocity.Y; }
+            {
+                position.Y -= velocity.Y;
+            }
             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.S) && oldState.IsKeyUp(Keys.S))
-            { position.Y += velocity.Y; }
+            {
+                position.Y += velocity.Y;
+            }
 
             oldState = GameEnvironment.KeyboardState;
-            //position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
-            //position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
+            position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
+            position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
         }
     }
 }

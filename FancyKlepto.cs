@@ -25,7 +25,7 @@ namespace FancyKlepto
             gameStateList.Add(new EndStateWon());
             gameStateList.Add(new EndStateLost());
 
-            screen = new Point(1920, 1080);
+            screen = new Point(3000, 2080);
 
             GameEnvironment.SwitchTo(state);
         }
