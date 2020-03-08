@@ -17,6 +17,9 @@ namespace FancyKlepto.GameObjects
             velocity = new Vector2(40, 40);
         }
 
-
+        public override void Update()
+        {
+            base.Update();
+        }
     }
 }
