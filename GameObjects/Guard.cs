@@ -25,7 +25,7 @@ namespace FancyKlepto.GameObjects
             {
                 velocity.X = -velocity.X;
             }
-            if (position.X < 0 - texture.Width)
+            if (position.X < -texture.Width)
             {
                 velocity.X = -velocity.X;
             }

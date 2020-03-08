@@ -34,7 +34,7 @@ namespace FancyKlepto
         {
             base.Update(gameTime);
             previousState = KeyboardState;
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Enter))
+            if (KeyboardState.IsKeyDown(Keys.Enter))
             {
                 state++;
                 GameEnvironment.SwitchTo(state);
