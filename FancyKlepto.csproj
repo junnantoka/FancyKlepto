@@ -46,6 +46,7 @@
     <Compile Include="GameManagement\GameEnvironment.cs" />
     <Compile Include="GameManagement\GameObject.cs" />
     <Compile Include="GameManagement\GameState.cs" />
+    <Compile Include="GameObjects\Guard.cs" />
     <Compile Include="GameObjects\Laser.cs" />
     <Compile Include="GameObjects\Map.cs" />
     <Compile Include="GameObjects\Player.cs" />
