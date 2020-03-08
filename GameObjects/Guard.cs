@@ -10,7 +10,6 @@ namespace FancyKlepto.GameObjects
 {
     class Guard : GameObject
     {
-        bool reverse = false;
         public Guard(Vector2 position, Vector2 velocity) : base("player")
         {
             Reset();
