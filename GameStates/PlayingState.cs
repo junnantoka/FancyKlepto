@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using FancyKlepto.GameManagement;
 using FancyKlepto.GameObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace FancyKlepto.GameStates
 {
@@ -13,7 +16,8 @@ namespace FancyKlepto.GameStates
     {
         public PlayingState()
         {
-            gameObjectList.Add(new GameObject("spr_background"));
+        
+            gameObjectList.Add(new GameObject("Grid"));
             gameObjectList.Add(new Player());
             //StartPositie, SpriteName,LengteEnBreedte,Angle
             gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_green", new Vector2(100, 5), (float)Math.PI / 2));

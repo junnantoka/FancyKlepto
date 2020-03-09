@@ -20,13 +20,16 @@ namespace FancyKlepto
         protected override void LoadContent()
         {
             base.LoadContent();
+            ApplyResolutionSettings();
             gameStateList.Add(new StartState());
             gameStateList.Add(new PlayingState());
             gameStateList.Add(new EndStateWon());
             gameStateList.Add(new EndStateLost());
 
             screen = new Point(1920, 1080);
+            graphics.ApplyChanges();
 
+            
             GameEnvironment.SwitchTo(state);
         }
 
@@ -41,6 +44,7 @@ namespace FancyKlepto
                 state = 0;
             }
         }
+
 
     }
 }
