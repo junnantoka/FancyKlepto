@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:player_brown.png
 
+#begin spr_background.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_background.PNG
+
 #begin spr_circle.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -132,3 +144,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spr_text.png
+

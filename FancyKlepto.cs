@@ -26,6 +26,7 @@ namespace FancyKlepto
             gameStateList.Add(new EndStateLost());
 
             screen = new Point(1920, 1080);
+            ApplyResolutionSettings();
 
             GameEnvironment.SwitchTo(state);
         }

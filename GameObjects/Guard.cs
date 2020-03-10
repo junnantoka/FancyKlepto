@@ -5,27 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using FancyKlepto.GameManagement;
+using FancyKlepto.GameObjects;
 
 namespace FancyKlepto.GameObjects
 {
     class Guard : GameObject
     {
-        public Guard(Vector2 position, Vector2 velocity) : base("player")
+        Map map = new Map("Level_A");
+        int frameCounter = 0;
+        public Guard() : base("player")
         {
             Reset();
-            this.position = position;
-            this.velocity = velocity;
+            position = new Vector2(texture.Width, 100);
+            velocity = new Vector2(10, 10);
         }
 
         public override void Update()
         {
             base.Update();
-            position.X += velocity.X;
-            if (position.X > GameEnvironment.Screen.X - texture.Width)
+            frameCounter++; //keep track of frames
+            if (frameCounter > 10)
+            {
+                position.X += velocity.X;
+                frameCounter = 0;
+            }
+
+            //Collision with border of screen
+            if (position.X >= map.texture.Width - texture.Width)
             {
                 velocity.X = -velocity.X;
             }
-            if (position.X < -texture.Width)
+            if (position.X <= 0)
             {
                 velocity.X = -velocity.X;
             }
