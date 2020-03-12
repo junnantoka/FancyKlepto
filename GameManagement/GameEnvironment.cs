@@ -62,6 +62,7 @@ namespace FancyKlepto.GameManagement
         {
             graphics.PreferredBackBufferWidth = screen.X;
             graphics.PreferredBackBufferHeight = screen.Y;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
         }
 
@@ -88,6 +89,11 @@ namespace FancyKlepto.GameManagement
                 currentGameState.Update(gameTime);
 
             base.Update(gameTime);
+
+            if (KeyboardState.IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
         }
     }
 }

@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Grid.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Grid.png
+
 #begin Level_A.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -61,7 +73,7 @@
 /processorParam:TextureFormat=Color
 /build:player_brown.png
 
-#begin spr_background.PNG
+#begin spr_background.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,7 +83,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:spr_background.PNG
+/build:spr_background.png
 
 #begin spr_circle.PNG
 /importer:TextureImporter

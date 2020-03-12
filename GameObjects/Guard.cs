@@ -13,10 +13,10 @@ namespace FancyKlepto.GameObjects
     {
         Map map = new Map("Level_A");
         int frameCounter = 0;
-        public Guard() : base("player")
+        public Guard(Vector2 position) : base("player")
         {
             Reset();
-            position = new Vector2(texture.Width, 100);
+            this.position = position;
             velocity = new Vector2(10, 10);
         }
 
