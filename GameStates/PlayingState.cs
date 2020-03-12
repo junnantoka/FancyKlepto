@@ -16,13 +16,12 @@ namespace FancyKlepto.GameStates
         public PlayingState()
         {
             gameObjectList.Add(new GameObject("spr_background"));
-            gameObjectList.Add(new GameObject("Grid"));
             //Map
             gameObjectList.Add(new Map("Level_A"));
+            gameObjectList.Add(new GameObject("Grid"));
             gameObjectList.Add(player);
             //Position1, Position2,Sprite naam
             gameObjectList.Add(new Laser(new Vector2(390, 390), new Vector2(470, 390), "spr_laser_pixel_green"));
-         
             gameObjectList.Add(new Guard());
         }
 
