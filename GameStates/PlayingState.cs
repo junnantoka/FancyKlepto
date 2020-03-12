@@ -14,7 +14,8 @@ namespace FancyKlepto.GameStates
     class PlayingState : GameState
     {
         Player player = new Player();
-        Guard guard = new Guard();
+        //Start position guard
+        Guard guard = new Guard(new Vector2(200, 80));
         public PlayingState()
         {
             gameObjectList.Add(new GameObject("spr_background"));
