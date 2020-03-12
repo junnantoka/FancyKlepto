@@ -89,6 +89,11 @@ namespace FancyKlepto.GameManagement
                 currentGameState.Update(gameTime);
 
             base.Update(gameTime);
+
+            if (KeyboardState.IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
         }
     }
 }

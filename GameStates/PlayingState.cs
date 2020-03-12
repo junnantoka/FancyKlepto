@@ -7,12 +7,14 @@ using FancyKlepto.GameManagement;
 using Microsoft.Xna.Framework.Graphics;
 using FancyKlepto.GameObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace FancyKlepto.GameStates
 {
     class PlayingState : GameState
     {
         Player player = new Player();
+        Guard guard = new Guard();
         public PlayingState()
         {
             gameObjectList.Add(new GameObject("spr_background"));
@@ -23,7 +25,7 @@ namespace FancyKlepto.GameStates
             //Position1, Position2,Sprite naam
             gameObjectList.Add(new Laser(new Vector2(390, 390), new Vector2(470, 390), "spr_laser_pixel_green"));
          
-            gameObjectList.Add(new Guard());
+            gameObjectList.Add(guard);
         }
 
         public override void Update(GameTime gameTime)
@@ -32,15 +34,14 @@ namespace FancyKlepto.GameStates
             //Collision with border of screen
             for (int i = 0; i < gameObjectList.Count; i++)
             {
-                if (gameObjectList[i] is Guard)
+                if (gameObjectList[i] is Player)
                 {
-                    if (gameObjectList[i].Overlaps(player))
+                    if (gameObjectList[i].Overlaps(guard))
                     {
                         player.Reset();
-                        gameObjectList[i].Reset();
                     }
                 }
-            }      
+            }
         }
     }
 }
