@@ -13,13 +13,14 @@ namespace FancyKlepto
     class Laser : GameObject
     {
         private bool Active;
-        private Vector2 WantedSize;
+        private Vector2 position2;
         private float angle;
-        public Laser(Vector2 Position, string assetName, Vector2 WantedSize, float angle) : base(assetName)
+        private float radius;
+        public Laser(Vector2 position, Vector2 position2, string assetName) : base(assetName)
         {
-            this.position = Position;
-            this.WantedSize = WantedSize;
-            this.angle = angle;
+            this.position = position;
+            this.position2 = position2;
+
         }
 
         public override void Update()
@@ -33,6 +34,10 @@ namespace FancyKlepto
             {
                 Active = false;
             }
+            
+            radius = (float)Math.Sqrt((position.X-position2.X) * (position.X - position2.X) + (position.Y-position2.Y)* (position.Y - position2.Y));
+            angle = (float)Math.Atan2(position2.Y-position.Y,position2.X-position.X);
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -40,7 +45,7 @@ namespace FancyKlepto
 
             if (Active)
             {
-                spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)WantedSize.X, (int)WantedSize.Y), new Rectangle(0, 0, 1, 1), Color.White, angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 7), new Rectangle(0, 0, 1, 1), Color.White, angle, new Vector2(0, 0), SpriteEffects.None, 1);
             }
         }
     }
