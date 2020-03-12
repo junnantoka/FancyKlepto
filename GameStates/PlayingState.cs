@@ -13,13 +13,12 @@ namespace FancyKlepto.GameStates
     class PlayingState : GameState
     {
         Player player = new Player();
-        MainGoal goal1 = new MainGoal("Main Reward");
-        Guard guard = new Guard(new Vector2(100));
+        MainGoal goal1 = new MainGoal(new Vector2(400, 390), "Main Reward");
+        Guard guard = new Guard(new Vector2(90, 50));
         public PlayingState()
         {
             gameObjectList.Add(new GameObject("spr_background"));
-            //Map
-            gameObjectList.Add(new Map("Level_A"));
+            gameObjectList.Add(new Map("Level_A"));//Map
             gameObjectList.Add(goal1);
             gameObjectList.Add(player);
             gameObjectList.Add(guard);
@@ -38,30 +37,30 @@ namespace FancyKlepto.GameStates
         public void checkForCollision(GameObject pObject)
         {
             //Player collisions with smth.
-            if (pObject.GetType() == typeof(Player))
+            if (pObject is Player)
             {
                 for (int i = 0; i < gameObjectList.Count; i++)
                 {
-                    if (gameObjectList[i].GetType() == typeof(Guard) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is Guard && pObject.Overlaps(gameObjectList[i]))
                     {
                         player.Reset();
                     }
 
-                    if (gameObjectList[i].GetType() == typeof(MainGoal) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is MainGoal && pObject.Overlaps(gameObjectList[i]))
                     {
                         player.Reset();
                     }
 
-                    if (gameObjectList[i].GetType() == typeof(Wall) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is Wall && pObject.Overlaps(gameObjectList[i]))
                     {
                         //player.Reset();
                         if (gameObjectList[i].position.X < player.position.X + player.texture.Width)
                         {
-                            player.velocity.X *= -1;
+                            player.velocity.X *= 1;
                         }
                         if (gameObjectList[i].position.X + gameObjectList[i].texture.Width > player.position.X)
                         {
-                            player.velocity.X *= -1;
+                            player.velocity.X *= 1;
                         }
 
                         if (gameObjectList[i].position.Y < player.position.Y)

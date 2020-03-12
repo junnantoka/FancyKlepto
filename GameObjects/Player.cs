@@ -21,7 +21,7 @@ namespace FancyKlepto
         public Player() : base("player_brown")
         {
             Reset();
-            position = new Vector2(150, 440);
+            position = new Vector2(140, 440);
 
             velocity = new Vector2(0, 0);
             velocityVelocity = 0.1f;
@@ -34,8 +34,7 @@ namespace FancyKlepto
         public override void Reset()
         {
             base.Reset();
-            position = new Vector2(200, 200);
-            velocity = new Vector2(0, 0);
+            position = new Vector2(140, 440);
         }
 
         public override void Update()

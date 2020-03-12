@@ -24,18 +24,18 @@ namespace FancyKlepto.GameObjects
         {
             base.Update();
             frameCounter++; //keep track of frames
-            if (frameCounter > 10)
+            if (frameCounter > 20)
             {
                 position.X += velocity.X;
                 frameCounter = 0;
             }
 
             //Collision with border of screen
-            if (position.X >= map.texture.Width - texture.Width)
+            if (position.X >= map.texture.Width - (texture.Width * 4))
             {
                 velocity.X = -velocity.X;
             }
-            if (position.X <= 0)
+            if (position.X <= texture.Width * 3)
             {
                 velocity.X = -velocity.X;
             }
