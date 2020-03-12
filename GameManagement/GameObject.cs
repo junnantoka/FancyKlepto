@@ -12,7 +12,9 @@ namespace FancyKlepto.GameManagement
     {
         public Vector2 position;
         public Vector2 velocity;
+
         public Texture2D texture;
+        
 
         public GameObject(String assetName)
         {
