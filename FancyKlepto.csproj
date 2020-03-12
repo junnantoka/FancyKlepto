@@ -48,8 +48,10 @@
     <Compile Include="GameManagement\GameState.cs" />
     <Compile Include="GameObjects\Guard.cs" />
     <Compile Include="GameObjects\Laser.cs" />
+    <Compile Include="GameObjects\MainGoal.cs" />
     <Compile Include="GameObjects\Map.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\Wall.cs" />
     <Compile Include="GameStates\EndStateLost.cs" />
     <Compile Include="GameStates\EndStateWon.cs" />
     <Compile Include="GameStates\PlayingState.cs" />

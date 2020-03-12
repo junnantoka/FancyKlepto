@@ -34,30 +34,13 @@ namespace FancyKlepto
         public override void Reset()
         {
             base.Reset();
+            position = new Vector2(200, 200);
+            velocity = new Vector2(0, 0);
         }
 
         public override void Update()
         {
             base.Update();
-            // && oldState.IsKeyUp(Keys.A)
-            /*
-             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.A) && oldState.IsKeyUp(Keys.A))
-            {
-                position.X -= velocity.X;
-            }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.D) && oldState.IsKeyUp(Keys.D))
-            {
-                position.X += velocity.X;
-            }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.W) && oldState.IsKeyUp(Keys.W))
-            {
-                position.Y -= velocity.Y;
-            }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.S) && oldState.IsKeyUp(Keys.S))
-            {
-                position.Y += velocity.Y;
-            }
-            */
             Move();
 
             oldState = GameEnvironment.KeyboardState;
@@ -111,6 +94,10 @@ namespace FancyKlepto
                     velocity.Y += velocityVelocity;
                 }
             }
+        }
+        public void checkForCollision(GameObject pObject)
+        {
+            if (Overlaps(pObject)) Reset();
         }
     }
 }
