@@ -16,6 +16,7 @@ namespace FancyKlepto.GameStates
         public PlayingState()
         {
             gameObjectList.Add(new GameObject("spr_background"));
+            gameObjectList.Add(new GameObject("Grid"));
             //Map
             gameObjectList.Add(new Map("Level_A"));
             gameObjectList.Add(player);
