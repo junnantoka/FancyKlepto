@@ -35,7 +35,7 @@ namespace FancyKlepto
                 Active = false;
             }
             
-            radius = (float)Math.Sqrt((position.X-position2.X) * (position.X - position2.X) + (position.Y-position2.Y)* (position.Y - position2.Y));
+            radius = (float)Math.Sqrt((position.X-position2.X) * (position.X - position2.X) + (position.Y-position2.Y) * (position.Y - position2.Y));
             angle = (float)Math.Atan2(position2.Y-position.Y,position2.X-position.X);
             
         }
