@@ -14,7 +14,7 @@ namespace FancyKlepto.GameManagement
         public Vector2 velocity;
 
         public Texture2D texture;
-        public Texture2D Grid;
+        
 
         public GameObject(String assetName)
         {
