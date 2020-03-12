@@ -14,7 +14,7 @@ namespace FancyKlepto.GameStates
     {
         Player player = new Player();
         MainGoal goal1 = new MainGoal("Main Reward");
-        Guard guard1 = new Guard();
+        Guard guard = new Guard(new Vector2(100));
         public PlayingState()
         {
             gameObjectList.Add(new GameObject("spr_background"));
@@ -22,13 +22,7 @@ namespace FancyKlepto.GameStates
             gameObjectList.Add(new Map("Level_A"));
             gameObjectList.Add(goal1);
             gameObjectList.Add(player);
-            //StartPositie, SpriteName,LengteEnBreedte,Angle
-            /*gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_green", new Vector2(100, 5), (float)Math.PI / 2));
-            gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_yellow", new Vector2(100, 5), (float)Math.PI));
-            gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel", new Vector2(100, 5), (float)Math.PI * 1.5f));
-            gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_purple", new Vector2(100, 5), (float)Math.PI * 2f));
-            gameObjectList.Add(new Laser(new Vector2(100, 100), "spr_laser_pixel_yellow", new Vector2(100, 5), (float)Math.PI / 4f)); */
-            gameObjectList.Add(guard1);
+            gameObjectList.Add(guard);
             WallSetup();
         }
 
@@ -58,7 +52,7 @@ namespace FancyKlepto.GameStates
                         player.Reset();
                     }
 
-                    if (gameObjectList[i].GetType() == typeof(Wall)&& pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i].GetType() == typeof(Wall) && pObject.Overlaps(gameObjectList[i]))
                     {
                         //player.Reset();
                         if (gameObjectList[i].position.X < player.position.X + player.texture.Width)
@@ -89,7 +83,7 @@ namespace FancyKlepto.GameStates
         {
             for (int j = 0; j < 48; j++)
             {
-                    gameObjectList.Add(new Wall(9, j));
+                gameObjectList.Add(new Wall(9, j));
             }
         }
     }
