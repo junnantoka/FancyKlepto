@@ -14,12 +14,13 @@ namespace FancyKlepto.GameManagement
     {
         public Vector2 position;
         public Vector2 velocity;
-
+        public int unit;
         public Texture2D texture;
         
 
         public GameObject(String assetName)
         {
+            unit = 64;
             texture = GameEnvironment.ContentManager.Load<Texture2D>(assetName);
             Reset();
         }

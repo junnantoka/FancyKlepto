@@ -46,12 +46,14 @@
     <Compile Include="GameManagement\GameEnvironment.cs" />
     <Compile Include="GameManagement\GameObject.cs" />
     <Compile Include="GameManagement\GameState.cs" />
-    <Compile Include="GameObjects\Guard.cs" />
+    <Compile Include="GameObjects\MapObjects\ExtraGoal.cs" />
+    <Compile Include="GameObjects\MapObjects\Guard.cs" />
     <Compile Include="GameObjects\Laser.cs" />
-    <Compile Include="GameObjects\MainGoal.cs" />
+    <Compile Include="GameObjects\MapObjects\MainGoal.cs" />
     <Compile Include="GameObjects\Map.cs" />
-    <Compile Include="GameObjects\Player.cs" />
-    <Compile Include="GameObjects\Wall.cs" />
+    <Compile Include="GameObjects\MapObjects\Player.cs" />
+    <Compile Include="GameObjects\MapObjects\SwitchBoard.cs" />
+    <Compile Include="GameObjects\MapObjects\Wall.cs" />
     <Compile Include="GameStates\EndStateLost.cs" />
     <Compile Include="GameStates\EndStateWon.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
@@ -74,6 +76,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
