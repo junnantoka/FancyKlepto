@@ -18,13 +18,13 @@ namespace FancyKlepto
         private Vector2 zeroVelocity;
         private Vector2 minVelocity;
         private float velocityVelocity;
-        public Player() : base("spr_player")
+        private Vector2 pPosition;
+        public Player(int x, int y) : base("spr_player")
         {
             Reset();
-            position = new Vector2(3 * unit, 8 * unit);
-
-            velocity = new Vector2(0, 0);
             velocityVelocity = 0.1f;
+            position = new Vector2(x * unit, y * unit);
+            pPosition = position;
 
             maxVelocity = new Vector2(10, 10);
             zeroVelocity = new Vector2(0, 0);
@@ -33,9 +33,8 @@ namespace FancyKlepto
 
         public override void Reset()
         {
-            base.Reset();
-            position = new Vector2(8* unit, 8* unit);
-            velocity = new Vector2(0, 0);
+            position = pPosition;
+            velocity = zeroVelocity;
         }
 
         public override void Update()

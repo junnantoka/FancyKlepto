@@ -11,9 +11,16 @@ namespace FancyKlepto
 {
     class MainGoal : GameObject
     {
+        private Vector2 pPosition;
         public MainGoal (int x,int y) : base("spr_reward_1")
         {
+            Reset();
             position = new Vector2(x * unit, y * unit);
+            pPosition = position;
+        }
+        public override void Reset()
+        {
+            position = pPosition;
         }
     }
 }
