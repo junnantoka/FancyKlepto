@@ -11,9 +11,9 @@ namespace FancyKlepto
 {
     class MainGoal : GameObject
     {
-        public MainGoal (string MainReward) : base(MainReward)
+        public MainGoal (int x,int y) : base("spr_reward_1")
         {
-            position = new Vector2(100, 100);
+            position = new Vector2(x * unit, y * unit);
         }
     }
 }

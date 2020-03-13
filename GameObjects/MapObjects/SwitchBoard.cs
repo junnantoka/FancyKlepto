@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework;
 using FancyKlepto.GameManagement;
 using FancyKlepto.GameObjects;
 
-namespace FancyKlepto.GameObjects
+namespace FancyKlepto
 {
-    class Wall : GameObject
+    class SwitchBoard : GameObject
     {
-        public Wall(int x, int y) : base("spr_wall")
+        public SwitchBoard(int x,int y) : base("spr_switchboard_brown")
         {
-            position = new Vector2(x*10, y*10);
+            position = new Vector2(x * unit, y * unit);
         }
     }
 }
