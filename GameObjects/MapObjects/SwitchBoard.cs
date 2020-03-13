@@ -11,9 +11,16 @@ namespace FancyKlepto
 {
     class SwitchBoard : GameObject
     {
+        private Vector2 pPosition;
         public SwitchBoard(int x,int y) : base("spr_switchboard_brown")
         {
+            Reset();
             position = new Vector2(x * unit, y * unit);
+            pPosition = position;
+        }
+        public override void Reset()
+        {
+            position = pPosition;
         }
     }
 }

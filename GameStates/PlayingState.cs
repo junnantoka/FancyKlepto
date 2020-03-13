@@ -7,12 +7,13 @@ using FancyKlepto.GameManagement;
 using Microsoft.Xna.Framework.Graphics;
 using FancyKlepto.GameObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace FancyKlepto.GameStates
 {
     class PlayingState : GameState
     {
-        Player player = new Player();
+        Player player = new Player(3,13);
         MainGoal goal1 = new MainGoal(2,2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
         Guard guard = new Guard(new Vector2(100));
@@ -39,6 +40,15 @@ namespace FancyKlepto.GameStates
 
         public override void Update(GameTime gameTime)
         {
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.R))
+            {
+                player.Reset();
+                guard.Reset();
+                goal1.Reset();
+                goal2.Reset();
+                switchboard1.Reset();
+                switchboard2.Reset();
+            }
             base.Update(gameTime);
             foreach (GameObject gameObject in gameObjectList)
             {
@@ -60,12 +70,20 @@ namespace FancyKlepto.GameStates
 
                     if (gameObjectList[i].GetType() == typeof(MainGoal) && pObject.Overlaps(gameObjectList[i]))
                     {
-                        player.Reset();
+                        if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
+                        {
+                            gameObjectList[i].position.X = player.position.X + player.texture.Width/2 - gameObjectList[i].texture.Width/2;
+                            gameObjectList[i].position.Y = player.position.Y + player.texture.Height/2 - gameObjectList[i].texture.Height/2;
+                        }
                     }
 
                     if (gameObjectList[i].GetType() == typeof(ExtraGoal) && pObject.Overlaps(gameObjectList[i]))
                     {
-                        player.Reset();
+                        if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
+                        {
+                            gameObjectList[i].position.X = player.position.X + player.texture.Width / 2 - gameObjectList[i].texture.Width / 2;
+                            gameObjectList[i].position.Y = player.position.Y + player.texture.Height / 2 - gameObjectList[i].texture.Height / 2;
+                        }
                     }
 
                     if (gameObjectList[i].GetType() == typeof(SwitchBoard) && pObject.Overlaps(gameObjectList[i]))
