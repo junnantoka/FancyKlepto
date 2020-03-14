@@ -90,48 +90,37 @@ namespace FancyKlepto.GameStates
                     }
                     if (gameObjectList[i].GetType() == typeof(Wall))
                     {
+                        //horizontal
                         if (gameObjectList[i].position.X > player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
                             player.moveRight = false;
                             player.velocity.X = 0;
-                            player.position.X = gameObjectList[i].position.X - player.texture.Width- unitSpacing;
-
-                            if (gameObjectList[i].position.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
-                            {
-                                player.moveUp = false;
-                                player.velocity.Y = 0;
-                                player.position.Y = gameObjectList[i].position.Y + player.texture.Height + unitSpacing;
-                            }else player.moveUp = true;
-
-                            if (gameObjectList[i].position.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
-                            {
-                                player.moveDown = false;
-                                player.velocity.Y = 0;
-                                player.position.Y = gameObjectList[i].position.Y - gameObjectList[i].texture.Height - unitSpacing;
-                            }else player.moveDown = true;
+                            player.position.X = gameObjectList[i].position.X - player.texture.Width - unitSpacing;
                         }
                         else player.moveRight = true;
 
                         if (gameObjectList[i].position.X < player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
-                            if (gameObjectList[i].position.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
-                            {
-                                player.moveUp = false;
-                                player.velocity.Y = 0;
-                                player.position.Y = gameObjectList[i].position.Y + player.texture.Height + unitSpacing;
-                            } else player.moveUp = true;
-
-                            if (gameObjectList[i].position.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
-                            {
-                                player.moveDown = false;
-                                player.velocity.Y = 0;
-                                player.position.Y = gameObjectList[i].position.Y - gameObjectList[i].texture.Height - unitSpacing;
-                            }else player.moveDown = true;
-
                             player.moveLeft = false;
                             player.velocity.X = 0;
-                            player.position.X = gameObjectList[i].position.X + gameObjectList[i].texture.Width + unitSpacing;
+                            player.position.X = gameObjectList[i].position.X + player.texture.Width + unitSpacing;
                         }else player.moveLeft = true;
+                        //vertical
+                        if (gameObjectList[i].position.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
+                        {
+                            player.moveUp = false;
+                            player.velocity.Y = 0;
+                            player.position.Y = gameObjectList[i].position.Y + player.texture.Height + unitSpacing;
+                        }
+                        else player.moveUp = true;
+
+                        if (gameObjectList[i].position.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
+                        {
+                            player.moveDown = false;
+                            player.velocity.Y = 0;
+                            player.position.Y = gameObjectList[i].position.Y - player.texture.Height - unitSpacing;
+                        }
+                        else player.moveDown = true;
                     }
                 }
             }
