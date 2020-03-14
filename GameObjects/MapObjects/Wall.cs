@@ -15,6 +15,7 @@ namespace FancyKlepto.GameObjects
         public Wall(int x, int y) : base("spr_black_wall")
         {
             position = new Vector2(x * unit, y * unit);
+            pPosition =position ;
         }
 
         public override void Reset()

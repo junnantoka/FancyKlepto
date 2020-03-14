@@ -67,7 +67,6 @@ namespace FancyKlepto.GameStates
                     {
                         player.Reset();
                     }
-
                     if (gameObjectList[i].GetType() == typeof(MainGoal) && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
@@ -76,7 +75,6 @@ namespace FancyKlepto.GameStates
                             gameObjectList[i].position.Y = player.position.Y + player.texture.Height/2 - gameObjectList[i].texture.Height/2;
                         }
                     }
-
                     if (gameObjectList[i].GetType() == typeof(ExtraGoal) && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
@@ -85,12 +83,10 @@ namespace FancyKlepto.GameStates
                             gameObjectList[i].position.Y = player.position.Y + player.texture.Height / 2 - gameObjectList[i].texture.Height / 2;
                         }
                     }
-
                     if (gameObjectList[i].GetType() == typeof(SwitchBoard) && pObject.Overlaps(gameObjectList[i]))
                     {
                         player.Reset();
                     }
-
                     if (gameObjectList[i].GetType() == typeof(Wall) && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (gameObjectList[i].position.X > player.position.X)
@@ -111,12 +107,10 @@ namespace FancyKlepto.GameStates
                         {
                             player.velocity.Y = -1;
                         }
-
                     }
                 }
             }
         }
-
         public void WallSetup()
         {
             for (int j = 0; j < 16; j++)
