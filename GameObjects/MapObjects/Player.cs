@@ -22,14 +22,13 @@ namespace FancyKlepto
         public bool moveRight, moveLeft, moveUp, moveDown;
         public Player(int x, int y) : base("spr_player")
         {
-            Reset();
             velocityVelocity = 0.1f;
             position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize+ unitSpacing));
             pPosition = position;
-
             maxVelocity = new Vector2(10, 10);
             zeroVelocity = new Vector2(0, 0);
             minVelocity = -1 * maxVelocity;
+            Reset();
         }
 
         public override void Reset()
