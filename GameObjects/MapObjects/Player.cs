@@ -18,12 +18,13 @@ namespace FancyKlepto
         private Vector2 zeroVelocity;
         private Vector2 minVelocity;
         private float velocityVelocity;
-        private Vector2 pPosition;
+
+        public bool moveRight, moveLeft, moveUp, moveDown;
         public Player(int x, int y) : base("spr_player")
         {
             Reset();
             velocityVelocity = 0.1f;
-            position = new Vector2(x * unit, y * unit);
+            position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize+ unitSpacing));
             pPosition = position;
 
             maxVelocity = new Vector2(10, 10);
@@ -33,6 +34,10 @@ namespace FancyKlepto
 
         public override void Reset()
         {
+            moveRight = true;
+            moveLeft = true;
+            moveUp = true;
+            moveDown = true;
             position = pPosition;
             velocity = zeroVelocity;
         }
@@ -51,19 +56,19 @@ namespace FancyKlepto
         public void Move()
         {
             position += velocity;
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.A) && velocity.X > minVelocity.X)
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
             {
                 velocity.X -= velocityVelocity;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X)
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X && moveRight)
             {
                 velocity.X += velocityVelocity;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y)
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
             {
                 velocity.Y -= velocityVelocity;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y)
+            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
             {
                 velocity.Y += velocityVelocity;
             }

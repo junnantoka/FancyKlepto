@@ -24,7 +24,8 @@ namespace FancyKlepto.GameStates
         public PlayingState()
         {
             gameObjectList.Add(new GameObject("spr_background"));
-            gameObjectList.Add(new Map("spr_1.3"));
+            //gameObjectList.Add(new Map("spr_1.3"));
+            FloorSetup();
             WallSetup();
 
             gameObjectList.Add(goal1);
@@ -32,7 +33,7 @@ namespace FancyKlepto.GameStates
             gameObjectList.Add(player);
             gameObjectList.Add(guard);
             gameObjectList.Add(guard1);
-            //gameObjectList.Add(switchboard1);
+            gameObjectList.Add(switchboard1);
             gameObjectList.Add(switchboard2);
             //Map
 
@@ -87,27 +88,60 @@ namespace FancyKlepto.GameStates
                     {
                         player.Reset();
                     }
-                    if (gameObjectList[i].GetType() == typeof(Wall) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i].GetType() == typeof(Wall))
                     {
-                        if (gameObjectList[i].position.X > player.position.X)
+                        if (gameObjectList[i].position.X > player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
-                            player.velocity.X = -1;
-                        }
-                        if (gameObjectList[i].position.X < player.position.X)
-                        {
-                            player.velocity.X = 1;
-                        }
+                            player.moveRight = false;
+                            player.velocity.X = 0;
+                            player.position.X = gameObjectList[i].position.X - player.texture.Width- unitSpacing;
 
-                        if (gameObjectList[i].position.Y < player.position.Y)
-                        {
-                            player.velocity.Y = 1;
-                        }
+                            if (gameObjectList[i].position.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
+                            {
+                                player.moveUp = false;
+                                player.velocity.Y = 0;
+                                player.position.Y = gameObjectList[i].position.Y + player.texture.Height + unitSpacing;
+                            }else player.moveUp = true;
 
-                        if (gameObjectList[i].position.Y > player.position.Y)
-                        {
-                            player.velocity.Y = -1;
+                            if (gameObjectList[i].position.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
+                            {
+                                player.moveDown = false;
+                                player.velocity.Y = 0;
+                                player.position.Y = gameObjectList[i].position.Y - gameObjectList[i].texture.Height - unitSpacing;
+                            }else player.moveDown = true;
                         }
+                        else player.moveRight = true;
+
+                        if (gameObjectList[i].position.X < player.position.X && pObject.Overlaps(gameObjectList[i]))
+                        {
+                            if (gameObjectList[i].position.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
+                            {
+                                player.moveUp = false;
+                                player.velocity.Y = 0;
+                                player.position.Y = gameObjectList[i].position.Y + player.texture.Height + unitSpacing;
+                            } else player.moveUp = true;
+
+                            if (gameObjectList[i].position.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
+                            {
+                                player.moveDown = false;
+                                player.velocity.Y = 0;
+                                player.position.Y = gameObjectList[i].position.Y - gameObjectList[i].texture.Height - unitSpacing;
+                            }else player.moveDown = true;
+
+                            player.moveLeft = false;
+                            player.velocity.X = 0;
+                            player.position.X = gameObjectList[i].position.X + gameObjectList[i].texture.Width + unitSpacing;
+                        }else player.moveLeft = true;
                     }
+                }
+            }
+        }
+        public void FloorSetup()
+        {
+            for (int i = 0; i < 29; i++) { 
+                for (int j = 0; j < 16; j++)
+                {
+                    gameObjectList.Add(new Floor(i, j));
                 }
             }
         }

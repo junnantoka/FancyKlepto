@@ -11,10 +11,10 @@ namespace FancyKlepto.GameObjects
 {
     class Wall : GameObject
     {
-        private Vector2 pPosition;
         public Wall(int x, int y) : base("spr_black_wall")
         {
-            position = new Vector2(x * unit, y * unit);
+            Reset();
+            position = new Vector2(x *( unitSize + unitSpacing), y * (unitSize + unitSpacing));
             pPosition =position ;
         }
 

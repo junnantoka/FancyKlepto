@@ -25,18 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:Grid.png
 
-#begin Level_A.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Level_A.png
-
 #begin spr_1.3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -85,7 +73,7 @@
 /processorParam:TextureFormat=Color
 /build:spr_1.6.png
 
-#begin spr_background.png
+#begin spr_background.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -95,7 +83,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:spr_background.png
+/build:spr_background.PNG
+
+#begin spr_background.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_background.PNG
 
 #begin spr_black_wall.png
 /importer:TextureImporter
@@ -109,7 +109,7 @@
 /processorParam:TextureFormat=Color
 /build:spr_black_wall.png
 
-#begin spr_circle.PNG
+#begin spr_floor.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -119,9 +119,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:spr_circle.PNG
+/build:spr_floor.png
 
-#begin spr_guard_donkerblauw.png
+#begin spr_guard.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -131,7 +131,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:spr_guard_donkerblauw.png
+/build:spr_guard.png
 
 #begin spr_laser.png
 /importer:TextureImporter
@@ -193,6 +193,18 @@
 /processorParam:TextureFormat=Color
 /build:spr_laser_pixel_yellow.png
 
+#begin spr_maingoal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_maingoal.png
+
 #begin spr_player.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -205,7 +217,7 @@
 /processorParam:TextureFormat=Color
 /build:spr_player.png
 
-#begin spr_reward_1.png
+#begin spr_secondgoal.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -215,9 +227,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:spr_reward_1.png
+/build:spr_secondgoal.png
 
-#begin spr_reward_2.png
+#begin spr_switchboard.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -227,7 +239,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:spr_reward_2.png
+/build:spr_switchboard.png
 
 #begin spr_switchboard_1.png
 /importer:TextureImporter
@@ -240,18 +252,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spr_switchboard_1.png
-
-#begin spr_switchboard_brown.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:spr_switchboard_brown.png
 
 #begin spr_text.png
 /importer:TextureImporter

@@ -11,10 +11,10 @@ namespace FancyKlepto
 {
     class ExtraGoal : GameObject
     {
-        private Vector2 pPosition;
-        public ExtraGoal (int x,int y) : base("spr_reward_2")
+        public ExtraGoal (int x,int y) : base("spr_secondgoal")
         {
-            position = new Vector2(x* unit, y* unit);
+            Reset();
+            position = new Vector2(x* (unitSize + unitSpacing), y* (unitSize + unitSpacing));
             pPosition = position;
         }
         public override void Reset()

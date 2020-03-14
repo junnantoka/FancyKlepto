@@ -9,9 +9,9 @@ using FancyKlepto.GameObjects;
 
 namespace FancyKlepto
 {
-    class MainGoal : GameObject
+    class Floor : GameObject
     {
-        public MainGoal (int x,int y) : base("spr_maingoal")
+        public Floor (int x,int y) : base("spr_floor")
         {
             Reset();
             position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
