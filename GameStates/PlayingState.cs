@@ -90,37 +90,51 @@ namespace FancyKlepto.GameStates
                     }
                     if (gameObjectList[i].GetType() == typeof(Wall))
                     {
+                        Vector2 wallPos = gameObjectList[i].position;
+                        Texture2D wallTex = gameObjectList[i].texture;
                         //horizontal
-                        if (gameObjectList[i].position.X > player.position.X && pObject.Overlaps(gameObjectList[i]))
+                        if (wallPos.X > player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
                             player.moveRight = false;
-                            player.velocity.X = 0;
-                            player.position.X = gameObjectList[i].position.X - player.texture.Width - unitSpacing;
+                            player.velocity.X = -player.velocityVelocity.X;
+                            //player.position.X -= Math.Abs(player.position.X - wallPos.X + wallTex.Width) + unitSpacing;
                         }
-                        else player.moveRight = true;
-
-                        if (gameObjectList[i].position.X < player.position.X && pObject.Overlaps(gameObjectList[i]))
+                        else if (player.position.X + player.texture.Width + unitSpacing<wallPos.X)
+                        {
+                            player.moveRight = true;
+                        }
+                        if (wallPos.X < player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
                             player.moveLeft = false;
-                            player.velocity.X = 0;
-                            player.position.X = gameObjectList[i].position.X + player.texture.Width + unitSpacing;
-                        }else player.moveLeft = true;
-                        //vertical
-                        if (gameObjectList[i].position.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
-                        {
-                            player.moveUp = false;
-                            player.velocity.Y = 0;
-                            player.position.Y = gameObjectList[i].position.Y + player.texture.Height + unitSpacing;
+                            player.velocity.X = player.velocityVelocity.X;
+                            //player.position.X += Math.Abs(wallPos.X + wallTex.Width - player.position.X) + unitSpacing;
                         }
-                        else player.moveUp = true;
-
-                        if (gameObjectList[i].position.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
+                        else if (player.position.X> wallPos.X+wallTex.Width +  unitSpacing)
+                        {
+                            player.moveLeft = true;
+                        }
+                        //vertical
+                        if (wallPos.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
+                        {
+                            
+                            player.moveUp = false;
+                            player.velocity.Y = player.velocityVelocity.Y;
+                            //player.position.Y += Math.Abs(player.position.Y - player.texture.Height - wallPos.Y) + unitSpacing;
+                        }
+                        else if (player.position.Y> wallPos.X+wallTex.Height + unitSpacing)
+                        {
+                            player.moveUp = true;
+                        }
+                        if (wallPos.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
                         {
                             player.moveDown = false;
-                            player.velocity.Y = 0;
-                            player.position.Y = gameObjectList[i].position.Y - player.texture.Height - unitSpacing;
+                            player.velocity.Y = -player.velocityVelocity.Y;
+                            //player.position.Y -= Math.Abs(player.position.Y + player.texture.Height - wallPos.Y) + unitSpacing;
                         }
-                        else player.moveDown = true;
+                        else if (player.position.Y+player.texture.Height + unitSpacing<wallPos.Y)
+                        {
+                            player.moveDown = true;
+                        }
                     }
                 }
             }

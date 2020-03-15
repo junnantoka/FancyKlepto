@@ -12,18 +12,18 @@ namespace FancyKlepto
 {
     class Player : GameObject
     {
-        private KeyboardState oldState = Keyboard.GetState();
+        public KeyboardState oldState = Keyboard.GetState();
         private KeyboardState key = GameEnvironment.KeyboardState;
-        private Vector2 maxVelocity;
-        private Vector2 zeroVelocity;
-        private Vector2 minVelocity;
-        private int stopVelocity;
-        private float velocityVelocity;
+        public Vector2 maxVelocity;
+        public Vector2 zeroVelocity;
+        public Vector2 minVelocity;
+        public int stopVelocity;
+        public Vector2 velocityVelocity;
 
         public bool moveRight, moveLeft, moveUp, moveDown;
         public Player(int x, int y) : base("spr_player")
         {
-            velocityVelocity = 0.1f;
+            velocityVelocity = new Vector2(0.1f,0.1f);
             stopVelocity=2;
             position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize+ unitSpacing));
             pPosition = position;
@@ -59,19 +59,19 @@ namespace FancyKlepto
             position += velocity;
             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
             {
-                velocity.X -= velocityVelocity;
+                velocity.X -= velocityVelocity.X;
             }
             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X && moveRight)
             {
-                velocity.X += velocityVelocity;
+                velocity.X += velocityVelocity.X;
             }
             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
             {
-                velocity.Y -= velocityVelocity;
+                velocity.Y -= velocityVelocity.Y;
             }
             if (GameEnvironment.KeyboardState.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
             {
-                velocity.Y += velocityVelocity;
+                velocity.Y += velocityVelocity.Y;
             }
 
             if (key.IsKeyUp(Keys.A)&& key.IsKeyUp(Keys.D) && key.IsKeyUp(Keys.W) && key.IsKeyUp(Keys.S))
@@ -83,21 +83,37 @@ namespace FancyKlepto
 
                 if (velocity.X > zeroVelocity.X)
                 {
-                    velocity.X -= velocityVelocity;
+                    velocity.X -= velocityVelocity.X;
                 }
                 if (velocity.X < zeroVelocity.X)
                 {
-                    velocity.X += velocityVelocity;
+                    velocity.X += velocityVelocity.X;
                 }
 
                 if (velocity.Y > zeroVelocity.Y)
                 {
-                    velocity.Y -= velocityVelocity;
+                    velocity.Y -= velocityVelocity.Y;
                 }
                 if (velocity.Y < zeroVelocity.Y)
                 {
-                    velocity.Y += velocityVelocity;
+                    velocity.Y += velocityVelocity.Y;
                 }
+            }
+            if (key.IsKeyUp(Keys.A))
+            {
+                moveLeft = true;
+            }
+            if (key.IsKeyUp(Keys.D))
+            {
+                moveRight = true;
+            }
+            if (key.IsKeyUp(Keys.W))
+            {
+                moveUp = true;
+            }
+            if (key.IsKeyUp(Keys.S))
+            {
+                moveDown = true;
             }
         }
         public void checkForCollision(GameObject pObject)
