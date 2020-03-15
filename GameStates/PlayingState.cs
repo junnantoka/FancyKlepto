@@ -16,8 +16,8 @@ namespace FancyKlepto.GameStates
         Player player = new Player(3,13);
         MainGoal goal1 = new MainGoal(2,2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
-        Guard guard = new Guard(new Vector2(100));
-        Guard guard1 = new Guard(new Vector2(27, 3));
+        Guard guard = new Guard(new Vector2(720, 130));
+        Guard guard1 = new Guard(new Vector2(1080, 65));
 
         SwitchBoard switchboard1 = new SwitchBoard(14 , 9);
         SwitchBoard switchboard2 = new SwitchBoard(14, 10);
@@ -64,11 +64,11 @@ namespace FancyKlepto.GameStates
             {
                 for (int i = 0; i < gameObjectList.Count; i++)
                 {
-                    if (gameObjectList[i].GetType() == typeof(Guard) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is Guard && pObject.Overlaps(gameObjectList[i]))
                     {
                         player.Reset();
                     }
-                    if (gameObjectList[i].GetType() == typeof(MainGoal) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is MainGoal && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
                         {
@@ -76,7 +76,7 @@ namespace FancyKlepto.GameStates
                             gameObjectList[i].position.Y = player.position.Y + player.texture.Height/2 - gameObjectList[i].texture.Height/2;
                         }
                     }
-                    if (gameObjectList[i].GetType() == typeof(ExtraGoal) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is ExtraGoal && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
                         {
@@ -84,11 +84,11 @@ namespace FancyKlepto.GameStates
                             gameObjectList[i].position.Y = player.position.Y + player.texture.Height / 2 - gameObjectList[i].texture.Height / 2;
                         }
                     }
-                    if (gameObjectList[i].GetType() == typeof(SwitchBoard) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is SwitchBoard && pObject.Overlaps(gameObjectList[i]))
                     {
                         player.Reset();
                     }
-                    if (gameObjectList[i].GetType() == typeof(Wall))
+                    if (gameObjectList[i] is Wall)
                     {
                         //horizontal
                         if (gameObjectList[i].position.X > player.position.X && pObject.Overlaps(gameObjectList[i]))
