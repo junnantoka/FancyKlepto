@@ -60,15 +60,15 @@ namespace FancyKlepto.GameStates
         public void checkForCollision(GameObject pObject)
         {
             //Player collisions with smth.
-            if (pObject.GetType() == typeof(Player))
+            if (pObject is Player)
             {
                 for (int i = 0; i < gameObjectList.Count; i++)
                 {
-                    if (gameObjectList[i].GetType() == typeof(Guard) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is Guard && pObject.Overlaps(gameObjectList[i]))
                     {
                         player.Reset();
                     }
-                    if (gameObjectList[i].GetType() == typeof(MainGoal) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is MainGoal && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
                         {
@@ -76,7 +76,7 @@ namespace FancyKlepto.GameStates
                             gameObjectList[i].position.Y = player.position.Y + player.texture.Height/2 - gameObjectList[i].texture.Height/2;
                         }
                     }
-                    if (gameObjectList[i].GetType() == typeof(ExtraGoal) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is ExtraGoal && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
                         {
@@ -84,11 +84,11 @@ namespace FancyKlepto.GameStates
                             gameObjectList[i].position.Y = player.position.Y + player.texture.Height / 2 - gameObjectList[i].texture.Height / 2;
                         }
                     }
-                    if (gameObjectList[i].GetType() == typeof(SwitchBoard) && pObject.Overlaps(gameObjectList[i]))
+                    if (gameObjectList[i] is SwitchBoard && pObject.Overlaps(gameObjectList[i]))
                     {
                         player.Reset();
                     }
-                    if (gameObjectList[i].GetType() == typeof(Wall))
+                    if (gameObjectList[i] is Wall)
                     {
                         Vector2 wallPos = gameObjectList[i].position;
                         Texture2D wallTex = gameObjectList[i].texture;
@@ -96,8 +96,7 @@ namespace FancyKlepto.GameStates
                         if (wallPos.X > player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
                             player.moveRight = false;
-                            player.velocity.X = -player.velocityVelocity.X;
-                            //player.position.X -= Math.Abs(player.position.X - wallPos.X + wallTex.Width) + unitSpacing;
+                            player.velocity.X = -5 * player.velocityVelocity.X;
                         }
                         else if (player.position.X + player.texture.Width + unitSpacing<wallPos.X)
                         {
@@ -106,8 +105,7 @@ namespace FancyKlepto.GameStates
                         if (wallPos.X < player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
                             player.moveLeft = false;
-                            player.velocity.X = player.velocityVelocity.X;
-                            //player.position.X += Math.Abs(wallPos.X + wallTex.Width - player.position.X) + unitSpacing;
+                            player.velocity.X = 5 * player.velocityVelocity.X;
                         }
                         else if (player.position.X> wallPos.X+wallTex.Width +  unitSpacing)
                         {
@@ -118,8 +116,7 @@ namespace FancyKlepto.GameStates
                         {
                             
                             player.moveUp = false;
-                            player.velocity.Y = player.velocityVelocity.Y;
-                            //player.position.Y += Math.Abs(player.position.Y - player.texture.Height - wallPos.Y) + unitSpacing;
+                            player.velocity.Y = 5*player.velocityVelocity.Y;
                         }
                         else if (player.position.Y> wallPos.X+wallTex.Height + unitSpacing)
                         {
@@ -128,7 +125,7 @@ namespace FancyKlepto.GameStates
                         if (wallPos.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
                         {
                             player.moveDown = false;
-                            player.velocity.Y = -player.velocityVelocity.Y;
+                            player.velocity.Y = -5 * player.velocityVelocity.Y;
                             //player.position.Y -= Math.Abs(player.position.Y + player.texture.Height - wallPos.Y) + unitSpacing;
                         }
                         else if (player.position.Y+player.texture.Height + unitSpacing<wallPos.Y)

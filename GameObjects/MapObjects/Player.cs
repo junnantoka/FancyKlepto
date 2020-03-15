@@ -12,7 +12,6 @@ namespace FancyKlepto
 {
     class Player : GameObject
     {
-        public KeyboardState oldState = Keyboard.GetState();
         private KeyboardState key = GameEnvironment.KeyboardState;
         public Vector2 maxVelocity;
         public Vector2 zeroVelocity;
@@ -47,8 +46,6 @@ namespace FancyKlepto
         {
             base.Update();
             Move();
-
-            oldState = GameEnvironment.KeyboardState;
             key = GameEnvironment.KeyboardState;
             position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
             position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
