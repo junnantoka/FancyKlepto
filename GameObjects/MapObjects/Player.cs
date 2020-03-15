@@ -12,7 +12,6 @@ namespace FancyKlepto
 {
     class Player : GameObject
     {
-        private KeyboardState oldState = Keyboard.GetState();
         private KeyboardState key = GameEnvironment.KeyboardState;
         private Vector2 maxVelocity;
         private Vector2 zeroVelocity;
@@ -48,7 +47,6 @@ namespace FancyKlepto
             base.Update();
             Move();
 
-            oldState = GameEnvironment.KeyboardState;
             key = GameEnvironment.KeyboardState;
             position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
             position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
@@ -57,19 +55,19 @@ namespace FancyKlepto
         public void Move()
         {
             position += velocity;
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
+            if (key.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
             {
                 velocity.X -= velocityVelocity;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X && moveRight)
+            if (key.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X && moveRight)
             {
                 velocity.X += velocityVelocity;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
+            if (key.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
             {
                 velocity.Y -= velocityVelocity;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
+            if (key.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
             {
                 velocity.Y += velocityVelocity;
             }
