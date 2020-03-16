@@ -5,60 +5,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FancyKlepto.GameManagement;
 
-class GameObjectList : GameObject
+namespace FancyKlepto.GameManagement
 {
-
-    private List<GameObject> children;
-
-    public List<GameObject> Children
+    class GameObjectList : GameObject
     {
-        get { return children; }
-    }
 
-    public GameObjectList()
-    {
-        children = new List<GameObject>();
-    }
+        private List<GameObject> children;
 
-    public void Add(GameObject gameObject)
-    {
-        gameObject.Parent = this;
-        children.Add(gameObject);
-    }
+        public List<GameObject> Children
+        {
+            get { return children; }
+        }
 
-    public void remove(GameObject gameObject)
-    {
-        gameObject.Parent = null;
-        children.Remove(gameObject);
-    }
+        public GameObjectList()
+        {
+            children = new List<GameObject>();
+        }
 
-    public override void Reset()
-    {
-        foreach (GameObject gameObject in children)
-            gameObject.Reset();
-    }
+        public void Add(GameObject gameObject)
+        {
+            gameObject.Parent = this;
+            children.Add(gameObject);
+        }
 
-    public override void Update(GameTime gameTime)
-    {
-        base.Update(gameTime);
-        foreach (GameObject gameObject in children)
-            gameObject.Update(gameTime);
-    }
+        public void remove(GameObject gameObject)
+        {
+            gameObject.Parent = null;
+            children.Remove(gameObject);
+        }
 
-    public override void Draw(SpriteBatch spriteBatch)
-    {
-        if (visible)
+        public override void Reset()
+        {
             foreach (GameObject gameObject in children)
-                gameObject.Draw(spriteBatch);
-    }
+                gameObject.Reset();
+        }
 
-    public override void HandleInput(InputHelper inputHelper)
-    {
-        foreach (GameObject gameObject in children)
-            gameObject.HandleInput(inputHelper);
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            foreach (GameObject gameObject in children)
+                gameObject.Update(gameTime);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (visible)
+                foreach (GameObject gameObject in children)
+                    gameObject.Draw(spriteBatch);
+        }
+
+        public override void HandleInput(InputHelper inputHelper)
+        {
+            foreach (GameObject gameObject in children)
+                gameObject.HandleInput(inputHelper);
+        }
+
     }
 
 }
-
