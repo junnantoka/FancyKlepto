@@ -45,6 +45,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameManagement\GameEnvironment.cs" />
     <Compile Include="GameManagement\GameObject.cs" />
+    <Compile Include="GameManagement\GameObjectList.cs" />
     <Compile Include="GameManagement\GameState.cs" />
     <Compile Include="GameObjects\MapObjects\ExtraGoal.cs" />
     <Compile Include="GameObjects\MapObjects\Floor.cs" />
