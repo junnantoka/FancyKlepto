@@ -9,7 +9,7 @@ using FancyKlepto.GameObjects;
 
 namespace FancyKlepto
 {
-    class Floor : GameObject
+    class Floor : SpriteGameObject
     {
         public Floor (int x,int y) : base("spr_floor")
         {

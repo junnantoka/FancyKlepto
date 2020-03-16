@@ -22,9 +22,9 @@ namespace FancyKlepto
         public bool moveRight, moveLeft, moveUp, moveDown;
         public Player(int x, int y) : base("spr_player")
         {
-            velocityVelocity = new Vector2(0.2f,0.2f);
-            stopVelocity=2;
-            position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize+ unitSpacing));
+            velocityVelocity = new Vector2(0.2f, 0.2f);
+            stopVelocity = 2;
+            position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
             pPosition = position;
             maxVelocity = new Vector2(5, 5);
             zeroVelocity = new Vector2(0, 0);
@@ -72,9 +72,9 @@ namespace FancyKlepto
                 velocity.Y += velocityVelocity.Y;
             }
 
-            if (key.IsKeyUp(Keys.A)&& key.IsKeyUp(Keys.D) && key.IsKeyUp(Keys.W) && key.IsKeyUp(Keys.S))
+            if (key.IsKeyUp(Keys.A) && key.IsKeyUp(Keys.D) && key.IsKeyUp(Keys.W) && key.IsKeyUp(Keys.S))
             {
-                if(velocity.X< stopVelocity && velocity.X>-stopVelocity && velocity.Y< stopVelocity && velocity.Y > -stopVelocity)
+                if (velocity.X < stopVelocity && velocity.X > -stopVelocity && velocity.Y < stopVelocity && velocity.Y > -stopVelocity)
                 {
                     velocity = zeroVelocity;
                 }

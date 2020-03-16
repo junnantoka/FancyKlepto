@@ -9,7 +9,7 @@ using FancyKlepto.GameObjects;
 
 namespace FancyKlepto
 {
-    class SwitchBoard : GameObject
+    class SwitchBoard : SpriteGameObject
     {
         public SwitchBoard(int x,int y) : base("spr_switchboard")
         {

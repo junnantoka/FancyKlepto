@@ -9,7 +9,7 @@ using FancyKlepto.GameObjects;
 
 namespace FancyKlepto.GameObjects
 {
-    class Wall : GameObject
+    class Wall : SpriteGameObject
     {
         public Wall(int x, int y) : base("spr_black_wall")
         {
