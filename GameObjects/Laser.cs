@@ -10,7 +10,7 @@ using FancyKlepto.GameManagement;
 
 namespace FancyKlepto
 {
-    class Laser : GameObject
+    class Laser : SpriteGameObject
     {
         private bool Active;
         private Vector2 position2;
@@ -24,9 +24,9 @@ namespace FancyKlepto
 
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
-            base.Update();
+            base.Update(gameTime);
             if (GameEnvironment.KeyboardState.IsKeyUp(Keys.Space))
             {
                 Active = true;
