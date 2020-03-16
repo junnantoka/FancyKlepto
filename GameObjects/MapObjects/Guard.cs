@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework;
 using FancyKlepto.GameManagement;
 using FancyKlepto.GameObjects;
 
-namespace FancyKlepto.GameObjects
+namespace FancyKlepto
 {
     class Guard : GameObject
     {
-        Map map = new Map("Level_A");
+        Map map = new Map("spr_1.3");
         int frameCounter = 0;
-        public Guard(Vector2 position) : base("player")
+        public Guard(Vector2 position) : base("spr_guard")
         {
             Reset();
             this.position = position;

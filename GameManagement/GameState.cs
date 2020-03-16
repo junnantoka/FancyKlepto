@@ -11,9 +11,13 @@ namespace FancyKlepto.GameManagement
     class GameState
     {
         protected List<GameObject> gameObjectList;
+        public int unitSize;
+        public int unitSpacing;
 
         public GameState()
         {
+            unitSize = 64;
+            unitSpacing = 1;
             gameObjectList = new List<GameObject>();
         }
 
