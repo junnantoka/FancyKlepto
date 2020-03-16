@@ -13,22 +13,13 @@ namespace FancyKlepto.GameStates
 {
     class PlayingState : GameState
     {
-<<<<<<< HEAD
-        Player player = new Player();
-        MainGoal goal1 = new MainGoal(new Vector2(400, 390), "Main Reward");
-        Guard guard = new Guard(new Vector2(90, 50));
-        public PlayingState()
-        {
-            gameObjectList.Add(new GameObject("spr_background"));
-            gameObjectList.Add(new Map("Level_A"));//Map
-=======
-        Player player = new Player(3,13);
-        MainGoal goal1 = new MainGoal(2,2);
+        Player player = new Player(3, 13);
+        MainGoal goal1 = new MainGoal(2, 2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
         Guard guard = new Guard(new Vector2(100));
         Guard guard1 = new Guard(new Vector2(27, 3));
 
-        SwitchBoard switchboard1 = new SwitchBoard(14 , 9);
+        SwitchBoard switchboard1 = new SwitchBoard(14, 9);
         SwitchBoard switchboard2 = new SwitchBoard(14, 10);
         public PlayingState()
         {
@@ -38,7 +29,6 @@ namespace FancyKlepto.GameStates
             WallSetup();
             VensterSetup();
 
->>>>>>> master
             gameObjectList.Add(goal1);
             gameObjectList.Add(goal2);
             gameObjectList.Add(player);
@@ -47,7 +37,6 @@ namespace FancyKlepto.GameStates
             gameObjectList.Add(switchboard1);
             gameObjectList.Add(switchboard2);
             //Map
-
         }
 
         public override void Update(GameTime gameTime)
@@ -62,6 +51,7 @@ namespace FancyKlepto.GameStates
                 switchboard2.Reset();
             }
             base.Update(gameTime);
+
             foreach (GameObject gameObject in gameObjectList)
             {
                 checkForCollision(gameObject);
@@ -79,22 +69,14 @@ namespace FancyKlepto.GameStates
                     {
                         player.Reset();
                     }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
                     if (gameObjectList[i] is MainGoal && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
                         {
-                            gameObjectList[i].position.X = player.position.X + player.texture.Width/2 - gameObjectList[i].texture.Width/2;
-                            gameObjectList[i].position.Y = player.position.Y + player.texture.Height/2 - gameObjectList[i].texture.Height/2;
+                            gameObjectList[i].position.X = player.position.X + player.texture.Width / 2 - gameObjectList[i].texture.Width / 2;
+                            gameObjectList[i].position.Y = player.position.Y + player.texture.Height / 2 - gameObjectList[i].texture.Height / 2;
                         }
                     }
-<<<<<<< HEAD
-
-                    if (gameObjectList[i] is Wall && pObject.Overlaps(gameObjectList[i]))
-=======
                     if (gameObjectList[i] is ExtraGoal && pObject.Overlaps(gameObjectList[i]))
                     {
                         if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
@@ -104,13 +86,9 @@ namespace FancyKlepto.GameStates
                         }
                     }
                     if (gameObjectList[i] is SwitchBoard && pObject.Overlaps(gameObjectList[i]))
->>>>>>> master
                     {
                         if (player.key.IsKeyDown(Keys.Space))
                         {
-<<<<<<< HEAD
-                            player.velocity.X *= 1;
-=======
                             for (int j = 0; j < gameObjectList.Count; j++)
                             {
                                 if (gameObjectList[j] is Venster_Object)
@@ -118,21 +96,16 @@ namespace FancyKlepto.GameStates
                                     gameObjectList[j].visual = true;
                                 }
                             }
->>>>>>> master
                         }
                     }
                     else if (gameObjectList[i] is SwitchBoard && !pObject.Overlaps(gameObjectList[i]))
                     {
                         for (int j = 0; j < gameObjectList.Count; j++)
                         {
-<<<<<<< HEAD
-                            player.velocity.X *= 1;
-=======
                             if (gameObjectList[j] is Venster_Object)
                             {
                                gameObjectList[j].visual = false;
                             }
->>>>>>> master
                         }
                     }
 
@@ -147,7 +120,7 @@ namespace FancyKlepto.GameStates
                             player.moveRight = false;
                             player.velocity.X = 0;
                         }
-                        else if (player.position.X + player.texture.Width + unitSpacing<wallPos.X)
+                        else if (player.position.X + player.texture.Width + unitSpacing < wallPos.X)
                         {
                             player.moveRight = true;
                         }
@@ -158,7 +131,7 @@ namespace FancyKlepto.GameStates
                             player.moveLeft = false;
                             player.velocity.X = 0;
                         }
-                        else if (player.position.X> wallPos.X+wallTex.Width +  unitSpacing)
+                        else if (player.position.X > wallPos.X + wallTex.Width + unitSpacing)
                         {
                             player.moveLeft = true;
                         }
@@ -170,7 +143,7 @@ namespace FancyKlepto.GameStates
                             player.moveUp = false;
                             player.velocity.Y = 0;
                         }
-                        else if (player.position.Y> wallPos.X+wallTex.Height + unitSpacing)
+                        else if (player.position.Y > wallPos.X + wallTex.Height + unitSpacing)
                         {
                             player.moveUp = true;
                         }
@@ -181,7 +154,7 @@ namespace FancyKlepto.GameStates
                             player.moveDown = false;
                             player.velocity.Y = 0;
                         }
-                        else if (player.position.Y+player.texture.Height + unitSpacing<wallPos.Y)
+                        else if (player.position.Y + player.texture.Height + unitSpacing < wallPos.Y)
                         {
                             player.moveDown = true;
                         }
@@ -192,7 +165,8 @@ namespace FancyKlepto.GameStates
         }
         public void FloorSetup()
         {
-            for (int i = 0; i < 29; i++) { 
+            for (int i = 0; i < 29; i++)
+            {
                 for (int j = 0; j < 16; j++)
                 {
                     gameObjectList.Add(new Floor(i, j));
@@ -221,7 +195,7 @@ namespace FancyKlepto.GameStates
                 gameObjectList.Add(new Wall(7, j));
                 gameObjectList.Add(new Wall(8, j));
             }
-            for (int j = 11; j < 16;j++)
+            for (int j = 11; j < 16; j++)
             {
                 gameObjectList.Add(new Wall(14, j));
             }
@@ -229,7 +203,7 @@ namespace FancyKlepto.GameStates
             {
                 gameObjectList.Add(new Wall(14, j));
             }
-            for (int j = 5; j<16; j++)
+            for (int j = 5; j < 16; j++)
             {
                 gameObjectList.Add(new Wall(15, j));
                 gameObjectList.Add(new Wall(16, j));
@@ -240,7 +214,7 @@ namespace FancyKlepto.GameStates
                 gameObjectList.Add(new Wall(i, 0));
                 gameObjectList.Add(new Wall(i, 15));
             }
-            for (int i= 17; i < 23; i++)
+            for (int i = 17; i < 23; i++)
             {
                 gameObjectList.Add(new Wall(i, 5));
                 gameObjectList.Add(new Wall(i, 6));
@@ -261,7 +235,7 @@ namespace FancyKlepto.GameStates
             gameObjectList.Add(new Venster_Object(1632, 990, "spr_score"));
 
             gameObjectList.Add(new Venster_Object(1573, 1067, "spr_point_bar_point"));
-            gameObjectList.Add(new Venster_Object(1573, 1067-8-2*unitSpacing, "spr_point_bar_point"));
+            gameObjectList.Add(new Venster_Object(1573, 1067 - 8 - 2 * unitSpacing, "spr_point_bar_point"));
         }
     }
 }

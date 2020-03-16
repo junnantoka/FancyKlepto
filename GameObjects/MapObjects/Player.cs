@@ -12,25 +12,12 @@ namespace FancyKlepto
 {
     class Player : GameObject
     {
-<<<<<<< HEAD:GameObjects/Player.cs
-        private KeyboardState oldState = Keyboard.GetState();
-        private KeyboardState key = GameEnvironment.KeyboardState;
-        private Vector2 maxVelocity;
-        private Vector2 zeroVelocity;
-        private Vector2 minVelocity;
-        private float velocityVelocity;
-        public Player() : base("player_brown")
-        {
-            Reset();
-            position = new Vector2(140, 440);
-=======
         public KeyboardState key = GameEnvironment.KeyboardState;
         public Vector2 maxVelocity;
         public Vector2 zeroVelocity;
         public Vector2 minVelocity;
         public int stopVelocity;
         public Vector2 velocityVelocity;
->>>>>>> master:GameObjects/MapObjects/Player.cs
 
         public bool moveRight, moveLeft, moveUp, moveDown;
         public Player(int x, int y) : base("spr_player")
@@ -47,17 +34,13 @@ namespace FancyKlepto
 
         public override void Reset()
         {
-<<<<<<< HEAD:GameObjects/Player.cs
             base.Reset();
-            position = new Vector2(140, 440);
-=======
             moveRight = true;
             moveLeft = true;
             moveUp = true;
             moveDown = true;
             position = pPosition;
             velocity = zeroVelocity;
->>>>>>> master:GameObjects/MapObjects/Player.cs
         }
 
         public override void Update()
