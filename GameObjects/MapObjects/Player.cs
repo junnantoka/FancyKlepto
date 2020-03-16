@@ -12,7 +12,7 @@ namespace FancyKlepto
 {
     class Player : GameObject
     {
-        private KeyboardState key = GameEnvironment.KeyboardState;
+        public KeyboardState key = GameEnvironment.KeyboardState;
         public Vector2 maxVelocity;
         public Vector2 zeroVelocity;
         public Vector2 minVelocity;

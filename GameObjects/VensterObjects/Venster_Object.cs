@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using FancyKlepto.GameManagement;
+
+namespace FancyKlepto
+{
+    class Venster_Object : GameObject
+    {
+        private Vector2 movingSpace;
+        private Vector2 movedLeft;
+        public Venster_Object(int x, int y, String pObject) : base (pObject)
+        {
+            velocity = new Vector2(15, 0);
+            movingSpace = new Vector2(352, 0);
+            position = new Vector2(x, y)+movingSpace;
+            pPosition = position;
+            movedLeft = new Vector2(0, 0);
+        }
+        public override void Update()
+        {
+            Console.WriteLine(position);
+            base.Update();
+            Move();
+
+        }
+        public void Move()
+        {
+            if (visual && position.X >= pPosition.X - movingSpace.X)
+            {
+                position.X -= velocity.X;
+            }
+            if (!visual && position.X < pPosition.X)
+            {
+                position.X += velocity.X;
+            }
+        }
+    }
+}

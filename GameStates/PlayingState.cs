@@ -27,6 +27,7 @@ namespace FancyKlepto.GameStates
             //gameObjectList.Add(new Map("spr_1.3"));
             FloorSetup();
             WallSetup();
+            VensterSetup();
 
             gameObjectList.Add(goal1);
             gameObjectList.Add(goal2);
@@ -86,8 +87,28 @@ namespace FancyKlepto.GameStates
                     }
                     if (gameObjectList[i] is SwitchBoard && pObject.Overlaps(gameObjectList[i]))
                     {
-                        player.Reset();
+                        if (player.key.IsKeyDown(Keys.Space))
+                        {
+                            for (int j = 0; j < gameObjectList.Count; j++)
+                            {
+                                if (gameObjectList[j] is Venster_Object)
+                                {
+                                    gameObjectList[j].visual = true;
+                                }
+                            }
+                        }
                     }
+                    else if (gameObjectList[i] is SwitchBoard && !pObject.Overlaps(gameObjectList[i]))
+                    {
+                        for (int j = 0; j < gameObjectList.Count; j++)
+                        {
+                            if (gameObjectList[j] is Venster_Object)
+                            {
+                               gameObjectList[j].visual = false;
+                            }
+                        }
+                    }
+
                     if (gameObjectList[i] is Wall)
                     {
                         Vector2 wallPos = gameObjectList[i].position;
@@ -192,6 +213,22 @@ namespace FancyKlepto.GameStates
                 gameObjectList.Add(new Wall(i, 6));
                 gameObjectList.Add(new Wall(i, 7));
             }
+        }
+
+        public void VensterSetup()
+        {
+            gameObjectList.Add(new Venster_Object(1568, 0, "spr_point_bar"));
+            gameObjectList.Add(new Venster_Object(1600, 0, "spr_venster_background"));
+            gameObjectList.Add(new Venster_Object(1632, 34, "spr_nickname"));
+            gameObjectList.Add(new Venster_Object(1632, 132, "spr_lineair_visualiseren"));
+            gameObjectList.Add(new Venster_Object(1632, 420, "spr_input"));
+            gameObjectList.Add(new Venster_Object(1632, 516, "spr_xyz"));
+            gameObjectList.Add(new Venster_Object(1632, 730, "spr_collected_items"));
+            gameObjectList.Add(new Venster_Object(1632, 917, "spr_lives"));
+            gameObjectList.Add(new Venster_Object(1632, 990, "spr_score"));
+
+            gameObjectList.Add(new Venster_Object(1573, 1067, "spr_point_bar_point"));
+            gameObjectList.Add(new Venster_Object(1573, 1067-8-2*unitSpacing, "spr_point_bar_point"));
         }
     }
 }
