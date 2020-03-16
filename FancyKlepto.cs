@@ -16,7 +16,6 @@ namespace FancyKlepto
     {
         int state = 0;
 
-        public static KeyboardState previousState;
         protected override void LoadContent()
         {
             base.LoadContent();
@@ -35,8 +34,7 @@ namespace FancyKlepto
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            previousState = KeyboardState;
-            if (KeyboardState.IsKeyDown(Keys.Enter))
+            if (inputHelper.KeyPressed(Keys.Enter))
             {
                 state++;
                 GameEnvironment.SwitchTo(state);

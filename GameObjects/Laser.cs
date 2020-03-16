@@ -27,7 +27,16 @@ namespace FancyKlepto
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (GameEnvironment.KeyboardState.IsKeyUp(Keys.Space))
+            
+            //Calculates the size of the line and the angle of the line based on the given position
+            radius = (float)Math.Sqrt((position.X-position2.X) * (position.X - position2.X) + (position.Y-position2.Y) * (position.Y - position2.Y));
+            angle = (float)Math.Atan2(position2.Y-position.Y,position2.X-position.X);
+        }
+
+        public override void HandleInput(InputHelper inputHelper)
+        {
+            base.HandleInput(inputHelper);
+            if (inputHelper.KeyPressed(Keys.Space))
             {
                 Active = true;
             }
@@ -35,11 +44,6 @@ namespace FancyKlepto
             {
                 Active = false;
             }
-            
-            //Calculates the size of the line and the angle of the line based on the given position
-            radius = (float)Math.Sqrt((position.X-position2.X) * (position.X - position2.X) + (position.Y-position2.Y) * (position.Y - position2.Y));
-            angle = (float)Math.Atan2(position2.Y-position.Y,position2.X-position.X);
-            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
