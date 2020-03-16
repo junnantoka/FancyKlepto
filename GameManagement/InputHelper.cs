@@ -1,10 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FancyKlepto.GameManagement;
+using Microsoft.Xna.Framework.Graphics;
+using FancyKlepto.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-
 
 namespace FancyKlepto.GameManagement
 {
-    public class InputHelper
+    public class InputHelper : GameEnvironment
     {
         protected MouseState currentMouseState, previousMouseState;
         protected KeyboardState currentKeyboardState, previousKeyboardState;

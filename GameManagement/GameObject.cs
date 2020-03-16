@@ -1,17 +1,23 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FancyKlepto.GameManagement;
+using Microsoft.Xna.Framework.Graphics;
+using FancyKlepto.GameObjects;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace FancyKlepto.GameManagement
 {
     class GameObject
     {
+        public int unitSize;
+        public int unitSpacing;
         public Vector2 position;
         public Vector2 velocity;
+        public Vector2 pPosition;
         protected bool visible;
         protected GameObject parent;
 
@@ -28,6 +34,8 @@ namespace FancyKlepto.GameManagement
         }
         public GameObject()
         {
+            unitSize = 64;
+            unitSpacing = 1;
             visible = true;
         }
 
