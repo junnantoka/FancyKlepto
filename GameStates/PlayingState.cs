@@ -39,9 +39,10 @@ namespace FancyKlepto.GameStates
             //Map
         }
 
-        public override void Update(GameTime gameTime)
+        public override void HandleInput(InputHelper inputHelper)
         {
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.R))
+            base.HandleInput(inputHelper);
+            if (inputHelper.KeyPressed(Keys.R))
             {
                 player.Reset();
                 guard.Reset();
@@ -50,119 +51,118 @@ namespace FancyKlepto.GameStates
                 switchboard1.Reset();
                 switchboard2.Reset();
             }
-            base.Update(gameTime);
-
-            foreach (SpriteGameObject gameObject in Children)
+            foreach (SpriteGameObject spriteGameObject in Children)
             {
-                checkForCollision(gameObject);
-            }
-        }
-
-        public void checkForCollision(SpriteGameObject pObject)
-        {
-            //Player collisions with smth.
-            if (pObject is Player)
-            {
-                for (int i = 0; i < Children.Count; i++)
+                if (spriteGameObject is Player)
                 {
-                    if (Children[i] is Guard && pObject.Overlaps(Children[i]))
+                    for (int i = 0; i < Children.Count; i++)
                     {
-                        player.Reset();
-                    }
-                    if (Children[i] is MainGoal && pObject.Overlaps(Children[i]))
-                    {
-                        if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
+                        if (Children[i] is Guard && spriteGameObject.Overlaps(Children[i]))
                         {
-                            Children[i].position.X = player.position.X + player.texture.Width / 2 - Children[i].texture.Width / 2;
-                            Children[i].position.Y = player.position.Y + player.texture.Height / 2 - Children[i].texture.Height / 2;
+                            player.Reset();
                         }
-                    }
-                    if (Children[i] is ExtraGoal && pObject.Overlaps(Children[i]))
-                    {
-                        if (GameEnvironment.KeyboardState.IsKeyDown(Keys.Space))
+                        if (Children[i] is MainGoal && spriteGameObject.Overlaps(Children[i]))
                         {
-                            Children[i].position.X = player.position.X + player.texture.Width / 2 - Children[i].texture.Width / 2;
-                            Children[i].position.Y = player.position.Y + player.texture.Height / 2 - Children[i].texture.Height / 2;
+                            if (inputHelper.KeyPressed(Keys.Space))
+                            {
+                                Children[i].position.X = player.position.X + player.texture.Width / 2 - Children[i].texture.Width / 2;
+                                Children[i].position.Y = player.position.Y + player.texture.Height / 2 - Children[i].texture.Height / 2;
+                            }
                         }
-                    }
-                    if (Children[i] is SwitchBoard && pObject.Overlaps(gameObjectList[i]))
-                    {
-                        if (player.key.IsKeyDown(Keys.Space))
+                        if (Children[i] is ExtraGoal && spriteGameObject.Overlaps(Children[i]))
+                        {
+                            if (inputHelper.KeyPressed(Keys.Space))
+                            {
+                                Children[i].position.X = player.position.X + player.texture.Width / 2 - Children[i].texture.Width / 2;
+                                Children[i].position.Y = player.position.Y + player.texture.Height / 2 - Children[i].texture.Height / 2;
+                            }
+                        }
+                        if (Children[i] is SwitchBoard && spriteGameObject.Overlaps(Children[i]))
+                        {
+                            if (inputHelper.KeyPressed(Keys.Space))
+                            {
+                                for (int j = 0; j < Children.Count; j++)
+                                {
+                                    if (Children[j] is Venster_Object)
+                                    {
+                                        Children[j].Visible = true;
+                                    }
+                                }
+                            }
+                        }
+                        else if (Children[i] is SwitchBoard && !spriteGameObject.Overlaps(Children[i]))
                         {
                             for (int j = 0; j < Children.Count; j++)
                             {
                                 if (Children[j] is Venster_Object)
                                 {
-                                    Children[j].visual = true;
+                                    Children[j].Visible = false;
                                 }
                             }
                         }
-                    }
-                    else if (Children[i] is SwitchBoard && !pObject.Overlaps(gameObjectList[i]))
-                    {
-                        for (int j = 0; j < Children.Count; j++)
-                        {
-                            if (Children[j] is Venster_Object)
-                            {
-                               Children[j].visual = false;
-                            }
-                        }
-                    }
 
-                    if (Children[i] is Wall)
-                    {
-                        Vector2 wallPos = Children[i].position;
-                        Texture2D wallTex = Children[i].texture;
-                        //horizontal
-                        if (wallPos.X > player.position.X && pObject.Overlaps(Children[i]))
+                        if (Children[i] is Wall)
                         {
-                            player.position.X -= Math.Abs(player.velocity.X);
-                            player.moveRight = false;
-                            player.velocity.X = 0;
+                            Vector2 wallPos = Children[i].position;
+                            Texture2D wallTex = Children[i].texture;
+                            //horizontal
+                            if (wallPos.X > player.position.X && spriteGameObject.Overlaps(Children[i]))
+                            {
+                                player.position.X -= Math.Abs(player.velocity.X);
+                                player.moveRight = false;
+                                player.velocity.X = 0;
+                            }
+                            else if (player.position.X + player.texture.Width + unitSpacing < wallPos.X)
+                            {
+                                player.moveRight = true;
+                            }
+                            ////////////////////////////////////////////////////////////////////
+                            if (wallPos.X < player.position.X && spriteGameObject.Overlaps(Children[i]))
+                            {
+                                player.position.X += Math.Abs(player.velocity.X);
+                                player.moveLeft = false;
+                                player.velocity.X = 0;
+                            }
+                            else if (player.position.X > wallPos.X + wallTex.Width + unitSpacing)
+                            {
+                                player.moveLeft = true;
+                            }
+                            ////////////////////////////////////////////////////////////////////
+                            //vertical
+                            if (wallPos.Y < player.position.Y && spriteGameObject.Overlaps(Children[i]))
+                            {
+                                player.position.Y += Math.Abs(player.velocity.Y);
+                                player.moveUp = false;
+                                player.velocity.Y = 0;
+                            }
+                            else if (player.position.Y > wallPos.X + wallTex.Height + unitSpacing)
+                            {
+                                player.moveUp = true;
+                            }
+                            ////////////////////////////////////////////////////////////////////
+                            if (wallPos.Y > player.position.Y && spriteGameObject.Overlaps(Children[i]))
+                            {
+                                player.position.Y -= Math.Abs(player.velocity.Y);
+                                player.moveDown = false;
+                                player.velocity.Y = 0;
+                            }
+                            else if (player.position.Y + player.texture.Height + unitSpacing < wallPos.Y)
+                            {
+                                player.moveDown = true;
+                            }
+                            ////////////////////////////////////////////////////////////////////
                         }
-                        else if (player.position.X + player.texture.Width + unitSpacing < wallPos.X)
-                        {
-                            player.moveRight = true;
-                        }
-                        ////////////////////////////////////////////////////////////////////
-                        if (wallPos.X < player.position.X && pObject.Overlaps(Children[i]))
-                        {
-                            player.position.X += Math.Abs(player.velocity.X);
-                            player.moveLeft = false;
-                            player.velocity.X = 0;
-                        }
-                        else if (player.position.X > wallPos.X + wallTex.Width + unitSpacing)
-                        {
-                            player.moveLeft = true;
-                        }
-                        ////////////////////////////////////////////////////////////////////
-                        //vertical
-                        if (wallPos.Y < player.position.Y && pObject.Overlaps(Children[i]))
-                        {
-                            player.position.Y += Math.Abs(player.velocity.Y);
-                            player.moveUp = false;
-                            player.velocity.Y = 0;
-                        }
-                        else if (player.position.Y > wallPos.X + wallTex.Height + unitSpacing)
-                        {
-                            player.moveUp = true;
-                        }
-                        ////////////////////////////////////////////////////////////////////
-                        if (wallPos.Y > player.position.Y && pObject.Overlaps(Children[i]))
-                        {
-                            player.position.Y -= Math.Abs(player.velocity.Y);
-                            player.moveDown = false;
-                            player.velocity.Y = 0;
-                        }
-                        else if (player.position.Y + player.texture.Height + unitSpacing < wallPos.Y)
-                        {
-                            player.moveDown = true;
-                        }
-                        ////////////////////////////////////////////////////////////////////
                     }
                 }
             }
         }
+
+        public override void Update(GameTime gameTime)
+        {
+
+            base.Update(gameTime);
+        }
+
         public void FloorSetup()
         {
             for (int i = 0; i < 29; i++)

@@ -31,11 +31,11 @@ namespace FancyKlepto
 
         public void Move()
         {
-            if (visual && position.X >= pPosition.X - movingSpace.X)
+            if (visible && position.X >= pPosition.X - movingSpace.X)
             {
                 position.X -= velocity.X;
             }
-            if (!visual && position.X < pPosition.X)
+            if (!visible && position.X < pPosition.X)
             {
                 position.X += velocity.X;
             }
