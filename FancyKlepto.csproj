@@ -48,6 +48,8 @@
     <Compile Include="GameManagement\GameObjectList.cs" />
     <Compile Include="GameManagement\GameState.cs" />
     <Compile Include="GameManagement\InputHelper.cs" />
+    <Compile Include="GameManagement\RotatingSpriteGameObject.cs" />
+    <Compile Include="GameManagement\SpriteGameObject.cs" />
     <Compile Include="GameObjects\MapObjects\ExtraGoal.cs" />
     <Compile Include="GameObjects\MapObjects\Floor.cs" />
     <Compile Include="GameObjects\MapObjects\Guard.cs" />

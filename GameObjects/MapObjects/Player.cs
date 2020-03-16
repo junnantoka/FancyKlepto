@@ -10,7 +10,7 @@ using FancyKlepto.GameManagement;
 
 namespace FancyKlepto
 {
-    class Player : GameObject
+    class Player : SpriteGameObject
     {
         public KeyboardState key = GameEnvironment.KeyboardState;
         public Vector2 maxVelocity;
@@ -43,9 +43,9 @@ namespace FancyKlepto
             velocity = zeroVelocity;
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
-            base.Update();
+            base.Update(gameTime);
             Move();
             key = GameEnvironment.KeyboardState;
             position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
@@ -114,7 +114,7 @@ namespace FancyKlepto
                 moveDown = true;
             }
         }
-        public void checkForCollision(GameObject pObject)
+        public void checkForCollision(SpriteGameObject pObject)
         {
             if (Overlaps(pObject)) Reset();
         }

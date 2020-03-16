@@ -10,7 +10,7 @@ using FancyKlepto.GameManagement;
 
 namespace FancyKlepto.GameObjects
 {
-    class Map : GameObject
+    class Map : SpriteGameObject
     {
         public Map(string LevelName) : base(LevelName)
         {

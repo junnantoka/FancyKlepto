@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using FancyKlepto.GameManagement;
-using FancyKlepto.GameObjects;
 
 namespace FancyKlepto.GameManagement
 {
@@ -14,47 +12,51 @@ namespace FancyKlepto.GameManagement
     {
         public Vector2 position;
         public Vector2 velocity;
-        public Vector2 pPosition;
-        public int unitSize;
-        public int unitSpacing;
-        public Texture2D texture;
-        public bool visual;
-        public GameObject(String assetName)
+        protected bool visible;
+        protected GameObject parent;
+
+        public bool Visible
         {
-            unitSize = 64;
-            unitSpacing = 1;
-            texture = GameEnvironment.ContentManager.Load<Texture2D>(assetName);
-            Reset();
+            get { return visible; }
+            set { visible = value; }
         }
 
-        public virtual void Update()
+        public GameObject Parent
         {
+            get { return parent; }
+            set { parent = value; }
         }
+        public GameObject()
+        {
+            visible = true;
+        }
+
+        public virtual void Update(GameTime gameTime)
+        {
+            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        public virtual void Reset() { }
+        public virtual void HandleInput(InputHelper inputHelper) { }
 
         public virtual void Draw(SpriteBatch spriteBatch)
+        { }
+
+        public virtual Vector2 GlobalPosition
         {
-            spriteBatch.Draw(texture, position, Color.White);
-        }
-
-        public virtual void Reset()
-        {
-
-        }
-
-        public Boolean Overlaps(GameObject other)
-        {
-            float w0 = this.texture.Width,
-                h0 = this.texture.Height,
-                w1 = other.texture.Width,
-                h1 = other.texture.Height,
-                x0 = this.position.X,
-                y0 = this.position.Y,
-                x1 = other.position.X,
-                y1 = other.position.Y;
-
-            return !(x0 > x1 + w1 || x0 + w0 < x1 ||
-              y0 > y1 + h1 || y0 + h0 < y1);
+            get
+            {
+                if (parent != null)
+                {
+                    return parent.GlobalPosition + position;
+                }
+                else
+                {
+                    return position;
+                }
+            }
         }
 
     }
+
 }

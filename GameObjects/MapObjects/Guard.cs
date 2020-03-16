@@ -9,7 +9,7 @@ using FancyKlepto.GameObjects;
 
 namespace FancyKlepto
 {
-    class Guard : GameObject
+    class Guard : SpriteGameObject
     {
         Map map = new Map("spr_1.3");
         int frameCounter = 0;
@@ -20,9 +20,9 @@ namespace FancyKlepto
             velocity = new Vector2(10, 10);
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
-            base.Update();
+            base.Update(gameTime);
             frameCounter++; //keep track of frames
             if (frameCounter > 20)
             {
