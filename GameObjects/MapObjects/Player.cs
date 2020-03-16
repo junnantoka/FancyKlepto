@@ -12,7 +12,6 @@ namespace FancyKlepto
 {
     class Player : SpriteGameObject
     {
-        public KeyboardState key = GameEnvironment.KeyboardState;
         public Vector2 maxVelocity;
         public Vector2 zeroVelocity;
         public Vector2 minVelocity;
@@ -46,35 +45,40 @@ namespace FancyKlepto
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Move();
-            key = GameEnvironment.KeyboardState;
             position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
             position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
         }
 
-        public void Move()
+        public override void HandleInput(InputHelper inputHelper)
         {
+            base.HandleInput(inputHelper);
             position += velocity;
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
+            if (inputHelper.KeyPressed(Keys.A) && velocity.X > minVelocity.X && moveLeft)
             {
                 velocity.X -= velocityVelocity.X;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X && moveRight)
+            if (inputHelper.KeyPressed(Keys.D) && velocity.X < maxVelocity.X && moveRight)
             {
                 velocity.X += velocityVelocity.X;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
+            if (inputHelper.KeyPressed(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
             {
                 velocity.Y -= velocityVelocity.Y;
             }
-            if (GameEnvironment.KeyboardState.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
+            if (inputHelper.KeyPressed(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
             {
                 velocity.Y += velocityVelocity.Y;
             }
 
-            if (key.IsKeyUp(Keys.A) && key.IsKeyUp(Keys.D) && key.IsKeyUp(Keys.W) && key.IsKeyUp(Keys.S))
+            if (inputHelper.KeyPressed(Keys.A) &&
+                inputHelper.KeyPressed(Keys.D) &&
+                inputHelper.KeyPressed(Keys.W) &&
+                inputHelper.KeyPressed(Keys.S))
             {
-                if (velocity.X < stopVelocity && velocity.X > -stopVelocity && velocity.Y < stopVelocity && velocity.Y > -stopVelocity)
+                if (velocity.X < stopVelocity &&
+                    velocity.X > -stopVelocity &&
+                    velocity.Y < stopVelocity &&
+                    velocity.Y > -stopVelocity)
                 {
                     velocity = zeroVelocity;
                 }
@@ -97,23 +101,24 @@ namespace FancyKlepto
                     velocity.Y += velocityVelocity.Y;
                 }
             }
-            if (key.IsKeyUp(Keys.A))
+            if (inputHelper.KeyPressed(Keys.A))
             {
                 moveLeft = true;
             }
-            if (key.IsKeyUp(Keys.D))
+            if (inputHelper.KeyPressed(Keys.D))
             {
                 moveRight = true;
             }
-            if (key.IsKeyUp(Keys.W))
+            if (inputHelper.KeyPressed(Keys.W))
             {
                 moveUp = true;
             }
-            if (key.IsKeyUp(Keys.S))
+            if (inputHelper.KeyPressed(Keys.S))
             {
                 moveDown = true;
             }
         }
+
         public void checkForCollision(SpriteGameObject pObject)
         {
             if (Overlaps(pObject)) Reset();

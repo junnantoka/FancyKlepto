@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace FancyKlepto.GameManagement
 {
-    public class InputHelper : GameEnvironment
+    public class InputHelper
     {
         protected MouseState currentMouseState, previousMouseState;
         protected KeyboardState currentKeyboardState, previousKeyboardState;
