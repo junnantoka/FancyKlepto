@@ -9,11 +9,11 @@ using FancyKlepto.GameManagement;
 
 namespace FancyKlepto.GameStates
 {
-    class StartState : GameState
+    class StartState : GameObjectList
     {
         public StartState()
         {
-            gameObjectList.Add(new GameObject("spr_text"));
+            this.Add(new SpriteGameObject("spr_text"));
         }
     }
 }

@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 
 namespace FancyKlepto.GameManagement
 {
-
-
     class GameEnvironment : Game
     {
         protected GraphicsDeviceManager graphics;
@@ -19,14 +17,9 @@ namespace FancyKlepto.GameManagement
         static protected ContentManager content;
         protected static Point screen;
         protected static Random random;
-
-        static protected List<GameState> gameStateList;
-        static protected GameState currentGameState;
-
-        public static KeyboardState KeyboardState
-        {
-            get { return Keyboard.GetState(); }
-        }
+        protected InputHelper inputHelper;
+        static protected List<GameObject> gameStateList;
+        static protected GameObject currentGameState;
 
         public static Point Screen
         {
@@ -52,9 +45,10 @@ namespace FancyKlepto.GameManagement
         public GameEnvironment()
         {
             graphics = new GraphicsDeviceManager(this);
+            inputHelper = new InputHelper();
             Content.RootDirectory = "Content";
             content = Content;
-            gameStateList = new List<GameState>();
+            gameStateList = new List<GameObject>();
             random = new Random();
         }
 
@@ -62,13 +56,24 @@ namespace FancyKlepto.GameManagement
         {
             graphics.PreferredBackBufferWidth = screen.X;
             graphics.PreferredBackBufferHeight = screen.Y;
-            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+        }
+
+        protected void HandleInput()
+        {
+            inputHelper.Update();
+            if (inputHelper.KeyPressed(Keys.Escape))
+            {
+                Exit();
+            }
+
+            if (currentGameState != null)
+                currentGameState.HandleInput(inputHelper);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -85,15 +90,13 @@ namespace FancyKlepto.GameManagement
 
         protected override void Update(GameTime gameTime)
         {
+            HandleInput();
+
             if (currentGameState != null)
                 currentGameState.Update(gameTime);
 
             base.Update(gameTime);
-
-            if (KeyboardState.IsKeyDown(Keys.Escape))
-            {
-                Exit();
-            }
         }
     }
+
 }

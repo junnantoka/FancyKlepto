@@ -46,7 +46,6 @@
     <Compile Include="GameManagement\GameEnvironment.cs" />
     <Compile Include="GameManagement\GameObject.cs" />
     <Compile Include="GameManagement\GameObjectList.cs" />
-    <Compile Include="GameManagement\GameState.cs" />
     <Compile Include="GameManagement\InputHelper.cs" />
     <Compile Include="GameManagement\RotatingSpriteGameObject.cs" />
     <Compile Include="GameManagement\SpriteGameObject.cs" />

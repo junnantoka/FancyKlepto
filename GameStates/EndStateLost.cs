@@ -7,7 +7,7 @@ using FancyKlepto.GameManagement;
 
 namespace FancyKlepto.GameStates
 {
-    class EndStateLost : GameState
+    class EndStateLost : GameObjectList
     {
         public EndStateLost()
         {
