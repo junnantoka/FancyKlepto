@@ -27,6 +27,7 @@ namespace FancyKlepto.GameStates
             //gameObjectList.Add(new Map("spr_1.3"));
             FloorSetup();
             WallSetup();
+            VensterSetup();
 
             gameObjectList.Add(goal1);
             gameObjectList.Add(goal2);
@@ -86,8 +87,28 @@ namespace FancyKlepto.GameStates
                     }
                     if (gameObjectList[i] is SwitchBoard && pObject.Overlaps(gameObjectList[i]))
                     {
-                        player.Reset();
+                        if (player.key.IsKeyDown(Keys.Space))
+                        {
+                            for (int j = 0; j < gameObjectList.Count; j++)
+                            {
+                                if (gameObjectList[j] is Venster_Object)
+                                {
+                                    gameObjectList[j].visual = true;
+                                }
+                            }
+                        }
                     }
+                    else if (gameObjectList[i] is SwitchBoard && !pObject.Overlaps(gameObjectList[i]))
+                    {
+                        for (int j = 0; j < gameObjectList.Count; j++)
+                        {
+                            if (gameObjectList[j] is Venster_Object)
+                            {
+                               gameObjectList[j].visual = false;
+                            }
+                        }
+                    }
+
                     if (gameObjectList[i] is Wall)
                     {
                         Vector2 wallPos = gameObjectList[i].position;
@@ -95,43 +116,49 @@ namespace FancyKlepto.GameStates
                         //horizontal
                         if (wallPos.X > player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
+                            player.position.X -= Math.Abs(player.velocity.X);
                             player.moveRight = false;
-                            player.velocity.X = -5 * player.velocityVelocity.X;
+                            player.velocity.X = 0;
                         }
                         else if (player.position.X + player.texture.Width + unitSpacing<wallPos.X)
                         {
                             player.moveRight = true;
                         }
+                        ////////////////////////////////////////////////////////////////////
                         if (wallPos.X < player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
+                            player.position.X += Math.Abs(player.velocity.X);
                             player.moveLeft = false;
-                            player.velocity.X = 5 * player.velocityVelocity.X;
+                            player.velocity.X = 0;
                         }
                         else if (player.position.X> wallPos.X+wallTex.Width +  unitSpacing)
                         {
                             player.moveLeft = true;
                         }
+                        ////////////////////////////////////////////////////////////////////
                         //vertical
                         if (wallPos.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
                         {
-                            
+                            player.position.Y += Math.Abs(player.velocity.Y);
                             player.moveUp = false;
-                            player.velocity.Y = 5*player.velocityVelocity.Y;
+                            player.velocity.Y = 0;
                         }
                         else if (player.position.Y> wallPos.X+wallTex.Height + unitSpacing)
                         {
                             player.moveUp = true;
                         }
+                        ////////////////////////////////////////////////////////////////////
                         if (wallPos.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
                         {
+                            player.position.Y -= Math.Abs(player.velocity.Y);
                             player.moveDown = false;
-                            player.velocity.Y = -5 * player.velocityVelocity.Y;
-                            //player.position.Y -= Math.Abs(player.position.Y + player.texture.Height - wallPos.Y) + unitSpacing;
+                            player.velocity.Y = 0;
                         }
                         else if (player.position.Y+player.texture.Height + unitSpacing<wallPos.Y)
                         {
                             player.moveDown = true;
                         }
+                        ////////////////////////////////////////////////////////////////////
                     }
                 }
             }
@@ -192,6 +219,22 @@ namespace FancyKlepto.GameStates
                 gameObjectList.Add(new Wall(i, 6));
                 gameObjectList.Add(new Wall(i, 7));
             }
+        }
+
+        public void VensterSetup()
+        {
+            gameObjectList.Add(new Venster_Object(1568, 0, "spr_point_bar"));
+            gameObjectList.Add(new Venster_Object(1600, 0, "spr_venster_background"));
+            gameObjectList.Add(new Venster_Object(1632, 34, "spr_nickname"));
+            gameObjectList.Add(new Venster_Object(1632, 132, "spr_lineair_visualiseren"));
+            gameObjectList.Add(new Venster_Object(1632, 420, "spr_input"));
+            gameObjectList.Add(new Venster_Object(1632, 516, "spr_xyz"));
+            gameObjectList.Add(new Venster_Object(1632, 730, "spr_collected_items"));
+            gameObjectList.Add(new Venster_Object(1632, 917, "spr_lives"));
+            gameObjectList.Add(new Venster_Object(1632, 990, "spr_score"));
+
+            gameObjectList.Add(new Venster_Object(1573, 1067, "spr_point_bar_point"));
+            gameObjectList.Add(new Venster_Object(1573, 1067-8-2*unitSpacing, "spr_point_bar_point"));
         }
     }
 }

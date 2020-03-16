@@ -18,8 +18,7 @@ namespace FancyKlepto.GameManagement
         public int unitSize;
         public int unitSpacing;
         public Texture2D texture;
-
-
+        public bool visual;
         public GameObject(String assetName)
         {
             unitSize = 64;
