@@ -17,7 +17,7 @@ namespace FancyKlepto
         public Venster_Object(int x, int y, String pObject) : base (pObject)
         {
             velocity = new Vector2(15, 0);
-            movingSpace = new Vector2(352, 0);
+            movingSpace = new Vector2(330, 0);
             position = new Vector2(x, y)+movingSpace;
             pPosition = position;
             movedLeft = new Vector2(0, 0);

@@ -116,43 +116,49 @@ namespace FancyKlepto.GameStates
                         //horizontal
                         if (wallPos.X > player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
+                            player.position.X -= Math.Abs(player.velocity.X);
                             player.moveRight = false;
-                            player.velocity.X = -5 * player.velocityVelocity.X;
+                            player.velocity.X = 0;
                         }
                         else if (player.position.X + player.texture.Width + unitSpacing<wallPos.X)
                         {
                             player.moveRight = true;
                         }
+                        ////////////////////////////////////////////////////////////////////
                         if (wallPos.X < player.position.X && pObject.Overlaps(gameObjectList[i]))
                         {
+                            player.position.X += Math.Abs(player.velocity.X);
                             player.moveLeft = false;
-                            player.velocity.X = 5 * player.velocityVelocity.X;
+                            player.velocity.X = 0;
                         }
                         else if (player.position.X> wallPos.X+wallTex.Width +  unitSpacing)
                         {
                             player.moveLeft = true;
                         }
+                        ////////////////////////////////////////////////////////////////////
                         //vertical
                         if (wallPos.Y < player.position.Y && pObject.Overlaps(gameObjectList[i]))
                         {
-                            
+                            player.position.Y += Math.Abs(player.velocity.Y);
                             player.moveUp = false;
-                            player.velocity.Y = 5*player.velocityVelocity.Y;
+                            player.velocity.Y = 0;
                         }
                         else if (player.position.Y> wallPos.X+wallTex.Height + unitSpacing)
                         {
                             player.moveUp = true;
                         }
+                        ////////////////////////////////////////////////////////////////////
                         if (wallPos.Y > player.position.Y && pObject.Overlaps(gameObjectList[i]))
                         {
+                            player.position.Y -= Math.Abs(player.velocity.Y);
                             player.moveDown = false;
-                            player.velocity.Y = -5 * player.velocityVelocity.Y;
-                            //player.position.Y -= Math.Abs(player.position.Y + player.texture.Height - wallPos.Y) + unitSpacing;
+                            player.velocity.Y = 0;
                         }
                         else if (player.position.Y+player.texture.Height + unitSpacing<wallPos.Y)
                         {
                             player.moveDown = true;
                         }
+                        ////////////////////////////////////////////////////////////////////
                     }
                 }
             }
