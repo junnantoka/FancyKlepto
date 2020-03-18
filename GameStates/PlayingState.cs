@@ -45,33 +45,33 @@ namespace FancyKlepto.GameStates
                 switchboard1.Reset();
                 switchboard2.Reset();
             }
-            foreach (GameObject spriteGameObject in Children)
+            foreach (GameObject gameobject in Children)
             {
-                if (spriteGameObject is Player)
+                if (gameobject is Player)
                 {
                     for (int i = 0; i < Children.Count; i++)
                     {
-                        if (Children[i] is Guard && spriteGameObject.Overlaps(Children[i]))
+                        if (Children[i] is Guard && gameobject.Overlaps(Children[i]))
                         {
                             player.Reset();
                         }
-                        if (Children[i] is MainGoal && spriteGameObject.Overlaps(Children[i]))
+                        if (Children[i] is MainGoal && gameobject.Overlaps(Children[i]))
                         {
-                            if (inputHelper.KeyPressed(Keys.Space))
+                            if (inputHelper.IsKeyDown(Keys.Space))
                             {
                                 Children[i].position.X = player.position.X + player.texture.Width / 2 - Children[i].texture.Width / 2;
                                 Children[i].position.Y = player.position.Y + player.texture.Height / 2 - Children[i].texture.Height / 2;
                             }
                         }
-                        if (Children[i] is ExtraGoal && spriteGameObject.Overlaps(Children[i]))
+                        if (Children[i] is ExtraGoal && gameobject.Overlaps(Children[i]))
                         {
-                            if (inputHelper.KeyPressed(Keys.Space))
+                            if (inputHelper.IsKeyDown(Keys.Space))
                             {
                                 Children[i].position.X = player.position.X + player.texture.Width / 2 - Children[i].texture.Width / 2;
                                 Children[i].position.Y = player.position.Y + player.texture.Height / 2 - Children[i].texture.Height / 2;
                             }
                         }
-                        if (Children[i] is SwitchBoard && spriteGameObject.Overlaps(Children[i]))
+                        if (Children[i] is SwitchBoard && gameobject.Overlaps(Children[i]))
                         {
                             if (inputHelper.KeyPressed(Keys.Space))
                             {
@@ -79,18 +79,17 @@ namespace FancyKlepto.GameStates
                                 {
                                     if (Children[j] is Venster_Object)
                                     {
-                                        Children[j].Visible = true;
+                                        Children[j].open = true;
                                     }
                                 }
                             }
-                        }
-                        else if (Children[i] is SwitchBoard && !spriteGameObject.Overlaps(Children[i]))
+                        } else if (Children[i] is SwitchBoard && !gameobject.Overlaps(Children[i]))
                         {
                             for (int j = 0; j < Children.Count; j++)
                             {
                                 if (Children[j] is Venster_Object)
                                 {
-                                    Children[j].Visible = false;
+                                    Children[j].open = false;
                                 }
                             }
                         }
@@ -100,7 +99,7 @@ namespace FancyKlepto.GameStates
                             Vector2 wallPos = Children[i].position;
                             Texture2D wallTex = Children[i].texture;
                             //horizontal
-                            if (wallPos.X > player.position.X && spriteGameObject.Overlaps(Children[i]))
+                            if (wallPos.X > player.position.X && gameobject.Overlaps(Children[i]))
                             {
                                 player.position.X -= Math.Abs(player.velocity.X);
                                 player.moveRight = false;
@@ -111,7 +110,7 @@ namespace FancyKlepto.GameStates
                                 player.moveRight = true;
                             }
                             ////////////////////////////////////////////////////////////////////
-                            if (wallPos.X < player.position.X && spriteGameObject.Overlaps(Children[i]))
+                            if (wallPos.X < player.position.X && gameobject.Overlaps(Children[i]))
                             {
                                 player.position.X += Math.Abs(player.velocity.X);
                                 player.moveLeft = false;
@@ -123,7 +122,7 @@ namespace FancyKlepto.GameStates
                             }
                             ////////////////////////////////////////////////////////////////////
                             //vertical
-                            if (wallPos.Y < player.position.Y && spriteGameObject.Overlaps(Children[i]))
+                            if (wallPos.Y < player.position.Y && gameobject.Overlaps(Children[i]))
                             {
                                 player.position.Y += Math.Abs(player.velocity.Y);
                                 player.moveUp = false;
@@ -134,7 +133,7 @@ namespace FancyKlepto.GameStates
                                 player.moveUp = true;
                             }
                             ////////////////////////////////////////////////////////////////////
-                            if (wallPos.Y > player.position.Y && spriteGameObject.Overlaps(Children[i]))
+                            if (wallPos.Y > player.position.Y && gameobject.Overlaps(Children[i]))
                             {
                                 player.position.Y -= Math.Abs(player.velocity.Y);
                                 player.moveDown = false;
@@ -218,18 +217,17 @@ namespace FancyKlepto.GameStates
 
         public void VensterSetup()
         {
-            this.Add(new Venster_Object(1568, 0, "spr_point_bar"));
-            this.Add(new Venster_Object(1600, 0, "spr_venster_background"));
-            this.Add(new Venster_Object(1632, 34, "spr_nickname"));
-            this.Add(new Venster_Object(1632, 132, "spr_lineair_visualiseren"));
-            this.Add(new Venster_Object(1632, 420, "spr_input"));
-            this.Add(new Venster_Object(1632, 516, "spr_xyz"));
-            this.Add(new Venster_Object(1632, 730, "spr_collected_items"));
-            this.Add(new Venster_Object(1632, 917, "spr_lives"));
-            this.Add(new Venster_Object(1632, 990, "spr_score"));
-
-            this.Add(new Venster_Object(1573, 1067, "spr_point_bar_point"));
-            this.Add(new Venster_Object(1573, 1067 - 8 - 2 * unitSpacing, "spr_point_bar_point"));
+            this.Add(new Venster_Object(0, 0, "spr_point_bar"));
+            this.Add(new Venster_Object(5, 1067, "spr_point_bar_point"));
+            this.Add(new Venster_Object(5, 1067 - 8 - 2 * unitSpacing, "spr_point_bar_point"));
+            this.Add(new Venster_Object(32, 0, "spr_venster_background"));
+            this.Add(new Venster_Object(64, 34, "spr_nickname"));
+            this.Add(new Venster_Object(64, 132, "spr_lineair_visualiseren"));
+            this.Add(new Venster_Object(64, 420, "spr_input"));
+            this.Add(new Venster_Object(64, 516, "spr_xyz"));
+            this.Add(new Venster_Object(64, 730, "spr_collected_items"));
+            this.Add(new Venster_Object(64, 917, "spr_lives"));
+            this.Add(new Venster_Object(64, 990, "spr_score"));
         }
     }
 }

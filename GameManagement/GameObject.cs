@@ -6,9 +6,10 @@ class GameObject
     public int unitSpacing;
     public Vector2 position;
     public Vector2 velocity;
-    public Vector2 pPosition;
+    public Vector2 defPos;
     public Texture2D texture;
     protected bool visible;
+    public bool open;
     protected GameObject parent;
 
     public bool Visible

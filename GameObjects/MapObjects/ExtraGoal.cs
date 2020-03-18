@@ -5,10 +5,10 @@ class ExtraGoal : SpriteGameObject
     {
         Reset();
         position = new Vector2(2 + x * (unitSize + unitSpacing), 2 + y * (unitSize + unitSpacing));
-        pPosition = position;
+        defPos = position;
     }
     public override void Reset()
     {
-        position = pPosition;
+        position = defPos;
     }
 }

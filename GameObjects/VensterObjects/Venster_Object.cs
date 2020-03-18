@@ -1,16 +1,20 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 class Venster_Object : SpriteGameObject
 {
-    private Vector2 movingSpace;
-    private Vector2 movedLeft;
+    private Vector2 openPos;
+    private float screenWidth= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
     public Venster_Object(int x, int y, String pObject) : base(pObject)
     {
         velocity = new Vector2(15, 0);
-        movingSpace = new Vector2(330, 0);
-        position = new Vector2(x, y) + movingSpace;
-        pPosition = position;
-        movedLeft = new Vector2(0, 0);
+        position = new Vector2(x, y);
+        position.X += screenWidth;
+        defPos = position;
+        // 353 is total width of the open window
+        openPos.X = defPos.X-353;
     }
     public override void Update(GameTime gameTime)
     {
@@ -21,13 +25,21 @@ class Venster_Object : SpriteGameObject
 
     public void Move()
     {
-        if (visible && position.X >= pPosition.X - movingSpace.X)
+        if (open && position.X > openPos.X)
         {
             position.X -= velocity.X;
+            if (position.X < openPos.X)
+            {
+                position.X = openPos.X;
+            }
         }
-        if (!visible && position.X < pPosition.X)
+        else if (!open && position.X < defPos.X)
         {
             position.X += velocity.X;
+            if (position.X > defPos.X)
+            {
+                position.X = defPos.X;
+            }
         }
     }
 }

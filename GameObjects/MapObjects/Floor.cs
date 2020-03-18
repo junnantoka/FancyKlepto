@@ -5,10 +5,10 @@ class Floor : SpriteGameObject
     {
         Reset();
         position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
-        pPosition = position;
+        defPos = position;
     }
     public override void Reset()
     {
-        position = pPosition;
+        position = defPos;
     }
 }
