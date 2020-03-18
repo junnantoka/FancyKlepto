@@ -1,26 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using FancyKlepto.GameManagement;
-using FancyKlepto.GameObjects;
+﻿using Microsoft.Xna.Framework;
 
-namespace FancyKlepto.GameObjects
+class Wall : SpriteGameObject
 {
-    class Wall : SpriteGameObject
+    public Wall(int x, int y) : base("spr_black_wall")
     {
-        public Wall(int x, int y) : base("spr_black_wall")
-        {
-            Reset();
-            position = new Vector2(x *( unitSize + unitSpacing), y * (unitSize + unitSpacing));
-            pPosition =position ;
-        }
+        Reset();
+        position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
+        pPosition = position;
+    }
 
-        public override void Reset()
-        {
-            position = pPosition;
-        }
+    public override void Reset()
+    {
+        position = pPosition;
     }
 }

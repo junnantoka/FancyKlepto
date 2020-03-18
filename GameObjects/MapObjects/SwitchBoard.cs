@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using FancyKlepto.GameManagement;
-using FancyKlepto.GameObjects;
-
-namespace FancyKlepto
-{
+﻿using Microsoft.Xna.Framework;
     class SwitchBoard : SpriteGameObject
     {
         public SwitchBoard(int x,int y) : base("spr_switchboard")
@@ -22,4 +12,3 @@ namespace FancyKlepto
             position = pPosition;
         }
     }
-}

@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FancyKlepto.GameManagement { 
+namespace FancyKlepto
+{ 
     /// <summary>
     /// SpriteGameObject that handles rotated sprites. Overrides Draw method WITHOUT call to base.Draw.
     /// </summary>

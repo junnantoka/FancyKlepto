@@ -1,127 +1,111 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using FancyKlepto.GameManagement;
-
-namespace FancyKlepto
+class Player : SpriteGameObject
 {
-    class Player : SpriteGameObject
+    public Vector2 maxVelocity;
+    public Vector2 zeroVelocity;
+    public Vector2 minVelocity;
+    public int stopVelocity;
+    public Vector2 velocityVelocity;
+
+    public bool moveRight, moveLeft, moveUp, moveDown;
+    public Player(int x, int y) : base("spr_player")
     {
-        public Vector2 maxVelocity;
-        public Vector2 zeroVelocity;
-        public Vector2 minVelocity;
-        public int stopVelocity;
-        public Vector2 velocityVelocity;
+        velocityVelocity = new Vector2(0.2f, 0.2f);
+        stopVelocity = 2;
+        position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
+        pPosition = position;
+        maxVelocity = new Vector2(5, 5);
+        zeroVelocity = new Vector2(0, 0);
+        minVelocity = -1 * maxVelocity;
+        Reset();
+    }
 
-        public bool moveRight, moveLeft, moveUp, moveDown;
-        public Player(int x, int y) : base("spr_player")
+    public override void Reset()
+    {
+        base.Reset();
+        moveRight = true;
+        moveLeft = true;
+        moveUp = true;
+        moveDown = true;
+        position = pPosition;
+        velocity = zeroVelocity;
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+        position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
+        position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
+    }
+
+    public override void HandleInput(InputHelper inputHelper)
+    {
+        base.HandleInput(inputHelper);
+        position += velocity;
+        if (inputHelper.KeyPressed(Keys.A) && velocity.X > minVelocity.X && moveLeft)
         {
-            velocityVelocity = new Vector2(0.2f, 0.2f);
-            stopVelocity = 2;
-            position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
-            pPosition = position;
-            maxVelocity = new Vector2(5, 5);
-            zeroVelocity = new Vector2(0, 0);
-            minVelocity = -1 * maxVelocity;
-            Reset();
+            velocity.X -= velocityVelocity.X;
+        }
+        if (inputHelper.KeyPressed(Keys.D) && velocity.X < maxVelocity.X && moveRight)
+        {
+            velocity.X += velocityVelocity.X;
+        }
+        if (inputHelper.KeyPressed(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
+        {
+            velocity.Y -= velocityVelocity.Y;
+        }
+        if (inputHelper.KeyPressed(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
+        {
+            velocity.Y += velocityVelocity.Y;
         }
 
-        public override void Reset()
+        if (inputHelper.KeyPressed(Keys.A) &&
+            inputHelper.KeyPressed(Keys.D) &&
+            inputHelper.KeyPressed(Keys.W) &&
+            inputHelper.KeyPressed(Keys.S))
         {
-            base.Reset();
-            moveRight = true;
-            moveLeft = true;
-            moveUp = true;
-            moveDown = true;
-            position = pPosition;
-            velocity = zeroVelocity;
-        }
+            if (velocity.X < stopVelocity &&
+                velocity.X > -stopVelocity &&
+                velocity.Y < stopVelocity &&
+                velocity.Y > -stopVelocity)
+            {
+                velocity = zeroVelocity;
+            }
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
-            position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
-        }
-
-        public override void HandleInput(InputHelper inputHelper)
-        {
-            base.HandleInput(inputHelper);
-            position += velocity;
-            if (inputHelper.KeyPressed(Keys.A) && velocity.X > minVelocity.X && moveLeft)
+            if (velocity.X > zeroVelocity.X)
             {
                 velocity.X -= velocityVelocity.X;
             }
-            if (inputHelper.KeyPressed(Keys.D) && velocity.X < maxVelocity.X && moveRight)
+            if (velocity.X < zeroVelocity.X)
             {
                 velocity.X += velocityVelocity.X;
             }
-            if (inputHelper.KeyPressed(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
+
+            if (velocity.Y > zeroVelocity.Y)
             {
                 velocity.Y -= velocityVelocity.Y;
             }
-            if (inputHelper.KeyPressed(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
+            if (velocity.Y < zeroVelocity.Y)
             {
                 velocity.Y += velocityVelocity.Y;
             }
-
-            if (inputHelper.KeyPressed(Keys.A) &&
-                inputHelper.KeyPressed(Keys.D) &&
-                inputHelper.KeyPressed(Keys.W) &&
-                inputHelper.KeyPressed(Keys.S))
-            {
-                if (velocity.X < stopVelocity &&
-                    velocity.X > -stopVelocity &&
-                    velocity.Y < stopVelocity &&
-                    velocity.Y > -stopVelocity)
-                {
-                    velocity = zeroVelocity;
-                }
-
-                if (velocity.X > zeroVelocity.X)
-                {
-                    velocity.X -= velocityVelocity.X;
-                }
-                if (velocity.X < zeroVelocity.X)
-                {
-                    velocity.X += velocityVelocity.X;
-                }
-
-                if (velocity.Y > zeroVelocity.Y)
-                {
-                    velocity.Y -= velocityVelocity.Y;
-                }
-                if (velocity.Y < zeroVelocity.Y)
-                {
-                    velocity.Y += velocityVelocity.Y;
-                }
-            }
-            if (inputHelper.KeyPressed(Keys.A))
-            {
-                moveLeft = true;
-            }
-            if (inputHelper.KeyPressed(Keys.D))
-            {
-                moveRight = true;
-            }
-            if (inputHelper.KeyPressed(Keys.W))
-            {
-                moveUp = true;
-            }
-            if (inputHelper.KeyPressed(Keys.S))
-            {
-                moveDown = true;
-            }
         }
-
-        public void checkForCollision(SpriteGameObject pObject)
+        if (inputHelper.KeyPressed(Keys.A))
         {
-            if (Overlaps(pObject)) Reset();
+            moveLeft = true;
+        }
+        if (inputHelper.KeyPressed(Keys.D))
+        {
+            moveRight = true;
+        }
+        if (inputHelper.KeyPressed(Keys.W))
+        {
+            moveUp = true;
+        }
+        if (inputHelper.KeyPressed(Keys.S))
+        {
+            moveDown = true;
         }
     }
 }
