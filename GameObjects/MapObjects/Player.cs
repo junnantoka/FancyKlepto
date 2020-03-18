@@ -65,14 +65,6 @@ class Player : SpriteGameObject
         if (currentKeyboardState.IsKeyUp(Keys.W) &&
             currentKeyboardState.IsKeyUp(Keys.S))
         {
-            if (velocity.Y < stopVelocity &&
-                velocity.Y > -stopVelocity)
-            {
-                velocity.Y = zeroVelocity.Y;
-            }
-
-
-
             if (velocity.Y > zeroVelocity.Y)
             {
                 velocity.Y -= velocityVelocity.Y;
@@ -81,15 +73,16 @@ class Player : SpriteGameObject
             {
                 velocity.Y += velocityVelocity.Y;
             }
+
+            if (velocity.Y < stopVelocity &&
+                velocity.Y > -stopVelocity)
+            {
+                velocity.Y = zeroVelocity.Y;
+            }
         }
         if (currentKeyboardState.IsKeyUp(Keys.A) &&
             currentKeyboardState.IsKeyUp(Keys.D))
         {
-            if (velocity.X < stopVelocity &&
-                velocity.X > -stopVelocity)
-            {
-                velocity.X = zeroVelocity.X;
-            }
             if (velocity.X > zeroVelocity.X)
             {
                 velocity.X -= velocityVelocity.X;
@@ -97,6 +90,12 @@ class Player : SpriteGameObject
             if (velocity.X < zeroVelocity.X)
             {
                 velocity.X += velocityVelocity.X;
+            }
+
+            if (velocity.X < stopVelocity &&
+                velocity.X > -stopVelocity)
+            {
+                velocity.X = zeroVelocity.X;
             }
         }
 

@@ -12,6 +12,7 @@ namespace FancyKlepto.GameStates
         ExtraGoal goal2 = new ExtraGoal(19, 10);
         Guard guard = new Guard(new Vector2(100));
         Guard guard1 = new Guard(new Vector2(27, 3));
+        Laser laser1 = new Laser(new Vector2(1,5),new Vector2(6,6), "spr_laser_pixel_green");
 
         SwitchBoard switchboard1 = new SwitchBoard(14, 9);
         SwitchBoard switchboard2 = new SwitchBoard(14, 10);
@@ -30,6 +31,7 @@ namespace FancyKlepto.GameStates
             this.Add(guard1);
             this.Add(switchboard1);
             this.Add(switchboard2);
+            this.Add(laser1);
             //Map
         }
 
@@ -44,6 +46,7 @@ namespace FancyKlepto.GameStates
                 goal2.Reset();
                 switchboard1.Reset();
                 switchboard2.Reset();
+                laser1.Reset();
             }
             foreach (GameObject gameobject in Children)
             {
@@ -144,6 +147,11 @@ namespace FancyKlepto.GameStates
                                 player.moveDown = true;
                             }
                             ////////////////////////////////////////////////////////////////////
+                        }
+
+                        if(Children[i] is Laser)
+                        {
+
                         }
                     }
                 }
