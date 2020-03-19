@@ -10,8 +10,7 @@ namespace FancyKlepto.GameStates
         Player player = new Player(3, 13);
         MainGoal goal1 = new MainGoal(2, 2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
-        Guard guard = new Guard(new Vector2(780, 130));
-        Guard guard1 = new Guard(new Vector2(250, 65));
+        Guard guard = new Guard();
         Laser laser1 = new Laser(new Vector2(1,5),new Vector2(6,6), "spr_laser_pixel_green");
 
         SwitchBoard switchboard1 = new SwitchBoard(14, 9);
@@ -28,7 +27,6 @@ namespace FancyKlepto.GameStates
             this.Add(goal2);
             this.Add(player);
             this.Add(guard);
-            this.Add(guard1);
             this.Add(switchboard1);
             this.Add(switchboard2);
             this.Add(laser1);

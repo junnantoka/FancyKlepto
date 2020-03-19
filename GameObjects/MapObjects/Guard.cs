@@ -1,14 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using FancyKlepto.GameObjects;
 
-class Guard : SpriteGameObject
+class Guard : GameObjectList
 {
     Map map = new Map("spr_1.3");
     int frameCounter = 0;
-    public Guard(Vector2 position) : base("spr_guard")
+    SpriteGameObject guard = new SpriteGameObject("spr_guard");
+    public Guard()
     {
-        Reset();
-        this.position = position;
+        this.Add(guard);
+        this.Add(guard);
+        for (int i = 0; i < Children.Count; i++)
+        {
+            if (i == 0)
+            {
+                position.X = 250;
+            }
+            if (i == 1)
+            {
+                position.X = 780;
+            }
+            position.Y = 65 * i;
+        }
         velocity = new Vector2(GameEnvironment.Random.Next(-20, 20), 0);
     }
 
@@ -16,12 +29,21 @@ class Guard : SpriteGameObject
     {
         base.Update(gameTime);
         frameCounter++; //keep track of frames
+        Movement();
+        BorderCollision();
+    }
+
+    public void Movement()
+    {
         if (frameCounter > 20)
         {
             position.X += velocity.X;
             frameCounter = 0;
         }
+    }
 
+    public void BorderCollision()
+    {
         //Collision with border of screen
         if (position.X >= GameEnvironment.Screen.X - texture.Width)
         {

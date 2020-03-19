@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 class Venster_Object : SpriteGameObject
 {
     private Vector2 openPos;
-    private float screenWidth= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+    private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
     public Venster_Object(int x, int y, String pObject) : base(pObject)
     {
         velocity = new Vector2(15, 0);
@@ -14,7 +14,7 @@ class Venster_Object : SpriteGameObject
         position.X += screenWidth;
         defPos = position;
         // 353 is total width of the open window
-        openPos.X = defPos.X-353;
+        openPos.X = defPos.X - 353;
     }
     public override void Update(GameTime gameTime)
     {
