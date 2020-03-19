@@ -9,7 +9,7 @@ class Guard : SpriteGameObject
     {
         Reset();
         this.position = position;
-        velocity = new Vector2(10, 10);
+        velocity = new Vector2(10, 0);
     }
 
     public override void Update(GameTime gameTime)
