@@ -9,7 +9,7 @@ class Guard : SpriteGameObject
     {
         Reset();
         this.position = position;
-        velocity = new Vector2(10, 0);
+        velocity = new Vector2(GameEnvironment.Random.Next(-20, 20), 0);
     }
 
     public override void Update(GameTime gameTime)
@@ -23,11 +23,11 @@ class Guard : SpriteGameObject
         }
 
         //Collision with border of screen
-        if (position.X >= map.texture.Width - (texture.Width * 4))
+        if (position.X >= GameEnvironment.Screen.X - texture.Width)
         {
             velocity.X = -velocity.X;
         }
-        if (position.X <= texture.Width * 3)
+        if (position.X <= texture.Width)
         {
             velocity.X = -velocity.X;
         }
