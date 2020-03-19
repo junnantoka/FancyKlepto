@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Input;
 using FancyKlepto.GameStates;
 
-
 namespace FancyKlepto
 {
     class Fancy_Klepto : GameEnvironment
@@ -12,7 +11,7 @@ namespace FancyKlepto
         protected override void LoadContent()
         {
             base.LoadContent();
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             gameStateList.Add(new StartState());
             gameStateList.Add(new PlayingState());
             gameStateList.Add(new EndStateWon());
