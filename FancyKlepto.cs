@@ -12,7 +12,7 @@ namespace FancyKlepto
         protected override void LoadContent()
         {
             base.LoadContent();
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             gameStateList.Add(new StartState());
             gameStateList.Add(new PlayingState());
             gameStateList.Add(new EndStateWon());

@@ -38,7 +38,7 @@ class Laser : SpriteGameObject
         }
     }
 
-    public override void Draw(SpriteBatch spriteBatch)
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         //Draws the laser 
         if (Active)

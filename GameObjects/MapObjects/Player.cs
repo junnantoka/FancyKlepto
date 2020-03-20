@@ -60,6 +60,7 @@ class Player : SpriteGameObject
         if (inputHelper.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
         {
             velocity.Y += velocityVelocity.Y;
+ 
         }
 
         if (currentKeyboardState.IsKeyUp(Keys.W) &&

@@ -7,6 +7,7 @@ namespace FancyKlepto.GameStates
 {
     class PlayingState : GameObjectList
     {
+        int wallCount;
         Player player = new Player(3, 13);
         MainGoal goal1 = new MainGoal(2, 2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
@@ -54,7 +55,7 @@ namespace FancyKlepto.GameStates
                 {
                     for (int i = 0; i < Children.Count; i++)
                     {
-                        if (Children[i] is Guard && gameobject.Overlaps(Children[i]))
+                        if (Children[i] is Guard && gameobject.CollidesWith(Children[i]))
                         {
                             player.Reset();
                         }
@@ -162,6 +163,7 @@ namespace FancyKlepto.GameStates
         {
 
             base.Update(gameTime);
+            Console.WriteLine(wallCount);
         }
 
         public void FloorSetup()
@@ -179,47 +181,64 @@ namespace FancyKlepto.GameStates
             for (int j = 0; j < 16; j++)
             {
                 this.Add(new Wall(0, j));
+                wallCount++;
             }
             for (int j = 0; j < 16; j++)
             {
                 this.Add(new Wall(28, j));
+                wallCount++;
             }
             for (int j = 0; j < 6; j++)
             {
                 this.Add(new Wall(6, j));
+                wallCount++;
                 this.Add(new Wall(7, j));
+                wallCount++;
                 this.Add(new Wall(8, j));
+                wallCount++;
             }
             for (int j = 11; j < 16; j++)
             {
                 this.Add(new Wall(6, j));
+                wallCount++;
                 this.Add(new Wall(7, j));
+                wallCount++;
                 this.Add(new Wall(8, j));
+                wallCount++;
             }
             for (int j = 11; j < 16; j++)
             {
                 this.Add(new Wall(14, j));
+                wallCount++;
             }
             for (int j = 5; j < 9; j++)
             {
                 this.Add(new Wall(14, j));
+                wallCount++;
             }
             for (int j = 5; j < 16; j++)
             {
                 this.Add(new Wall(15, j));
+                wallCount++;
                 this.Add(new Wall(16, j));
+                wallCount++;
             }
 
             for (int i = 0; i < 29; i++)
             {
                 this.Add(new Wall(i, 0));
+                wallCount++;
                 this.Add(new Wall(i, 15));
+                wallCount++;
             }
             for (int i = 17; i < 23; i++)
             {
                 this.Add(new Wall(i, 5));
+                wallCount++;
                 this.Add(new Wall(i, 6));
+                wallCount++;
                 this.Add(new Wall(i, 7));
+                wallCount++;
             }
         }
 
