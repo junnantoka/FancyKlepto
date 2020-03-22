@@ -11,7 +11,7 @@ namespace FancyKlepto.GameStates
         MainGoal goal1 = new MainGoal(2, 2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
         Guard guard = new Guard();
-        Laser laser1 = new Laser(new Vector2(1,5),new Vector2(6,6), "spr_laser_pixel_green");
+        Laser laser1 = new Laser(new Vector2(1, 5), new Vector2(6, 6), "spr_laser_pixel_green");
 
         SwitchBoard switchboard1 = new SwitchBoard(14, 9);
         SwitchBoard switchboard2 = new SwitchBoard(14, 10);
@@ -46,16 +46,12 @@ namespace FancyKlepto.GameStates
                 switchboard2.Reset();
                 laser1.Reset();
             }
-            foreach (GameObject gameobject in Children)
+            /*foreach (GameObject gameobject in Children)
             {
                 if (gameobject is Player)
                 {
                     for (int i = 0; i < Children.Count; i++)
                     {
-                        if (Children[i] is Guard && gameobject.Overlaps(Children[i]))
-                        {
-                            player.Reset();
-                        }
                         if (Children[i] is MainGoal && gameobject.Overlaps(Children[i]))
                         {
                             if (inputHelper.IsKeyDown(Keys.Space))
@@ -153,13 +149,29 @@ namespace FancyKlepto.GameStates
                         }
                     }
                 }
-            }
+            }*/
         }
 
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime);
+            guardCollision();
+        }
+
+        public void guardCollision()
+        {
+            for (int i = 0; i < Children.Count; i++)
+            {
+                if (guard.Overlaps(player))
+                {
+                    player.Reset();
+                }
+            }
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
         }
 
         public void FloorSetup()

@@ -15,12 +15,13 @@ class Guard : GameObjectList
             if (i == 0)
             {
                 position.X = 250;
+                position.Y = 65;
             }
             if (i == 1)
             {
                 position.X = 780;
+                position.Y = 130;
             }
-            position.Y = 65 * i;
         }
         velocity = new Vector2(GameEnvironment.Random.Next(-20, 20), 0);
     }
@@ -30,7 +31,6 @@ class Guard : GameObjectList
         base.Update(gameTime);
         frameCounter++; //keep track of frames
         Movement();
-        BorderCollision();
     }
 
     public void Movement()
@@ -42,16 +42,8 @@ class Guard : GameObjectList
         }
     }
 
-    public void BorderCollision()
+    public bool Overlaps(SpriteGameObject other)
     {
-        //Collision with border of screen
-        if (position.X >= GameEnvironment.Screen.X - texture.Width)
-        {
-            velocity.X = -velocity.X;
-        }
-        if (position.X <= texture.Width)
-        {
-            velocity.X = -velocity.X;
-        }
+        return guard.Overlaps(other);
     }
 }
