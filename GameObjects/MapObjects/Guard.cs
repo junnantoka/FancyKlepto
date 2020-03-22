@@ -3,27 +3,22 @@ using FancyKlepto.GameObjects;
 
 class Guard : GameObjectList
 {
-    Map map = new Map("spr_1.3");
     int frameCounter = 0;
+    const int guards = 1;
     SpriteGameObject guard = new SpriteGameObject("spr_guard");
+    SpriteGameObject guard1 = new SpriteGameObject("spr_guard");
     public Guard()
     {
-        this.Add(guard);
-        this.Add(guard);
-        for (int i = 0; i < Children.Count; i++)
+        for (int i = 0; i < guards; i++)
         {
-            if (i == 0)
-            {
-                position.X = 250;
-                position.Y = 65;
-            }
-            if (i == 1)
-            {
-                position.X = 780;
-                position.Y = 130;
-            }
+            Add(guard);
+            Add(guard1);
         }
-        velocity = new Vector2(GameEnvironment.Random.Next(-20, 20), 0);
+
+        Reset();
+
+        guard.velocity.X = -150;
+        guard1.velocity.X = 150;
     }
 
     public override void Update(GameTime gameTime)
@@ -35,15 +30,25 @@ class Guard : GameObjectList
 
     public void Movement()
     {
-        if (frameCounter > 20)
+        if (frameCounter > 40)
         {
-            position.X += velocity.X;
+            position += velocity;
             frameCounter = 0;
         }
     }
 
     public bool Overlaps(SpriteGameObject other)
     {
-        return guard.Overlaps(other);
+        return guard.Overlaps(other) || guard1.Overlaps(other);
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        guard.position.X = 500;
+        guard.position.Y = 65;
+
+        guard1.position.X = 780;
+        guard1.position.Y = 130;
     }
 }

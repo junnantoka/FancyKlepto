@@ -160,7 +160,7 @@ namespace FancyKlepto.GameStates
 
         public void guardCollision()
         {
-            for (int i = 0; i < Children.Count; i++)
+            for (int i = 0; i < guard.Children.Count; i++)
             {
                 if (guard.Overlaps(player))
                 {
