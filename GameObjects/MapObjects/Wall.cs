@@ -1,24 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-class Wall : GameObjectList
+namespace FancyKlepto.GameObjects
 {
-    SpriteGameObject wall = new SpriteGameObject("spr_black_wall");
-    public Wall()
+    class Wall : GameObjectList
     {
-        for (int i = 0; i < 1; i++)
+        SpriteGameObject wall = new SpriteGameObject("spr_black_wall");
+        public Wall()
         {
-            this.Add(wall);
+            const int walls = 1;
+            for (int i = 0; i < walls; i++)
+            {
+                this.Add(wall);
+            }
+            Reset();
         }
-        Reset();
-    }
 
-    public override void Reset()
-    {
-        base.Reset();
-    }
+        public override void Reset()
+        {
+            base.Reset();
+        }
 
-    public bool Overlaps(SpriteGameObject other)
-    {
-        return wall.Overlaps(other);
+        public bool Overlaps(SpriteGameObject other)
+        {
+            return wall.Overlaps(other);
+        }
     }
 }

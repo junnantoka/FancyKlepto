@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using FancyKlepto.GameObjects;
 
 namespace FancyKlepto.GameStates
 {
@@ -157,6 +158,7 @@ namespace FancyKlepto.GameStates
         {
             base.Update(gameTime);
             guardCollision();
+            wallCollision();
         }
 
         public void guardCollision()
@@ -166,6 +168,17 @@ namespace FancyKlepto.GameStates
                 if (guard.Overlaps(player))
                 {
                     player.Reset();
+                }
+            }
+        }
+
+        public void wallCollision()
+        {
+            for (int i = 0; i < wall.Children.Count; i++)
+            {
+                if (wall.Overlaps(player))
+                {
+                    player.position = new Vector2(player.texture.Width, player.texture.Height);
                 }
             }
         }
