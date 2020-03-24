@@ -6,6 +6,7 @@ namespace FancyKlepto.GameObjects
     {
         int frameCounter = 0;
         const int guards = 1;
+        const int spacing = 65;
         SpriteGameObject guard = new SpriteGameObject("spr_guard");
         SpriteGameObject guard1 = new SpriteGameObject("spr_guard");
         public Guard()
@@ -18,8 +19,8 @@ namespace FancyKlepto.GameObjects
 
             Reset();
 
-            guard.velocity.X = -150;
-            guard1.velocity.X = 150;
+            guard.velocity.X = -250;
+            guard1.velocity.X = 250;
         }
 
         public override void Update(GameTime gameTime)
@@ -37,8 +38,16 @@ namespace FancyKlepto.GameObjects
         {
             if (frameCounter > 40)
             {
-                position += velocity;
+                position.X += velocity.X;
                 frameCounter = 0;
+            }
+
+            for (int i = 0; i < Children.Count; i++)
+            {
+                if (Children[i].position.X < 0 || Children[i].position.X > GameEnvironment.Screen.X - Children[i].texture.Width)
+                {
+                    Children[i].velocity.X = -Children[i].velocity.X;
+                }
             }
         }
 

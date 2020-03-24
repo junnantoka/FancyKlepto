@@ -8,10 +8,12 @@ namespace FancyKlepto.GameObjects
         SpriteGameObject wall = new SpriteGameObject("spr_black_wall");
         public Wall()
         {
-            const int walls = 1;
+            const int walls = 29;
+            const int spacing = 65;
             for (int i = 0; i < walls; i++)
             {
                 this.Add(wall);
+                Children[i].position.X = spacing * i;
             }
             Reset();
         }
@@ -20,6 +22,7 @@ namespace FancyKlepto.GameObjects
         {
             base.Reset();
         }
+
 
         public bool Overlaps(SpriteGameObject other)
         {
