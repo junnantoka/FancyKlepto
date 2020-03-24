@@ -1,16 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 
-class Wall : SpriteGameObject
+class Wall : GameObjectList
 {
-    public Wall(int x, int y) : base("spr_black_wall")
+    SpriteGameObject wall = new SpriteGameObject("spr_black_wall");
+    public Wall()
     {
+        for (int i = 0; i < 1; i++)
+        {
+            this.Add(wall);
+        }
         Reset();
-        position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
-        defPos = position;
     }
 
     public override void Reset()
     {
-        position = defPos;
+        base.Reset();
+    }
+
+    public bool Overlaps(SpriteGameObject other)
+    {
+        return wall.Overlaps(other);
     }
 }

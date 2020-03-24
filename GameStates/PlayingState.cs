@@ -12,6 +12,7 @@ namespace FancyKlepto.GameStates
         ExtraGoal goal2 = new ExtraGoal(19, 10);
         Guard guard = new Guard();
         Laser laser1 = new Laser(new Vector2(1, 5), new Vector2(6, 6), "spr_laser_pixel_green");
+        Wall wall = new Wall();
 
         SwitchBoard switchboard1 = new SwitchBoard(14, 9);
         SwitchBoard switchboard2 = new SwitchBoard(14, 10);
@@ -20,13 +21,13 @@ namespace FancyKlepto.GameStates
             this.Add(new SpriteGameObject("spr_background"));
             //gameObjectList.Add(new Map("spr_1.3"));
             FloorSetup();
-            WallSetup();
             VensterSetup();
 
             this.Add(goal1);
             this.Add(goal2);
             this.Add(player);
             this.Add(guard);
+            this.Add(wall);
             this.Add(switchboard1);
             this.Add(switchboard2);
             this.Add(laser1);
@@ -184,11 +185,11 @@ namespace FancyKlepto.GameStates
                 }
             }
         }
-        public void WallSetup()
+        /*public void WallSetup()
         {
             for (int j = 0; j < 16; j++)
             {
-                this.Add(new Wall(0, j));
+                this.Add(new Wall());
             }
             for (int j = 0; j < 16; j++)
             {
@@ -231,7 +232,7 @@ namespace FancyKlepto.GameStates
                 this.Add(new Wall(i, 6));
                 this.Add(new Wall(i, 7));
             }
-        }
+        }*/
 
         public void VensterSetup()
         {
