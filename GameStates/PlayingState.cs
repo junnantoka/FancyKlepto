@@ -178,7 +178,7 @@ namespace FancyKlepto.GameStates
             {
                 if (wall.Overlaps(player))
                 {
-                    player.position = new Vector2(wall.Children[i].position.X, wall.Children[i].texture.Height);
+                    player.position = new Vector2(wall.Children[i].position.X, wall.Children[i].position.Y + player.texture.Height);
                 }
             }
         }
