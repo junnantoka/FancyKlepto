@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="FancyKlepto.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameManagement\Collision.cs" />
     <Compile Include="GameManagement\GameEnvironment.cs" />
     <Compile Include="GameManagement\GameObject.cs" />
     <Compile Include="GameManagement\GameObjectList.cs" />

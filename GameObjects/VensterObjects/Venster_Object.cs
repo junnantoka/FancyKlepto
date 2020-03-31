@@ -18,7 +18,6 @@ class Venster_Object : SpriteGameObject
     }
     public override void Update(GameTime gameTime)
     {
-        Console.WriteLine(position);
         base.Update(gameTime);
         Move();
     }

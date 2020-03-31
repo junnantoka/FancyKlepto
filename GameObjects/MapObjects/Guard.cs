@@ -49,7 +49,7 @@ class Guard : GameObjectList
         {
             velocity.X = -velocity.X;
         }
-        if (position.X <= texture.Width)
+        if (position.X <= 0)
         {
             velocity.X = -velocity.X;
         }

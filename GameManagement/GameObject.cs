@@ -55,6 +55,13 @@ class GameObject
             }
         }
     }
+    public virtual Rectangle BoundingBox
+    {
+        get
+        {
+            return new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, 0, 0);
+        }
+    }
     public bool Overlaps(GameObject other)
     {
         if (visible)

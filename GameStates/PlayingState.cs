@@ -10,26 +10,24 @@ namespace FancyKlepto.GameStates
         Player player = new Player(3, 13);
         MainGoal goal1 = new MainGoal(2, 2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
-        Guard guard = new Guard();
-        Laser laser1 = new Laser(new Vector2(1,5),new Vector2(6,6), "spr_laser_pixel_green");
-
+        Laser laser1 = new Laser(new Vector2(1, 6), new Vector2(6, 5), "spr_laser_pixel_green");
+        Laser laser2 = new Laser(new Vector2(23, 7), new Vector2(28, 12), "spr_laser_pixel_purple");
         SwitchBoard switchboard1 = new SwitchBoard(14, 9);
         SwitchBoard switchboard2 = new SwitchBoard(14, 10);
         public PlayingState()
         {
             this.Add(new SpriteGameObject("spr_background"));
-            //gameObjectList.Add(new Map("spr_1.3"));
             FloorSetup();
+            this.Add(laser1);
+            this.Add(laser2);
             WallSetup();
             VensterSetup();
 
             this.Add(goal1);
             this.Add(goal2);
             this.Add(player);
-            this.Add(guard);
             this.Add(switchboard1);
             this.Add(switchboard2);
-            this.Add(laser1);
             //Map
         }
 
@@ -39,117 +37,92 @@ namespace FancyKlepto.GameStates
             if (inputHelper.KeyPressed(Keys.R))
             {
                 player.Reset();
-                guard.Reset();
                 goal1.Reset();
                 goal2.Reset();
                 switchboard1.Reset();
                 switchboard2.Reset();
                 laser1.Reset();
+                laser2.Reset();
             }
-            foreach (GameObject gameobject in Children)
+            foreach (SpriteGameObject gameobject1 in Children)
             {
-                if (gameobject is Player)
+                foreach (SpriteGameObject gameobject2 in Children)
                 {
-                    for (int i = 0; i < Children.Count; i++)
+                    if (gameobject1 is Player)
                     {
-                        if (Children[i] is Guard && gameobject.Overlaps(Children[i]))
-                        {
-                            player.Reset();
-                        }
-                        if (Children[i] is MainGoal && gameobject.Overlaps(Children[i]))
+                        if (gameobject2 is MainGoal && gameobject1.Overlaps(gameobject2))
                         {
                             if (inputHelper.IsKeyDown(Keys.Space))
                             {
-                                Children[i].position.X = player.position.X + player.texture.Width / 2 - Children[i].texture.Width / 2;
-                                Children[i].position.Y = player.position.Y + player.texture.Height / 2 - Children[i].texture.Height / 2;
+                                gameobject2.position.X = player.position.X + player.texture.Width / 2 - gameobject2.texture.Width / 2;
+                                gameobject2.position.Y = player.position.Y + player.texture.Height / 2 - gameobject2.texture.Height / 2;
                             }
                         }
-                        if (Children[i] is ExtraGoal && gameobject.Overlaps(Children[i]))
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        if (gameobject2 is ExtraGoal && gameobject1.Overlaps(gameobject2))
                         {
                             if (inputHelper.IsKeyDown(Keys.Space))
                             {
-                                Children[i].position.X = player.position.X + player.texture.Width / 2 - Children[i].texture.Width / 2;
-                                Children[i].position.Y = player.position.Y + player.texture.Height / 2 - Children[i].texture.Height / 2;
+                                gameobject2.position.X = player.position.X + player.texture.Width / 2 - gameobject2.texture.Width / 2;
+                                gameobject2.position.Y = player.position.Y + player.texture.Height / 2 - gameobject2.texture.Height / 2;
                             }
                         }
-                        if (Children[i] is SwitchBoard && gameobject.Overlaps(Children[i]))
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        if (gameobject2 is SwitchBoard)
                         {
-                            if (inputHelper.KeyPressed(Keys.Space))
+                            foreach (GameObject venster in Children)
                             {
-                                for (int j = 0; j < Children.Count; j++)
+                                if (venster is Venster_Object)
                                 {
-                                    if (Children[j] is Venster_Object)
+                                    if (gameobject1.Overlaps(gameobject2))
                                     {
-                                        Children[j].open = true;
+                                        if (inputHelper.KeyPressed(Keys.Space))
+                                        {
+                                                venster.open = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        venster.open = false;
                                     }
                                 }
                             }
-                        } else if (Children[i] is SwitchBoard && !gameobject.Overlaps(Children[i]))
-                        {
-                            for (int j = 0; j < Children.Count; j++)
-                            {
-                                if (Children[j] is Venster_Object)
-                                {
-                                    Children[j].open = false;
-                                }
-                            }
                         }
-
-                        if (Children[i] is Wall)
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        if (gameobject2 is Wall && gameobject1.Overlaps(gameobject2))
                         {
-                            Vector2 wallPos = Children[i].position;
-                            Texture2D wallTex = Children[i].texture;
-                            //horizontal
-                            if (wallPos.X > player.position.X && gameobject.Overlaps(Children[i]))
+                            Vector2 wallPos = gameobject2.position;
+                            Texture2D wallTex = gameobject2.texture;
+                            //////////////////////////////////////////////////////////////////////                  horizontal
+                            if (wallPos.X > player.position.X && gameobject1.Overlaps(gameobject2))
                             {
                                 player.position.X -= Math.Abs(player.velocity.X);
-                                player.moveRight = false;
                                 player.velocity.X = 0;
                             }
-                            else if (player.position.X + player.texture.Width + unitSpacing < wallPos.X)
-                            {
-                                player.moveRight = true;
-                            }
-                            ////////////////////////////////////////////////////////////////////
-                            if (wallPos.X < player.position.X && gameobject.Overlaps(Children[i]))
+                            if (wallPos.X < player.position.X && gameobject1.Overlaps(gameobject2))
                             {
                                 player.position.X += Math.Abs(player.velocity.X);
-                                player.moveLeft = false;
                                 player.velocity.X = 0;
                             }
-                            else if (player.position.X > wallPos.X + wallTex.Width + unitSpacing)
-                            {
-                                player.moveLeft = true;
-                            }
-                            ////////////////////////////////////////////////////////////////////
-                            //vertical
-                            if (wallPos.Y < player.position.Y && gameobject.Overlaps(Children[i]))
+                            //////////////////////////////////////////////////////////////////////                  vertical
+                            if (wallPos.Y < player.position.Y && gameobject1.Overlaps(gameobject2))
                             {
                                 player.position.Y += Math.Abs(player.velocity.Y);
-                                player.moveUp = false;
                                 player.velocity.Y = 0;
                             }
-                            else if (player.position.Y > wallPos.X + wallTex.Height + unitSpacing)
-                            {
-                                player.moveUp = true;
-                            }
-                            ////////////////////////////////////////////////////////////////////
-                            if (wallPos.Y > player.position.Y && gameobject.Overlaps(Children[i]))
+                            if (wallPos.Y > player.position.Y && gameobject1.Overlaps(gameobject2))
                             {
                                 player.position.Y -= Math.Abs(player.velocity.Y);
-                                player.moveDown = false;
                                 player.velocity.Y = 0;
                             }
-                            else if (player.position.Y + player.texture.Height + unitSpacing < wallPos.Y)
-                            {
-                                player.moveDown = true;
-                            }
-                            ////////////////////////////////////////////////////////////////////
                         }
-
-                        if(Children[i] is Laser)
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        if(gameobject2 is Laser)
                         {
-
+                            if (Collision.LineRect(gameobject2.position,gameobject2.position2,player.BoundingBox))
+                            {
+                                player.Reset();
+                            }
                         }
                     }
                 }
