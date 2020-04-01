@@ -45,16 +45,16 @@ namespace FancyKlepto.GameStates
             this.Add(switchboards);
             this.Add(guards);
             this.Add(vensters);
-
+            this.Add(thePlayer);
+            
             goals.Add(new ExtraGoal(19, 10));
             guards.Add(new Guard(new Vector2(65, 65), new Vector2(GameEnvironment.Screen.X, 65)));
-            //lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), "spr_laser_pixel_green"));
+            lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), "spr_laser_pixel_green"));
             //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), "spr_laser_pixel_purple"));
-            switchboards.Add(new SwitchBoard(14, 9));
+            switchboards.Add(new SwitchBoard(14, 10));
 
             FloorSetup();
             WallSetup();
-            this.Add(thePlayer);
             VensterSetup();
         }
 
@@ -129,6 +129,13 @@ namespace FancyKlepto.GameStates
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            foreach(Laser laser in lasers.Children)
+            {
+                if (Collision.LineRect(laser.Position,laser.position2,thePlayer.BoundingBox))
+                {
+                    thePlayer.Reset();
+                }
+            }
         }
 
         public override void Update(GameTime gameTime)

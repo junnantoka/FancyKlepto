@@ -125,7 +125,7 @@ class Player : SpriteGameObject
     public void Collision(SpriteGameObject pObject)
     {
         Vector2 wallPos = pObject.Position;
-        Texture2D wallTex = pObject.texture;
+        
         if (pObject is Wall)
         {
             if (wallPos.X > position.X && CollidesWith(pObject))
@@ -150,11 +150,6 @@ class Player : SpriteGameObject
                 position.Y -= Math.Abs(velocity.Y);
                 velocity.Y = 0;
             }
-        }
-
-        if(pObject is SwitchBoard)
-        {
-
         }
     }
 }

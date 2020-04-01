@@ -12,7 +12,6 @@ public abstract class GameObject : IGameLoopObject
     public int unitSize;
     public int unitSpacing;
     public Vector2 defPos;
-    public Texture2D texture;
     public bool open;
 
     public GameObject(int layer = 0, string id = "")

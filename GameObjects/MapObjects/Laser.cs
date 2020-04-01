@@ -7,11 +7,14 @@ class Laser : SpriteGameObject
     private bool Active;
     private float angle;
     private float radius;
+    private Texture2D texture;
     public Vector2 position2;
     public Laser(Vector2 position, Vector2 position2, string assetName) : base(assetName)
     {
         this.position = new Vector2(position.X * (unitSize + unitSpacing), position.Y * (unitSize + unitSpacing));
         this.position2 = new Vector2(position2.X * (unitSize + unitSpacing), position2.Y * (unitSize + unitSpacing));
+
+        texture = GameEnvironment.AssetManager.GetSprite(assetName);
     }
 
     public override void Update(GameTime gameTime)
