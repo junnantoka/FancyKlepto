@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace FancyKlepto.GameObjects
 {
@@ -6,18 +7,18 @@ namespace FancyKlepto.GameObjects
     {
         int frameCounter = 0;
         const int guards = 1;
-        public Vector2 B;
+        public Vector2 positionA, positionB;
         SpriteGameObject guard = new SpriteGameObject("spr_guard");
-        public Guard(float A, float B, float C, float D)
+        public Guard(Vector2 positionA, Vector2 positionB)
         {
             for (int i = 0; i < guards; i++)
             {
                 Add(guard);
             }
-
-            Reset();
-            position = new Vector2(A, B);
-            this.B = new Vector2(C, D);
+            position = positionA;
+            this.positionA = positionA;
+            this.positionB = positionB;
+            this.velocity.X = 65;
         }
 
         public override void Update(GameTime gameTime)
@@ -25,22 +26,15 @@ namespace FancyKlepto.GameObjects
             base.Update(gameTime);
             frameCounter++; //keep track of frames
 
-            Movement();
-            if ((!guard.position.Equals(position) || !guard.position.Equals(B)) && frameCounter > 40)
+            if (position.X > positionA.X && position.X < positionB.X && frameCounter > 60)
             {
-                position.X += velocity.X;
+                Console.WriteLine(velocity);
+                position += velocity;
                 frameCounter = 0;
             }
-        }
-
-        public void Movement()
-        {
-            for (int i = 0; i < Children.Count; i++)
+            else
             {
-                if (Children[i].position.X < 0 || Children[i].position.X > GameEnvironment.Screen.X - Children[i].texture.Width)
-                {
-                    Children[i].velocity.X = -Children[i].velocity.X;
-                }
+                velocity = -velocity;
             }
         }
 
