@@ -26,7 +26,7 @@ namespace FancyKlepto.GameObjects
                 position += velocity;
                 frameCounter = 0;
             }
-            if (position.X < 0 || position.X > GameEnvironment.Screen.X - texture.Width)
+            if (position.X < 0 || position.X > GameEnvironment.Screen.X - sprite.Width)
             {
                 velocity = -velocity;
             }

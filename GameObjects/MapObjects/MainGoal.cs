@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+
 class MainGoal : SpriteGameObject
 {
+    public bool hold;
     public MainGoal(int x, int y) : base("spr_maingoal")
     {
         Reset();
@@ -10,5 +12,10 @@ class MainGoal : SpriteGameObject
     public override void Reset()
     {
         position = defPos;
+        hold = false;
+    }
+    public void Hold(SpriteGameObject pObject)
+    {
+        position = pObject.Center;
     }
 }

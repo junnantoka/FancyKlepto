@@ -41,8 +41,8 @@ class Player : SpriteGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
-        position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
+        position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - sprite.Width);
+        position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - sprite.Height);
         currentKeyboardState = Keyboard.GetState();
     }
 
@@ -124,35 +124,37 @@ class Player : SpriteGameObject
 
     public void Collision(SpriteGameObject pObject)
     {
-        //Collision.PixelCollision(texture, pObject.texture, BoundingBox, pObject.BoundingBox);
-
         Vector2 wallPos = pObject.Position;
         Texture2D wallTex = pObject.texture;
-        if (CollidesWith(pObject))
+        if (pObject is Wall)
+        {
+            if (wallPos.X > position.X && CollidesWith(pObject))
+            {
+                position.X -= Math.Abs(Velocity.X);
+                velocity.X = 0;
+            }
+
+            if (wallPos.X < position.X && CollidesWith(pObject))
+            {
+                position.X += Math.Abs(velocity.X);
+                velocity.X = 0;
+            }
+            //////////////////////////////////////////////////////////////////////                  vertical
+            if (wallPos.Y < position.Y && CollidesWith(pObject))
+            {
+                position.Y += Math.Abs(velocity.Y);
+                velocity.Y = 0;
+            }
+            if (wallPos.Y > position.Y && CollidesWith(pObject))
+            {
+                position.Y -= Math.Abs(velocity.Y);
+                velocity.Y = 0;
+            }
+        }
+
+        if(pObject is SwitchBoard)
         {
 
-        }
-        if (wallPos.X > Position.X && Overlaps(wall))
-        {
-            position.X -= Math.Abs(Velocity.X);
-            velocity.X = 0;
-        }
-
-        if (wallPos.X < position.X && Overlaps(pObject))
-        {
-            position.X += Math.Abs(velocity.X);
-            velocity.X = 0;
-        }
-        //////////////////////////////////////////////////////////////////////                  vertical
-        if (wallPos.Y < position.Y && Overlaps(pObject))
-        {
-            position.Y += Math.Abs(velocity.Y);
-            velocity.Y = 0;
-        }
-        if (wallPos.Y > position.Y && Overlaps(pObject))
-        {
-            position.Y -= Math.Abs(velocity.Y);
-            velocity.Y = 0;
         }
     }
 }

@@ -22,6 +22,8 @@ public abstract class GameObject : IGameLoopObject
         position = Vector2.Zero;
         velocity = Vector2.Zero;
         visible = true;
+        unitSize = 64;
+        unitSpacing = 1;
     }
 
     public virtual void HandleInput(InputHelper inputHelper)
