@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+
 public class InputHelper
 {
     protected MouseState currentMouseState, previousMouseState;

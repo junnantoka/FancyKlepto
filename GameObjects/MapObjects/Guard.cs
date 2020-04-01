@@ -1,57 +1,52 @@
 ﻿using Microsoft.Xna.Framework;
-using FancyKlepto.GameObjects;
+using System;
 
-class Guard : GameObjectList
+namespace FancyKlepto.GameObjects
 {
-    Map map = new Map("spr_1.3");
-    int frameCounter = 0;
-    SpriteGameObject guard = new SpriteGameObject("spr_guard");
-    public Guard()
+    class Guard : SpriteGameObject
     {
-        this.Add(guard);
-        this.Add(guard);
-        for (int i = 0; i < Children.Count; i++)
+        int frameCounter = 0;
+        const int guards = 1;
+        public Vector2 positionA, positionB;
+        public Guard(Vector2 positionA, Vector2 positionB) : base("spr_guard");
         {
-            if (i == 0)
+            for (int i = 0; i < guards; i++)
             {
-                position.X = 250;
+                Add(guard);
+                velocity = new Vector2(GameEnvironment.Random.Next(-100, 100), 0);
             }
-            if (i == 1)
+            position = positionA;
+            this.positionA = positionA;
+            this.positionB = positionB;
+
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            frameCounter++; //keep track of frames
+
+            if (position.X > positionA.X && position.X < positionB.X && frameCounter > 60)
             {
-                position.X = 780;
+                position += velocity;
+                frameCounter = 0;
             }
-            position.Y = 65 * i;
+            if (position.X < 0 || position.X > GameEnvironment.Screen.X - guard.texture.Width)
+            {
+                velocity = -velocity;
+            }
         }
-        velocity = new Vector2(GameEnvironment.Random.Next(-20, 20), 0);
-    }
 
-    public override void Update(GameTime gameTime)
-    {
-        base.Update(gameTime);
-        frameCounter++; //keep track of frames
-        Movement();
-        BorderCollision();
-    }
-
-    public void Movement()
-    {
-        if (frameCounter > 20)
+        public bool Overlaps(SpriteGameObject other)
         {
-            position.X += velocity.X;
-            frameCounter = 0;
+            return guard.Overlaps(other);
         }
-    }
 
-    public void BorderCollision()
-    {
-        //Collision with border of screen
-        if (position.X >= GameEnvironment.Screen.X - texture.Width)
+        public override void Reset()
         {
-            velocity.X = -velocity.X;
-        }
-        if (position.X <= 0)
-        {
-            velocity.X = -velocity.X;
+            base.Reset();
+            this.position = positionA;
+            velocity = new Vector2(0, 0);
         }
     }
 }

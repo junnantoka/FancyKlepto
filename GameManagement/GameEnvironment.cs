@@ -1,26 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-class GameEnvironment : Game
+
+public class GameEnvironment : Game
 {
     protected GraphicsDeviceManager graphics;
     protected SpriteBatch spriteBatch;
-    static protected ContentManager content;
-    protected static Point screen;
-    protected static Random random;
     protected InputHelper inputHelper;
-    static protected List<GameObject> gameStateList;
-    static protected GameObject currentGameState;
+    protected Matrix spriteScale;
+    protected Point windowSize;
+
+    protected static Point screen;
+    protected static GameStateManager gameStateManager;
+    protected static Random random;
+    protected static AssetManager assetManager;
+    protected static GameSettingsManager gameSettingsManager;
+
+    public GameEnvironment()
+    {
+        graphics = new GraphicsDeviceManager(this);
+        Content.RootDirectory = "Content";
+        inputHelper = new InputHelper();
+        gameStateManager = new GameStateManager();
+        spriteScale = Matrix.CreateScale(1, 1, 1);
+        random = new Random();
+        assetManager = new AssetManager(Content);
+        gameSettingsManager = new GameSettingsManager();
+    }
 
     public static Point Screen
     {
         get { return screen; }
+        set { screen = value; }
     }
 
     public static Random Random
@@ -28,36 +40,72 @@ class GameEnvironment : Game
         get { return random; }
     }
 
-    public static ContentManager ContentManager
+    public static AssetManager AssetManager
     {
-        get { return content; }
+        get { return assetManager; }
     }
 
-    static public void SwitchTo(int gameStateIndex)
+    public static GameStateManager GameStateManager
     {
-        if (gameStateIndex >= 0 && gameStateIndex < gameStateList.Count)
-            currentGameState = gameStateList[gameStateIndex];
+        get { return gameStateManager; }
     }
 
-    public GameEnvironment()
+    public static GameSettingsManager GameSettingsManager
     {
-        graphics = new GraphicsDeviceManager(this);
-        inputHelper = new InputHelper();
-        Content.RootDirectory = "Content";
-        content = Content;
-        gameStateList = new List<GameObject>();
-        random = new Random();
+        get { return gameSettingsManager; }
     }
 
-    public void ApplyResolutionSettings()
+    public bool FullScreen
     {
-        graphics.PreferredBackBufferWidth = screen.X;
-        graphics.PreferredBackBufferHeight = screen.Y;
-        graphics.ApplyChanges();
+        get { return graphics.IsFullScreen; }
+        set
+        {
+            ApplyResolutionSettings(value);
+        }
+    }
+
+    public void ApplyResolutionSettings(bool fullScreen = false)
+    {
+        if (!fullScreen)
+        {
+            graphics.PreferredBackBufferWidth = screen.X;
+            graphics.PreferredBackBufferHeight = screen.Y;
+            graphics.IsFullScreen = false;
+            graphics.ApplyChanges();
+        }
+        else
+        {
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+        }
+
+        float targetAspectRatio = (float)screen.X / (float)screen.Y;
+        int width = graphics.PreferredBackBufferWidth;
+        int height = (int)(width / targetAspectRatio);
+        if (height > graphics.PreferredBackBufferHeight)
+        {
+            height = graphics.PreferredBackBufferHeight;
+            width = (int)(height * targetAspectRatio);
+        }
+
+        Viewport viewport = new Viewport();
+        viewport.X = (graphics.PreferredBackBufferWidth / 2) - (width / 2);
+        viewport.Y = (graphics.PreferredBackBufferHeight / 2) - (height / 2);
+        viewport.Width = width;
+        viewport.Height = height;
+        GraphicsDevice.Viewport = viewport;
+
+        inputHelper.Scale = new Vector2((float)GraphicsDevice.Viewport.Width / screen.X,
+                                        (float)GraphicsDevice.Viewport.Height / screen.Y);
+        inputHelper.Offset = new Vector2(viewport.X, viewport.Y);
+        spriteScale = Matrix.CreateScale(inputHelper.Scale.X, inputHelper.Scale.Y, 1);
     }
 
     protected override void LoadContent()
     {
+        DrawingHelper.Initialize(this.GraphicsDevice);
         spriteBatch = new SpriteBatch(GraphicsDevice);
     }
 
@@ -68,30 +116,24 @@ class GameEnvironment : Game
         {
             Exit();
         }
-
-        if (currentGameState != null)
-            currentGameState.HandleInput(inputHelper);
-    }
-
-    protected override void Draw(GameTime gameTime)
-    {
-        spriteBatch.Begin();
-
-        if (currentGameState != null)
-            currentGameState.Draw(spriteBatch);
-
-        spriteBatch.End();
-
-        base.Draw(gameTime);
+        if (inputHelper.KeyPressed(Keys.F5))
+        {
+            FullScreen = !FullScreen;
+        }
+        gameStateManager.HandleInput(inputHelper);
     }
 
     protected override void Update(GameTime gameTime)
     {
         HandleInput();
+        gameStateManager.Update(gameTime);
+    }
 
-        if (currentGameState != null)
-            currentGameState.Update(gameTime);
-
-        base.Update(gameTime);
+    protected override void Draw(GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.Black);
+        spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, spriteScale);
+        gameStateManager.Draw(gameTime, spriteBatch);
+        spriteBatch.End();
     }
 }

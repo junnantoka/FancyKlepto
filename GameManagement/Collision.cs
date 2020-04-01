@@ -162,20 +162,5 @@ public class Collision
     {
         return false;
     }
-
-    public static bool LinePoint(Vector2 position1, Vector2 position2, Vector2 point)
-    {
-        float d1 = MathHelper.Distance();
-        float d2 = MathHelper.Distance();
-
-        float lineLen = MathHelper.Distance();
-
-        float buffer = 0.1f;
-        if(d1+d2 >= lineLen-buffer && d1+d2 <= lineLen + buffer)
-        {
-            return true;
-        }
-        return false;
-    }
 }
 

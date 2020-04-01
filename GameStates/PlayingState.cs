@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using FancyKlepto.GameObjects;
 
 namespace FancyKlepto.GameStates
 {
@@ -10,6 +11,7 @@ namespace FancyKlepto.GameStates
         Player player = new Player(3, 13);
         MainGoal goal1 = new MainGoal(2, 2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
+        Guard guard = new Guard(new Vector2(65, 65), new Vector2(GameEnvironment.Screen.X, 65));
         Laser laser1 = new Laser(new Vector2(1, 6), new Vector2(6, 5), "spr_laser_pixel_green");
         Laser laser2 = new Laser(new Vector2(23, 7), new Vector2(28, 12), "spr_laser_pixel_purple");
         SwitchBoard switchboard1 = new SwitchBoard(14, 9);
@@ -23,6 +25,7 @@ namespace FancyKlepto.GameStates
             WallSetup();
             VensterSetup();
 
+            this.Add(guard);
             this.Add(goal1);
             this.Add(goal2);
             this.Add(player);
@@ -44,12 +47,14 @@ namespace FancyKlepto.GameStates
                 laser1.Reset();
                 laser2.Reset();
             }
-            foreach (SpriteGameObject gameobject1 in Children)
+    
+            foreach (GameObjectList gameobject1 in Children)
             {
-                foreach (SpriteGameObject gameobject2 in Children)
+                foreach (GameObjectList gameobject2 in Children)
                 {
                     if (gameobject1 is Player)
                     {
+                    
                         if (gameobject2 is MainGoal && gameobject1.Overlaps(gameobject2))
                         {
                             if (inputHelper.IsKeyDown(Keys.Space))
@@ -117,13 +122,13 @@ namespace FancyKlepto.GameStates
                             }
                         }
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        if(gameobject2 is Laser)
-                        {
-                            if (Collision.LineRect(gameobject2.position,gameobject2.position2,player.BoundingBox))
-                            {
-                                player.Reset();
-                            }
-                        }
+                        //if(gameobject2 is Laser)
+                        //{
+                        //    if (Collision.LineRect(gameobject2.position,gameobject2.position2,player.BoundingBox))
+                        //    {
+                        //        player.Reset();
+                        //    }
+                        //}
                     }
                 }
             }
@@ -131,8 +136,19 @@ namespace FancyKlepto.GameStates
 
         public override void Update(GameTime gameTime)
         {
-
+            CollisionChecker();
             base.Update(gameTime);
+        }
+
+        public void CollisionChecker()
+        {
+            for (int i = 0; i < guard.Children.Count; i++)
+            {
+                if (guard.Overlaps(player))
+                {
+                    player.Reset();
+                }
+            }
         }
 
         public void FloorSetup()

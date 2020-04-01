@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using FancyKlepto.GameStates;
 
@@ -6,21 +7,21 @@ namespace FancyKlepto
 {
     class Fancy_Klepto : GameEnvironment
     {
-        int state = 0;
-
         protected override void LoadContent()
         {
             base.LoadContent();
-            graphics.IsFullScreen = false;
-            gameStateList.Add(new StartState());
-            gameStateList.Add(new PlayingState());
-            gameStateList.Add(new EndStateWon());
-            gameStateList.Add(new EndStateLost());
+
 
             screen = new Point(1920, 1080);
             ApplyResolutionSettings();
 
-            GameEnvironment.SwitchTo(state);
+            graphics.IsFullScreen = false;
+            GameStateManager.AddGameState("StartState", new StartState());
+            GameStateManager.AddGameState("PlayingSate", new PlayingState());
+            GameStateManager.AddGameState("EndStateWon", new EndStateWon());
+            GameStateManager.AddGameState("EndStateLost", new EndStateLost());
+
+            GameStateManager.SwitchTo("StartState");
         }
 
         protected override void Update(GameTime gameTime)
@@ -28,9 +29,7 @@ namespace FancyKlepto
             base.Update(gameTime);
             if (inputHelper.KeyPressed(Keys.Enter))
             {
-                state++;
-                GameEnvironment.SwitchTo(state);
-                state = 0;
+                GameStateManager.SwitchTo("PlayingState");
             }
         }
 
