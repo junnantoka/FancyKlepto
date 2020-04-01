@@ -48,7 +48,7 @@ namespace FancyKlepto.GameStates
             this.Add(thePlayer);
             
             goals.Add(new ExtraGoal(19, 10));
-            guards.Add(new Guard(new Vector2(65, 65), new Vector2(GameEnvironment.Screen.X, 65)));
+            guards.Add(new Guard(new Vector2(10, 2), new Vector2(25, 2)));
             lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), "spr_laser_pixel_green"));
             //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), "spr_laser_pixel_purple"));
             switchboards.Add(new SwitchBoard(14, 10));
@@ -134,6 +134,39 @@ namespace FancyKlepto.GameStates
                 if (Collision.LineRect(laser.Position,laser.position2,thePlayer.BoundingBox))
                 {
                     thePlayer.Reset();
+                }
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            foreach(Guard guard in guards.Children)
+            {
+                foreach(Wall wall in walls.Children)
+                {
+                    if (guard.CollidesWith(wall))
+                    {
+                        if (guard.Position.Y > wall.Position.Y)
+                        {
+                            guard.Up = false;
+                        }
+                        else guard.Up = true;
+
+                        if (guard.Position.Y < wall.Position.Y)
+                        {
+                            guard.Down = false;
+                        }
+                        else guard.Down = true;
+
+                        if (guard.Position.X > wall.Position.X)
+                        {
+                            guard.Left = false;
+                        }
+                        else guard.Left = true;
+
+                        if (guard.Position.X < wall.Position.X)
+                        {
+                            guard.Right = false;
+                        }
+                        else guard.Right = true;
+                    }
                 }
             }
         }

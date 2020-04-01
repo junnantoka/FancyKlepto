@@ -22,7 +22,7 @@ namespace FancyKlepto
 
             GameStateManager.SwitchTo("PlayingSate");
 
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
         }
     }
 }

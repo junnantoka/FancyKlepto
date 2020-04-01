@@ -5,43 +5,101 @@ namespace FancyKlepto.GameObjects
 {
     class Guard : SpriteGameObject
     {
-        int frameCounter = 0;
-        const int guards = 1;
         public Vector2 positionA, positionB;
+
+        public bool Right, Left, Up, Down;
+        bool forward;
         public Guard(Vector2 positionA, Vector2 positionB) : base("spr_guard")
         {
-            position = positionA;
+
+            position = new Vector2(18 + positionA.X * (unitSize + unitSpacing), 10 + positionA.Y * (unitSize + unitSpacing));
+
             this.positionA = positionA;
             this.positionB = positionB;
 
+            Reset();
+        }
+        public override void Reset()
+        {
+            forward = true;
+            Right = true;
+            Left = true;
+            Up = true;
+            Down = true;
+            velocity = new Vector2(5, 5);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            frameCounter++; //keep track of frames
-
-            if (position.X > positionA.X && position.X < positionB.X && frameCounter > 60)
-            {
-                position += velocity;
-                frameCounter = 0;
-            }
-            if (position.X < 0 || position.X > GameEnvironment.Screen.X - sprite.Width)
-            {
-                velocity = -velocity;
-            }
+            Move();
         }
 
-        public bool Overlaps(SpriteGameObject other)
+        public void Move()
         {
-            return Overlaps(other);
-        }
+            if (forward)
+            {
+                if (position.X > positionB.X && Right)
+                {
+                    position.X -= velocity.X;
+                } else if (!Right)
+                {
+                    position.X += velocity.X;
+                }
 
-        public override void Reset()
-        {
-            base.Reset();
-            this.position = positionA;
-            velocity = new Vector2(0, 0);
+                if (position.Y > positionB.Y && Up)
+                {
+                    position.Y -= velocity.Y;
+                } else if (!Up)
+                {
+                    position.Y += velocity.Y;
+                }
+            } else if (!forward)
+            {
+
+            }
+            
+            /*
+            if (forward)
+            {
+                if (positionB.X > position.X && Right)
+                {
+                    position.X += velocity.X;
+                }
+                else if (positionB.X < position.X && Left)
+                {
+                    position.X -= velocity.X;
+                }
+
+                if (positionB.Y > position.Y && Down)
+                {
+                    position.Y += velocity.Y;
+                }
+                else if (positionB.Y < position.Y && Up)
+                {
+                    position.X -= velocity.Y;
+                }
+            }
+            else if (!forward)
+            {
+                if (positionA.X > position.X && Right)
+                {
+                    position.X += velocity.X;
+                }
+                else if (positionA.X < position.X && Left)
+                {
+                    position.X -= velocity.X;
+                }
+
+                if (positionA.Y > position.Y && Down)
+                {
+                    position.Y += velocity.Y;
+                }
+                else if (positionA.Y < position.Y && Up)
+                {
+
+                }
+            }*/
         }
     }
 }

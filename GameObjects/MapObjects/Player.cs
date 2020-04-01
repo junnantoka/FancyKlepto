@@ -19,7 +19,7 @@ class Player : SpriteGameObject
     {
         velocityVelocity = new Vector2(0.6f, 0.6f);
         stopVelocity = 2;
-        position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
+        position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
         defPos = position;
         maxVelocity = new Vector2(5, 5);
         zeroVelocity = new Vector2(0, 0);
@@ -49,7 +49,9 @@ class Player : SpriteGameObject
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);
+
         position += velocity;
+
         if (inputHelper.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
         {
             velocity.X -= velocityVelocity.X;
