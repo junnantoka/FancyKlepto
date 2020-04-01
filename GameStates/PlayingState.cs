@@ -11,12 +11,14 @@ namespace FancyKlepto.GameStates
         Player player = new Player(3, 13);
         MainGoal goal1 = new MainGoal(2, 2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
-        Guard guard = new Guard(new Vector2(65, 65), new Vector2(965, 65));
+        Guard guard = new Guard(new Vector2(65, 65), new Vector2(GameEnvironment.Screen.X, 65));
         Laser laser1 = new Laser(new Vector2(1, 5), new Vector2(6, 6), "spr_laser_pixel_green");
         Wall wall = new Wall();
 
         SwitchBoard switchboard1 = new SwitchBoard(14, 9);
         SwitchBoard switchboard2 = new SwitchBoard(14, 10);
+
+        public int score = 0;
         public PlayingState()
         {
             this.Add(new SpriteGameObject("spr_background"));
@@ -48,6 +50,10 @@ namespace FancyKlepto.GameStates
                 switchboard1.Reset();
                 switchboard2.Reset();
                 laser1.Reset();
+            }
+            if (inputHelper.KeyPressed(Keys.Space))
+            {
+                Goals();
             }
             /*foreach (GameObject gameobject in Children)
             {
@@ -160,6 +166,14 @@ namespace FancyKlepto.GameStates
             base.Update(gameTime);
             guardCollision();
             wallCollision();
+        }
+
+        public void Goals()
+        {
+            if (player.Overlaps(goal1) || player.Overlaps(goal2))
+            {
+                score;
+            }
         }
 
         public void guardCollision()

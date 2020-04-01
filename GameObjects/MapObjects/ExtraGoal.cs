@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 class ExtraGoal : SpriteGameObject
 {
+    public const int score = 50;
     public ExtraGoal(int x, int y) : base("spr_secondgoal")
     {
         Reset();

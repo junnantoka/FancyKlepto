@@ -14,11 +14,12 @@ namespace FancyKlepto.GameObjects
             for (int i = 0; i < guards; i++)
             {
                 Add(guard);
+                velocity = new Vector2(GameEnvironment.Random.Next(-100, 100), 0);
             }
             position = positionA;
             this.positionA = positionA;
             this.positionB = positionB;
-            this.velocity.X = 65;
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -28,11 +29,10 @@ namespace FancyKlepto.GameObjects
 
             if (position.X > positionA.X && position.X < positionB.X && frameCounter > 60)
             {
-                Console.WriteLine(velocity);
                 position += velocity;
                 frameCounter = 0;
             }
-            else
+            if (position.X < 0 || position.X > GameEnvironment.Screen.X - guard.texture.Width)
             {
                 velocity = -velocity;
             }
@@ -46,7 +46,8 @@ namespace FancyKlepto.GameObjects
         public override void Reset()
         {
             base.Reset();
-            guard.position = position;
+            this.position = positionA;
+            velocity = new Vector2(0, 0);
         }
     }
 }

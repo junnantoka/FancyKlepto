@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 class MainGoal : SpriteGameObject
 {
+    public const int score = 100;
     public MainGoal(int x, int y) : base("spr_maingoal")
     {
         Reset();
