@@ -21,6 +21,7 @@ namespace FancyKlepto.GameStates
         {
             this.Add(new SpriteGameObject("spr_background"));
             //gameObjectList.Add(new Map("spr_1.3"));
+            //WallSetup();
             FloorSetup();
             VensterSetup();
 
@@ -48,7 +49,7 @@ namespace FancyKlepto.GameStates
                 switchboard2.Reset();
                 laser1.Reset();
             }
-            foreach (GameObject gameobject in Children)
+            /*foreach (GameObject gameobject in Children)
             {
                 if (gameobject is Player)
                 {
@@ -151,7 +152,7 @@ namespace FancyKlepto.GameStates
                         }
                     }
                 }
-            }
+            }*/
         }
 
         public override void Update(GameTime gameTime)
