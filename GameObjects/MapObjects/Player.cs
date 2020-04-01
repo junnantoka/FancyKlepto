@@ -1,5 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using FancyKlepto.GameObjects;
+
 class Player : SpriteGameObject
 {
     protected KeyboardState currentKeyboardState;
@@ -10,6 +14,7 @@ class Player : SpriteGameObject
     public Vector2 velocityVelocity;
 
     public bool moveRight, moveLeft, moveUp, moveDown;
+
     public Player(int x, int y) : base("spr_player")
     {
         velocityVelocity = new Vector2(0.6f, 0.6f);
@@ -114,6 +119,40 @@ class Player : SpriteGameObject
         if (currentKeyboardState.IsKeyUp(Keys.S))
         {
             moveDown = true;
+        }
+    }
+
+    public void Collision(SpriteGameObject pObject)
+    {
+        //Collision.PixelCollision(texture, pObject.texture, BoundingBox, pObject.BoundingBox);
+
+        Vector2 wallPos = pObject.Position;
+        Texture2D wallTex = pObject.texture;
+        if (CollidesWith(pObject))
+        {
+
+        }
+        if (wallPos.X > Position.X && Overlaps(wall))
+        {
+            position.X -= Math.Abs(Velocity.X);
+            velocity.X = 0;
+        }
+
+        if (wallPos.X < position.X && Overlaps(pObject))
+        {
+            position.X += Math.Abs(velocity.X);
+            velocity.X = 0;
+        }
+        //////////////////////////////////////////////////////////////////////                  vertical
+        if (wallPos.Y < position.Y && Overlaps(pObject))
+        {
+            position.Y += Math.Abs(velocity.Y);
+            velocity.Y = 0;
+        }
+        if (wallPos.Y > position.Y && Overlaps(pObject))
+        {
+            position.Y -= Math.Abs(velocity.Y);
+            velocity.Y = 0;
         }
     }
 }

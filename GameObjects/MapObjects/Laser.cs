@@ -22,7 +22,7 @@ class Laser : SpriteGameObject
         radius = (float)Math.Sqrt((position.X - position2.X) * (position.X - position2.X) + (position.Y - position2.Y) * (position.Y - position2.Y));
         angle = (float)Math.Atan2(position2.Y - position.Y, position2.X - position.X);
     }
-    public override void Draw(SpriteBatch spriteBatch)
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         //Draws the laser 
         if (Active)

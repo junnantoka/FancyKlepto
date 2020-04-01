@@ -8,13 +8,8 @@ namespace FancyKlepto.GameObjects
         int frameCounter = 0;
         const int guards = 1;
         public Vector2 positionA, positionB;
-        public Guard(Vector2 positionA, Vector2 positionB) : base("spr_guard");
+        public Guard(Vector2 positionA, Vector2 positionB) : base("spr_guard")
         {
-            for (int i = 0; i < guards; i++)
-            {
-                Add(guard);
-                velocity = new Vector2(GameEnvironment.Random.Next(-100, 100), 0);
-            }
             position = positionA;
             this.positionA = positionA;
             this.positionB = positionB;
@@ -31,7 +26,7 @@ namespace FancyKlepto.GameObjects
                 position += velocity;
                 frameCounter = 0;
             }
-            if (position.X < 0 || position.X > GameEnvironment.Screen.X - guard.texture.Width)
+            if (position.X < 0 || position.X > GameEnvironment.Screen.X - texture.Width)
             {
                 velocity = -velocity;
             }
@@ -39,7 +34,7 @@ namespace FancyKlepto.GameObjects
 
         public bool Overlaps(SpriteGameObject other)
         {
-            return guard.Overlaps(other);
+            return Overlaps(other);
         }
 
         public override void Reset()

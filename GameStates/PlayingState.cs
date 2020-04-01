@@ -8,30 +8,46 @@ namespace FancyKlepto.GameStates
 {
     class PlayingState : GameObjectList
     {
-        Player player = new Player(3, 13);
-        MainGoal goal1 = new MainGoal(2, 2);
-        ExtraGoal goal2 = new ExtraGoal(19, 10);
-        Guard guard = new Guard(new Vector2(65, 65), new Vector2(GameEnvironment.Screen.X, 65));
-        Laser laser1 = new Laser(new Vector2(1, 6), new Vector2(6, 5), "spr_laser_pixel_green");
-        Laser laser2 = new Laser(new Vector2(23, 7), new Vector2(28, 12), "spr_laser_pixel_purple");
-        SwitchBoard switchboard1 = new SwitchBoard(14, 9);
-        SwitchBoard switchboard2 = new SwitchBoard(14, 10);
+        Player thePlayer;
+        MainGoal goal;
+
+
+        GameObjectList goals;
+        GameObjectList guards;
+        GameObjectList lasers;
+        GameObjectList switchboards;
+
+
         public PlayingState()
         {
             this.Add(new SpriteGameObject("spr_background"));
-            FloorSetup();
-            this.Add(laser1);
-            this.Add(laser2);
-            WallSetup();
-            VensterSetup();
+            thePlayer = new Player(3, 13);
+            goal = new MainGoal(2, 2);
 
-            this.Add(guard);
-            this.Add(goal1);
-            this.Add(goal2);
-            this.Add(player);
-            this.Add(switchboard1);
-            this.Add(switchboard2);
-            //Map
+            Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
+
+            //score = new Score();
+
+            goals = new GameObjectList();
+            guards = new GameObjectList();
+            lasers = new GameObjectList();
+            switchboards = new GameObjectList();
+
+            this.Add(goals);
+            this.Add(guards);
+            this.Add(lasers);
+            this.Add(switchboards);
+
+            goals.Add(new ExtraGoal(19, 10));
+            guards.Add(new Guard(new Vector2(65, 65), new Vector2(GameEnvironment.Screen.X, 65)));
+            lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), "spr_laser_pixel_green"));
+            lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), "spr_laser_pixel_purple"));
+            switchboards.Add(new SwitchBoard(14, 9));
+
+            FloorSetup();
+            WallSetup();
+            this.Add(thePlayer);
+            VensterSetup();
         }
 
         public override void HandleInput(InputHelper inputHelper)
@@ -39,28 +55,27 @@ namespace FancyKlepto.GameStates
             base.HandleInput(inputHelper);
             if (inputHelper.KeyPressed(Keys.R))
             {
-                player.Reset();
-                goal1.Reset();
-                goal2.Reset();
-                switchboard1.Reset();
-                switchboard2.Reset();
-                laser1.Reset();
-                laser2.Reset();
+                thePlayer.Reset();
+                goal.Reset();
+                goals.Reset();
+                switchboards.Reset();
+                lasers.Reset();
+                guards.Reset();
             }
-    
+
             foreach (GameObjectList gameobject1 in Children)
             {
                 foreach (GameObjectList gameobject2 in Children)
                 {
                     if (gameobject1 is Player)
                     {
-                    
+
                         if (gameobject2 is MainGoal && gameobject1.Overlaps(gameobject2))
                         {
                             if (inputHelper.IsKeyDown(Keys.Space))
                             {
-                                gameobject2.position.X = player.position.X + player.texture.Width / 2 - gameobject2.texture.Width / 2;
-                                gameobject2.position.Y = player.position.Y + player.texture.Height / 2 - gameobject2.texture.Height / 2;
+                                gameobject2.position.X = thePlayer.position.X + thePlayer.texture.Width / 2 - gameobject2.texture.Width / 2;
+                                gameobject2.position.Y = thePlayer.position.Y + thePlayer.texture.Height / 2 - gameobject2.texture.Height / 2;
                             }
                         }
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,8 +83,8 @@ namespace FancyKlepto.GameStates
                         {
                             if (inputHelper.IsKeyDown(Keys.Space))
                             {
-                                gameobject2.position.X = player.position.X + player.texture.Width / 2 - gameobject2.texture.Width / 2;
-                                gameobject2.position.Y = player.position.Y + player.texture.Height / 2 - gameobject2.texture.Height / 2;
+                                gameobject2.position.X = thePlayer.position.X + thePlayer.texture.Width / 2 - gameobject2.texture.Width / 2;
+                                gameobject2.position.Y = thePlayer.position.Y + thePlayer.texture.Height / 2 - gameobject2.texture.Height / 2;
                             }
                         }
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +98,7 @@ namespace FancyKlepto.GameStates
                                     {
                                         if (inputHelper.KeyPressed(Keys.Space))
                                         {
-                                                venster.open = true;
+                                            venster.open = true;
                                         }
                                     }
                                     else
@@ -99,26 +114,26 @@ namespace FancyKlepto.GameStates
                             Vector2 wallPos = gameobject2.position;
                             Texture2D wallTex = gameobject2.texture;
                             //////////////////////////////////////////////////////////////////////                  horizontal
-                            if (wallPos.X > player.position.X && gameobject1.Overlaps(gameobject2))
+                            if (wallPos.X > thePlayer.position.X && gameobject1.Overlaps(gameobject2))
                             {
-                                player.position.X -= Math.Abs(player.velocity.X);
-                                player.velocity.X = 0;
+                                thePlayer.position.X -= Math.Abs(thePlayer.velocity.X);
+                                thePlayer.velocity.X = 0;
                             }
-                            if (wallPos.X < player.position.X && gameobject1.Overlaps(gameobject2))
+                            if (wallPos.X < thePlayer.position.X && gameobject1.Overlaps(gameobject2))
                             {
-                                player.position.X += Math.Abs(player.velocity.X);
-                                player.velocity.X = 0;
+                                thePlayer.position.X += Math.Abs(thePlayer.velocity.X);
+                                thePlayer.velocity.X = 0;
                             }
                             //////////////////////////////////////////////////////////////////////                  vertical
-                            if (wallPos.Y < player.position.Y && gameobject1.Overlaps(gameobject2))
+                            if (wallPos.Y < thePlayer.position.Y && gameobject1.Overlaps(gameobject2))
                             {
-                                player.position.Y += Math.Abs(player.velocity.Y);
-                                player.velocity.Y = 0;
+                                thePlayer.position.Y += Math.Abs(thePlayer.velocity.Y);
+                                thePlayer.velocity.Y = 0;
                             }
-                            if (wallPos.Y > player.position.Y && gameobject1.Overlaps(gameobject2))
+                            if (wallPos.Y > thePlayer.position.Y && gameobject1.Overlaps(gameobject2))
                             {
-                                player.position.Y -= Math.Abs(player.velocity.Y);
-                                player.velocity.Y = 0;
+                                thePlayer.position.Y -= Math.Abs(thePlayer.velocity.Y);
+                                thePlayer.velocity.Y = 0;
                             }
                         }
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,9 +159,9 @@ namespace FancyKlepto.GameStates
         {
             for (int i = 0; i < guard.Children.Count; i++)
             {
-                if (guard.Overlaps(player))
+                if (guard.Overlaps(thePlayer))
                 {
-                    player.Reset();
+                    thePlayer.Reset();
                 }
             }
         }
