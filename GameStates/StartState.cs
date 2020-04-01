@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using FancyKlepto.GameObjects;
-using FancyKlepto.GameStates;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace FancyKlepto.GameStates
 {
@@ -13,6 +10,7 @@ namespace FancyKlepto.GameStates
         {
             background = new SpriteGameObject("spr_text");
             this.Add(background);
+
             background.Position = GameEnvironment.Screen.ToVector2() / 2;
             background.Origin = new Vector2(background.Width / 2, background.Height / 2);
         }

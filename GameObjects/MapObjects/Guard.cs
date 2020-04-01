@@ -7,99 +7,86 @@ namespace FancyKlepto.GameObjects
     {
         public Vector2 positionA, positionB;
 
-        public bool Right, Left, Up, Down;
-        bool forward;
+        public bool Right, Left, Up, Down, Forward;
+
         public Guard(Vector2 positionA, Vector2 positionB) : base("spr_guard")
         {
-
             position = new Vector2(18 + positionA.X * (unitSize + unitSpacing), 10 + positionA.Y * (unitSize + unitSpacing));
+            positionB = new Vector2(18 + positionB.X * (unitSize + unitSpacing), 10 + positionB.Y * (unitSize + unitSpacing));
 
-            this.positionA = positionA;
+            this.positionA = position;
             this.positionB = positionB;
 
             Reset();
         }
         public override void Reset()
         {
-            forward = true;
-            Right = true;
-            Left = true;
-            Up = true;
-            Down = true;
-            velocity = new Vector2(5, 5);
+            Forward = true;
+            if (position.X > positionB.X)
+            {
+                Right = false;
+                Left = true;
+            }
+            else
+            {
+                Right = true;
+                Left = false;
+            }
+
+            if (position.Y > positionB.Y)
+            {
+                Up = true;
+                Down = false;
+            }
+            else
+            {
+                Down = true;
+                Up = false;
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
+            position += velocity;
             base.Update(gameTime);
-            Move();
-        }
 
+            Move();
+            Stop();
+        }
+        public void Stop()
+        {
+
+        }
         public void Move()
         {
-            if (forward)
-            {
-                if (position.X > positionB.X && Right)
-                {
-                    position.X -= velocity.X;
-                } else if (!Right)
-                {
-                    position.X += velocity.X;
-                }
 
-                if (position.Y > positionB.Y && Up)
-                {
-                    position.Y -= velocity.Y;
-                } else if (!Up)
-                {
-                    position.Y += velocity.Y;
-                }
-            } else if (!forward)
-            {
+        }
 
-            }
-            
-            /*
-            if (forward)
+        public void Collision(SpriteGameObject pObject)
+        {
+            if (CollidesWith(pObject))
             {
-                if (positionB.X > position.X && Right)
+                //////////////////////////////////////////////////////////////////////                  horizontal
+                if (pObject.Position.X > position.X)
                 {
-                    position.X += velocity.X;
+                    position.X -= Math.Abs(Velocity.X);
                 }
-                else if (positionB.X < position.X && Left)
+                else if (pObject.Position.X < position.X)
                 {
-                    position.X -= velocity.X;
+                    position.X += Math.Abs(velocity.X);
                 }
-
-                if (positionB.Y > position.Y && Down)
+                //////////////////////////////////////////////////////////////////////                  vertical
+                if (pObject.Position.Y < position.Y)
                 {
-                    position.Y += velocity.Y;
+                    position.Y += Math.Abs(velocity.Y);
+                    Up = false;
                 }
-                else if (positionB.Y < position.Y && Up)
+                else if (pObject.Position.Y > position.Y)
                 {
-                    position.X -= velocity.Y;
+                    position.Y -= Math.Abs(velocity.Y);
+                    Down = false;
                 }
             }
-            else if (!forward)
-            {
-                if (positionA.X > position.X && Right)
-                {
-                    position.X += velocity.X;
-                }
-                else if (positionA.X < position.X && Left)
-                {
-                    position.X -= velocity.X;
-                }
-
-                if (positionA.Y > position.Y && Down)
-                {
-                    position.Y += velocity.Y;
-                }
-                else if (positionA.Y < position.Y && Up)
-                {
-
-                }
-            }*/
         }
     }
 }

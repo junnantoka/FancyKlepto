@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using FancyKlepto.GameObjects;
+using FancyKlepto.GameObjects.MapObjects;
 
 namespace FancyKlepto.GameStates
 {
@@ -10,6 +11,7 @@ namespace FancyKlepto.GameStates
     {
         Player thePlayer;
         MainGoal goal;
+        Door door;
 
         GameObjectList floors;
         GameObjectList vensters;
@@ -24,7 +26,8 @@ namespace FancyKlepto.GameStates
         {
             this.Add(new SpriteGameObject("spr_background"));
             thePlayer = new Player(3, 13);
-            goal = new MainGoal(2, 2);
+            goal = new MainGoal(19, 10);
+            door = new Door(2,15);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
@@ -38,17 +41,18 @@ namespace FancyKlepto.GameStates
             switchboards = new GameObjectList();
 
             this.Add(floors);
+            this.Add(switchboards);
             this.Add(walls);
+            this.Add(door);
             this.Add(goals);
             this.Add(lasers);
             this.Add(goal);
-            this.Add(switchboards);
             this.Add(guards);
             this.Add(vensters);
             this.Add(thePlayer);
-            
-            goals.Add(new ExtraGoal(19, 10));
-            guards.Add(new Guard(new Vector2(10, 2), new Vector2(25, 2)));
+
+            goals.Add(new ExtraGoal(2, 2));
+            guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 5)));
             lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), "spr_laser_pixel_green"));
             //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), "spr_laser_pixel_purple"));
             switchboards.Add(new SwitchBoard(14, 10));
@@ -64,25 +68,26 @@ namespace FancyKlepto.GameStates
 
             if (inputHelper.KeyPressed(Keys.R))
             {
-                foreach(GameObject gameObject in Children)
+                foreach (GameObject gameObject in Children)
                 {
                     gameObject.Reset();
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                if (goal.CollidesWith(thePlayer))
+            if (goal.CollidesWith(thePlayer))
+            {
+                goal.hold = true;
+                if (inputHelper.IsKeyDown(Keys.Space))
                 {
-                    goal.hold = true;
-                    if (inputHelper.IsKeyDown(Keys.Space))
-                    {
-                        goal.Hold(thePlayer);
-                    }
+                    goal.Hold(thePlayer);
+                    door.Visible = true;
                 }
-                else
-                {
-                    goal.hold = false;
-                }
+            }
+            else
+            {
+                goal.hold = false;
+            }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (ExtraGoal extraGoal in goals.Children)
             {
@@ -93,7 +98,8 @@ namespace FancyKlepto.GameStates
                     {
                         extraGoal.Hold(thePlayer);
                     }
-                }else
+                }
+                else
                 {
                     extraGoal.hold = false;
                 }
@@ -127,47 +133,43 @@ namespace FancyKlepto.GameStates
                 {
                     thePlayer.Collision(wall);
                 }
+
+                if (door.Visible)
+                {
+                    if (wall.CollidesWith(door))
+                    {
+                        wall.Die = true;
+                    }
+                }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            foreach(Laser laser in lasers.Children)
+            foreach (Laser laser in lasers.Children)
             {
-                if (Collision.LineRect(laser.Position,laser.position2,thePlayer.BoundingBox))
+                if (Collision.LineRect(laser.Position, laser.position2, thePlayer.BoundingBox))
                 {
                     thePlayer.Reset();
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            foreach(Guard guard in guards.Children)
+            foreach (Guard guard in guards.Children)
             {
-                foreach(Wall wall in walls.Children)
+                foreach (Wall wall in walls.Children)
                 {
-                    if (guard.CollidesWith(wall))
+                    if (Math.Abs(guard.Position.X - wall.Position.X) <= guard.Sprite.Width * 2 &&
+                        Math.Abs(guard.Position.Y - wall.Position.Y) <= guard.Sprite.Height * 2)
                     {
-                        if (guard.Position.Y > wall.Position.Y)
-                        {
-                            guard.Up = false;
-                        }
-                        else guard.Up = true;
-
-                        if (guard.Position.Y < wall.Position.Y)
-                        {
-                            guard.Down = false;
-                        }
-                        else guard.Down = true;
-
-                        if (guard.Position.X > wall.Position.X)
-                        {
-                            guard.Left = false;
-                        }
-                        else guard.Left = true;
-
-                        if (guard.Position.X < wall.Position.X)
-                        {
-                            guard.Right = false;
-                        }
-                        else guard.Right = true;
+                        guard.Collision(wall);
                     }
                 }
+                if (guard.CollidesWith(thePlayer))
+                {
+                    thePlayer.Reset();
+                }
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (door.Visible && thePlayer.CollidesWith(goal) && goal.hold)
+            {
+                GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
             }
         }
 

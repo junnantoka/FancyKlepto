@@ -2,6 +2,7 @@
 
 class Wall : SpriteGameObject
 {
+    public bool Die;
     public Wall(int x, int y) : base("spr_black_wall")
     {
         Reset();
@@ -12,5 +13,14 @@ class Wall : SpriteGameObject
     public override void Reset()
     {
         position = defPos;
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+        if (Die)
+        {
+            position.X = -1000;
+        }
     }
 }
