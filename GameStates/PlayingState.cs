@@ -11,7 +11,7 @@ namespace FancyKlepto.GameStates
         Player player = new Player(3, 13);
         MainGoal goal1 = new MainGoal(2, 2);
         ExtraGoal goal2 = new ExtraGoal(19, 10);
-        Guard guard = new Guard();
+        Guard guard = new Guard(65,65, GameEnvironment.Screen.X, 65);
         Laser laser1 = new Laser(new Vector2(1, 5), new Vector2(6, 6), "spr_laser_pixel_green");
         Wall wall = new Wall();
 
@@ -48,7 +48,7 @@ namespace FancyKlepto.GameStates
                 switchboard2.Reset();
                 laser1.Reset();
             }
-            /*foreach (GameObject gameobject in Children)
+            foreach (GameObject gameobject in Children)
             {
                 if (gameobject is Player)
                 {
@@ -151,7 +151,7 @@ namespace FancyKlepto.GameStates
                         }
                     }
                 }
-            }*/
+            }
         }
 
         public override void Update(GameTime gameTime)

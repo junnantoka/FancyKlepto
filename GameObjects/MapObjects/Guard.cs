@@ -6,42 +6,35 @@ namespace FancyKlepto.GameObjects
     {
         int frameCounter = 0;
         const int guards = 1;
-        const int spacing = 65;
+        public Vector2 B;
         SpriteGameObject guard = new SpriteGameObject("spr_guard");
-        SpriteGameObject guard1 = new SpriteGameObject("spr_guard");
-        public Guard()
+        public Guard(float A, float B, float C, float D)
         {
             for (int i = 0; i < guards; i++)
             {
                 Add(guard);
-                Add(guard1);
             }
 
             Reset();
-
-            guard.velocity.X = -250;
-            guard1.velocity.X = 250;
+            position = new Vector2(A, B);
+            this.B = new Vector2(C, D);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             frameCounter++; //keep track of frames
-            if (guard.position.X < 0 || guard.position.X > GameEnvironment.Screen.X)
-            {
-                velocity.X = -velocity.X;
-            }
-            Movement();
-        }
 
-        public void Movement()
-        {
-            if (frameCounter > 40)
+            Movement();
+            if ((!guard.position.Equals(position) || !guard.position.Equals(B)) && frameCounter > 40)
             {
                 position.X += velocity.X;
                 frameCounter = 0;
             }
+        }
 
+        public void Movement()
+        {
             for (int i = 0; i < Children.Count; i++)
             {
                 if (Children[i].position.X < 0 || Children[i].position.X > GameEnvironment.Screen.X - Children[i].texture.Width)
@@ -53,17 +46,13 @@ namespace FancyKlepto.GameObjects
 
         public bool Overlaps(SpriteGameObject other)
         {
-            return guard.Overlaps(other) || guard1.Overlaps(other);
+            return guard.Overlaps(other);
         }
 
         public override void Reset()
         {
             base.Reset();
-            guard.position.X = 500;
-            guard.position.Y = 65;
-
-            guard1.position.X = 780;
-            guard1.position.Y = 130;
+            guard.position = position;
         }
     }
 }
