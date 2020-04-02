@@ -5,7 +5,7 @@ namespace FancyKlepto.GameObjects
 {
     class Guard : SpriteGameObject
     {
-        public Vector2 positionB;
+        public Vector2 positionA, positionB;
 
         public bool Right, Left, Up, Down, Forward;
 
@@ -14,10 +14,10 @@ namespace FancyKlepto.GameObjects
             position = new Vector2(18 + positionA.X * (unitSize + unitSpacing), 10 + positionA.Y * (unitSize + unitSpacing));
             positionB = new Vector2(18 + positionB.X * (unitSize + unitSpacing), 10 + positionB.Y * (unitSize + unitSpacing));
 
+            this.positionA = position;
             this.positionB = positionB;
 
             Reset();
-            velocity = new Vector2(5, 0);
         }
         public override void Reset()
         {
@@ -47,9 +47,19 @@ namespace FancyKlepto.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            position += velocity;
             base.Update(gameTime);
 
-            position += velocity;
+            Move();
+            Stop();
+        }
+        public void Stop()
+        {
+
+        }
+        public void Move()
+        {
+
         }
 
         public void Collision(SpriteGameObject pObject)
@@ -57,11 +67,15 @@ namespace FancyKlepto.GameObjects
             if (CollidesWith(pObject))
             {
                 //////////////////////////////////////////////////////////////////////                  horizontal
-                if (pObject.Position.X > position.X || pObject.Position.X < position.X)
+                if (pObject.Position.X > position.X)
                 {
-                    velocity.X = 0;
+                    position.X -= Math.Abs(Velocity.X);
                 }
-                ////////////////////////////////////////////////////////////////////                  vertical
+                else if (pObject.Position.X < position.X)
+                {
+                    position.X += Math.Abs(velocity.X);
+                }
+                //////////////////////////////////////////////////////////////////////                  vertical
                 if (pObject.Position.Y < position.Y)
                 {
                     position.Y += Math.Abs(velocity.Y);
