@@ -23,8 +23,6 @@ namespace FancyKlepto
             GameStateManager.AddGameState("EndStateLost", new EndStateLost());
 
             GameStateManager.SwitchTo("StartState");
-
-            graphics.IsFullScreen = true;
         }
     }
 }
