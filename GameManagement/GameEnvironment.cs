@@ -27,6 +27,7 @@ public class GameEnvironment : Game
         random = new Random();
         assetManager = new AssetManager(Content);
         gameSettingsManager = new GameSettingsManager();
+        graphics.GraphicsProfile = GraphicsProfile.HiDef;
     }
 
     public static Point Screen

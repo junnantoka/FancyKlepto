@@ -16,11 +16,11 @@ namespace FancyKlepto
             ApplyResolutionSettings();
             
             GameStateManager.AddGameState("StartState", new StartState());
-            GameStateManager.AddGameState("PlayingSate", new PlayingState());
+            GameStateManager.AddGameState("PlayingState", new PlayingState());
             GameStateManager.AddGameState("EndStateWon", new EndStateWon());
             GameStateManager.AddGameState("EndStateLost", new EndStateLost());
 
-            GameStateManager.SwitchTo("PlayingSate");
+            GameStateManager.SwitchTo("StartState");
 
             graphics.IsFullScreen = true;
         }
