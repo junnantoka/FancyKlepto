@@ -11,7 +11,7 @@ namespace FancyKlepto.GameObjects
     {
         public yAxis(int x) : base("vertical")
         {
-            position = new Vector2(18 + x * (unitSize + unitSpacing)-sprite.Width/2,20);
+            position = new Vector2(18 + x * (unitSize + unitSpacing)-sprite.Width/2,0);
         }
     }
 }
