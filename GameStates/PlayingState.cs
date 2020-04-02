@@ -174,16 +174,17 @@ namespace FancyKlepto.GameStates
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (door.Visible && thePlayer.CollidesWith(goal) && goal.hold)
+            if (door.Visible && thePlayer.CollidesWith(goal) && goal.hold && thePlayer.CollidesWith(door))
             {
                 GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Reset()
         {
-            base.Update(gameTime);
+            base.Reset();
         }
+
         public void FloorSetup()
         {
             for (int i = 0; i < 29; i++)
