@@ -8,7 +8,7 @@ namespace FancyKlepto.GameObjects
         public Vector2 destination;
         public Vector2 posA, posB;
 
-        public Guard(Vector2 positionA, Vector2 positionB) : base("spr_guard")
+        public Guard(Vector2 positionA, Vector2 positionB) : base("agent")
         {
             position = new Vector2(18 + positionA.X * (unitSize + unitSpacing), 10 + positionA.Y * (unitSize + unitSpacing));
 

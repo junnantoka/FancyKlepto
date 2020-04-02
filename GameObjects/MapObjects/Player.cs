@@ -15,7 +15,7 @@ class Player : SpriteGameObject
 
     public bool moveRight, moveLeft, moveUp, moveDown;
 
-    public Player(int x, int y) : base("spr_player")
+    public Player(int x, int y) : base("spr_thief")
     {
         velocityVelocity = new Vector2(0.6f, 0.6f);
         stopVelocity = 2;

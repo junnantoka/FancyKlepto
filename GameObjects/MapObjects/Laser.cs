@@ -8,13 +8,16 @@ class Laser : SpriteGameObject
     private float angle;
     private float radius;
     private Texture2D texture;
+
     public Vector2 position2;
-    public Laser(Vector2 position, Vector2 position2, string assetName) : base(assetName)
+    Color color;
+    public Laser(Vector2 position, Vector2 position2, Color color) : base("lazer")
     {
+        this.color = color;
         this.position = new Vector2(18 + position.X * (unitSize + unitSpacing), 10 + position.Y * (unitSize + unitSpacing));
         this.position2 = new Vector2(18 + position2.X * (unitSize + unitSpacing), 10 + position2.Y * (unitSize + unitSpacing));
 
-        texture = GameEnvironment.AssetManager.GetSprite(assetName);
+        texture = GameEnvironment.AssetManager.GetSprite("lazer");
     }
 
     public override void Update(GameTime gameTime)
@@ -30,7 +33,7 @@ class Laser : SpriteGameObject
         //Draws the laser 
         if (Active)
         {
-            spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 7), new Rectangle(0, 0, 1, 1), Color.White, angle, new Vector2(0, 0), SpriteEffects.None, 1);
+            spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 7), new Rectangle(0, 0, 1, 1), color, angle, new Vector2(0, 0), SpriteEffects.None, 1);
         }
     }
 }
