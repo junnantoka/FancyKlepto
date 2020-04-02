@@ -21,6 +21,7 @@ class Wall : SpriteGameObject
         if (Die)
         {
             position.X = -1000;
+            Die = false;
         }
     }
 }

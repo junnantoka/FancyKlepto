@@ -177,6 +177,7 @@ namespace FancyKlepto.GameStates
             if (door.Visible && thePlayer.CollidesWith(goal) && goal.hold && thePlayer.CollidesWith(door))
             {
                 GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
+                Reset();
             }
         }
 
