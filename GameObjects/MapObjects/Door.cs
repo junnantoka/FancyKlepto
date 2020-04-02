@@ -19,6 +19,7 @@ namespace FancyKlepto.GameObjects.MapObjects
 
         public override void Reset()
         {
+            base.Reset();
             position = defPos;
             visible = false;
         }
