@@ -12,7 +12,6 @@ namespace FancyKlepto.GameObjects.MapObjects
     {
         public Door (int x, int y): base("door")
         {
-            visible = false;
             Reset();
             position = new Vector2(18 + 1 + x * (unitSize + unitSpacing), 10 + 1 + y * (unitSize + unitSpacing));
             defPos = position;
@@ -21,6 +20,7 @@ namespace FancyKlepto.GameObjects.MapObjects
         public override void Reset()
         {
             position = defPos;
+            visible = false;
         }
 
     }

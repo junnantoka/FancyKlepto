@@ -12,6 +12,8 @@ namespace FancyKlepto.GameStates
         Player thePlayer;
         MainGoal goal;
         Door door;
+        xAxis xaxis;
+        yAxis yaxis;
 
         GameObjectList floors;
         GameObjectList vensters;
@@ -29,6 +31,9 @@ namespace FancyKlepto.GameStates
             goal = new MainGoal(19, 10);
             door = new Door(2,15);
 
+            xaxis = new xAxis(8);
+            yaxis = new yAxis(10);
+
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
             //score = new Score();
@@ -41,6 +46,8 @@ namespace FancyKlepto.GameStates
             switchboards = new GameObjectList();
 
             this.Add(floors);
+            this.Add(xaxis);
+            this.Add(yaxis);
             this.Add(switchboards);
             this.Add(walls);
             this.Add(door);
@@ -169,7 +176,7 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (door.Visible && thePlayer.CollidesWith(goal) && goal.hold)
             {
-                GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
+                //GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
             }
         }
 
