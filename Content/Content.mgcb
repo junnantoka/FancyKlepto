@@ -313,6 +313,18 @@
 /processorParam:TextureFormat=Color
 /build:spr_switchboard_art.png
 
+#begin spr_switchboard_art_donker.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_switchboard_art_donker.png
+
 #begin spr_switchboard_light.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -372,6 +384,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spr_wall_design.png
+
+#begin spr_wall_solid.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_wall_solid.png
 
 #begin spr_xyz.png
 /importer:TextureImporter

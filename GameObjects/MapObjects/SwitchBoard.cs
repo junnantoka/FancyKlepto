@@ -12,7 +12,7 @@ class SwitchBoard : SpriteGameObject
 
     private Vector2 lightpos1, lightpos2, lightpos3;
 
-    public SwitchBoard(int x, int y, Color color) : base("spr_switchboard_art")
+    public SwitchBoard(int x, int y, Color color) : base("spr_switchboard_art_donker")
     {
         this.color = color;
         position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));

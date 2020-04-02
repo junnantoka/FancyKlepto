@@ -3,7 +3,7 @@
 class Wall : SpriteGameObject
 {
     public bool Die;
-    public Wall(int x, int y) : base("spr_wall_design")
+    public Wall(int x, int y) : base("spr_wall_solid")
     {
         Reset();
         position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
