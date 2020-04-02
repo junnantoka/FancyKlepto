@@ -15,10 +15,10 @@ namespace FancyKlepto
             screen = new Point(1920, 1080);
             ApplyResolutionSettings();
             
-            //GameStateManager.AddGameState("StartState", new StartState());
+            GameStateManager.AddGameState("StartState", new StartState());
             GameStateManager.AddGameState("PlayingSate", new PlayingState());
-            //GameStateManager.AddGameState("EndStateWon", new EndStateWon());
-            //GameStateManager.AddGameState("EndStateLost", new EndStateLost());
+            GameStateManager.AddGameState("EndStateWon", new EndStateWon());
+            GameStateManager.AddGameState("EndStateLost", new EndStateLost());
 
             GameStateManager.SwitchTo("PlayingSate");
 
