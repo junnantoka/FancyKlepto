@@ -46,10 +46,10 @@ namespace FancyKlepto.GameStates
             switchboards = new GameObjectList();
 
             this.Add(floors);
-            this.Add(xaxis);
-            this.Add(yaxis);
             this.Add(switchboards);
             this.Add(walls);
+            this.Add(xaxis);
+            this.Add(yaxis);
             this.Add(door);
             this.Add(goals);
             this.Add(lasers);
