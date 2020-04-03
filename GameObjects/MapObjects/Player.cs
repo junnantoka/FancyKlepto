@@ -1,5 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using FancyKlepto.GameObjects;
+
 class Player : SpriteGameObject
 {
     protected KeyboardState currentKeyboardState;
@@ -10,11 +14,12 @@ class Player : SpriteGameObject
     public Vector2 velocityVelocity;
 
     public bool moveRight, moveLeft, moveUp, moveDown;
-    public Player(int x, int y) : base("spr_player")
+
+    public Player(int x, int y) : base("spr_thief")
     {
         velocityVelocity = new Vector2(0.6f, 0.6f);
         stopVelocity = 2;
-        position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
+        position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
         defPos = position;
         maxVelocity = new Vector2(5, 5);
         zeroVelocity = new Vector2(0, 0);
@@ -36,15 +41,17 @@ class Player : SpriteGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
-        position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
+        position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - sprite.Width);
+        position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - sprite.Height);
         currentKeyboardState = Keyboard.GetState();
     }
 
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);
+
         position += velocity;
+
         if (inputHelper.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
         {
             velocity.X -= velocityVelocity.X;
@@ -114,6 +121,37 @@ class Player : SpriteGameObject
         if (currentKeyboardState.IsKeyUp(Keys.S))
         {
             moveDown = true;
+        }
+    }
+
+    public void Collision(SpriteGameObject pObject)
+    {
+        Vector2 wallPos = pObject.Position;
+        
+        if (pObject is Wall)
+        {
+            if (wallPos.X > position.X && CollidesWith(pObject))
+            {
+                position.X -= Math.Abs(Velocity.X);
+                velocity.X = 0;
+            }
+
+            if (wallPos.X < position.X && CollidesWith(pObject))
+            {
+                position.X += Math.Abs(velocity.X);
+                velocity.X = 0;
+            }
+            //////////////////////////////////////////////////////////////////////                  vertical
+            if (wallPos.Y < position.Y && CollidesWith(pObject))
+            {
+                position.Y += Math.Abs(velocity.Y);
+                velocity.Y = 0;
+            }
+            if (wallPos.Y > position.Y && CollidesWith(pObject))
+            {
+                position.Y -= Math.Abs(velocity.Y);
+                velocity.Y = 0;
+            }
         }
     }
 }
