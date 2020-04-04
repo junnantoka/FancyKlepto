@@ -69,13 +69,7 @@ namespace FancyKlepto.GameStates
             WallSetup();
             VensterSetup();
 
-            foreach (Wall wall in walls.Children)
-            {
-                if (switchBoard1.CollidesWith(wall) || switchBoard2.CollidesWith(wall))
-                {
-                    wall.Die = true;
-                }
-            }
+
         }
 
         public override void HandleInput(InputHelper inputHelper)
@@ -148,6 +142,10 @@ namespace FancyKlepto.GameStates
                     {
                         wall.Die = true;
                     }
+                }
+                if (switchBoard1.CollidesWith(wall) || switchBoard2.CollidesWith(wall))
+                {
+                    wall.Die = true;
                 }
 
                 if (thePlayer.xaxisCol(wall))
