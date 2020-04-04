@@ -55,18 +55,7 @@ namespace FancyKlepto.GameObjects
         }
         public void Move()
         {
-
-            if (Math.Abs(destination.X - position.X) < sprite.Width)
-            {
-                velocity.X = 0;
-            }
-            else velocity.X = 5;
-            if (Math.Abs(destination.Y - position.Y) < sprite.Height)
-            {
-                velocity.Y = 0;
-            }
-            else velocity.Y = 5;
-
+            ////////////////////////////// to the destination X
             if (position.X < destination.X)
             {
                 position.X += velocity.X;
@@ -74,7 +63,7 @@ namespace FancyKlepto.GameObjects
             {
                 position.X -= velocity.X;
             }
-
+            ////////////////////////////// to the destination Y
             if (position.Y < destination.Y)
             {
                 position.Y += velocity.Y;
@@ -82,31 +71,6 @@ namespace FancyKlepto.GameObjects
             else if (position.X > destination.Y)
             {
                 position.Y -= velocity.Y;
-            }
-        }
-
-        public void Collision(SpriteGameObject pObject)
-        {
-            if (CollidesWith(pObject))
-            {
-                //////////////////////////////////////////////////////////////////////                  horizontal
-                if (pObject.Position.X > position.X)
-                {
-                    position.X -= Math.Abs(Velocity.X);
-                }
-                else if (pObject.Position.X < position.X)
-                {
-                    position.X += Math.Abs(velocity.X);
-                }
-                //////////////////////////////////////////////////////////////////////                  vertical
-                if (pObject.Position.Y < position.Y)
-                {
-                    position.Y += Math.Abs(velocity.Y);
-                }
-                else if (pObject.Position.Y > position.Y)
-                {
-                    position.Y -= Math.Abs(velocity.Y);
-                }
             }
         }
     }

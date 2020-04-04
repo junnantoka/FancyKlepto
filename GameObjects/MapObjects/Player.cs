@@ -8,12 +8,9 @@ class Player : SpriteGameObject
 {
     protected KeyboardState currentKeyboardState;
     public Vector2 maxVelocity;
-    public Vector2 zeroVelocity;
     public Vector2 minVelocity;
     public int stopVelocity;
     public Vector2 velocityVelocity;
-
-    public bool moveRight, moveLeft, moveUp, moveDown;
 
     public Player(int x, int y) : base("spr_thief")
     {
@@ -22,7 +19,6 @@ class Player : SpriteGameObject
         position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
         defPos = position;
         maxVelocity = new Vector2(5, 5);
-        zeroVelocity = new Vector2(0, 0);
         minVelocity = -1 * maxVelocity;
         Reset();
     }
@@ -30,19 +26,13 @@ class Player : SpriteGameObject
     public override void Reset()
     {
         base.Reset();
-        moveRight = true;
-        moveLeft = true;
-        moveUp = true;
-        moveDown = true;
         position = defPos;
-        velocity = zeroVelocity;
+        velocity = Vector2.Zero;
     }
 
-    public override void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime) 
     {
         base.Update(gameTime);
-        position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - sprite.Width);
-        position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - sprite.Height);
         currentKeyboardState = Keyboard.GetState();
     }
 
@@ -52,19 +42,20 @@ class Player : SpriteGameObject
 
         position += velocity;
 
-        if (inputHelper.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
+        #region acceleration
+        if (inputHelper.IsKeyDown(Keys.A) && velocity.X > minVelocity.X)
         {
             velocity.X -= velocityVelocity.X;
         }
-        if (inputHelper.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X && moveRight)
+        if (inputHelper.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X)
         {
             velocity.X += velocityVelocity.X;
         }
-        if (inputHelper.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
+        if (inputHelper.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y)
         {
             velocity.Y -= velocityVelocity.Y;
         }
-        if (inputHelper.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
+        if (inputHelper.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y)
         {
             velocity.Y += velocityVelocity.Y;
         }
@@ -72,11 +63,11 @@ class Player : SpriteGameObject
         if (currentKeyboardState.IsKeyUp(Keys.W) &&
             currentKeyboardState.IsKeyUp(Keys.S))
         {
-            if (velocity.Y > zeroVelocity.Y)
+            if (velocity.Y > Vector2.Zero.Y)
             {
                 velocity.Y -= velocityVelocity.Y;
             }
-            if (velocity.Y < zeroVelocity.Y)
+            if (velocity.Y < Vector2.Zero.Y)
             {
                 velocity.Y += velocityVelocity.Y;
             }
@@ -84,17 +75,17 @@ class Player : SpriteGameObject
             if (velocity.Y < stopVelocity &&
                 velocity.Y > -stopVelocity)
             {
-                velocity.Y = zeroVelocity.Y;
+                velocity.Y = Vector2.Zero.Y;
             }
         }
         if (currentKeyboardState.IsKeyUp(Keys.A) &&
             currentKeyboardState.IsKeyUp(Keys.D))
         {
-            if (velocity.X > zeroVelocity.X)
+            if (velocity.X > Vector2.Zero.X)
             {
                 velocity.X -= velocityVelocity.X;
             }
-            if (velocity.X < zeroVelocity.X)
+            if (velocity.X < Vector2.Zero.X)
             {
                 velocity.X += velocityVelocity.X;
             }
@@ -102,56 +93,9 @@ class Player : SpriteGameObject
             if (velocity.X < stopVelocity &&
                 velocity.X > -stopVelocity)
             {
-                velocity.X = zeroVelocity.X;
+                velocity.X = Vector2.Zero.X;
             }
         }
-
-        if (currentKeyboardState.IsKeyUp(Keys.A))
-        {
-            moveLeft = true;
-        }
-        if (currentKeyboardState.IsKeyUp(Keys.D))
-        {
-            moveRight = true;
-        }
-        if (currentKeyboardState.IsKeyUp(Keys.W))
-        {
-            moveUp = true;
-        }
-        if (currentKeyboardState.IsKeyUp(Keys.S))
-        {
-            moveDown = true;
-        }
-    }
-
-    public void Collision(SpriteGameObject pObject)
-    {
-        Vector2 wallPos = pObject.Position;
-        
-        if (pObject is Wall)
-        {
-            if (wallPos.X > position.X && CollidesWith(pObject))
-            {
-                position.X -= Math.Abs(Velocity.X);
-                velocity.X = 0;
-            }
-
-            if (wallPos.X < position.X && CollidesWith(pObject))
-            {
-                position.X += Math.Abs(velocity.X);
-                velocity.X = 0;
-            }
-            //////////////////////////////////////////////////////////////////////                  vertical
-            if (wallPos.Y < position.Y && CollidesWith(pObject))
-            {
-                position.Y += Math.Abs(velocity.Y);
-                velocity.Y = 0;
-            }
-            if (wallPos.Y > position.Y && CollidesWith(pObject))
-            {
-                position.Y -= Math.Abs(velocity.Y);
-                velocity.Y = 0;
-            }
-        }
+        #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace FancyKlepto.GameObjects.MapObjects
 {
     class Door : SpriteGameObject
     {
-        public Door (int x, int y): base("door")
+        public Door (int x, int y): base("spr_door_wood")
         {
             Reset();
             position = new Vector2(18 + 1 + x * (unitSize + unitSpacing), 10 + 1 + y * (unitSize + unitSpacing));
