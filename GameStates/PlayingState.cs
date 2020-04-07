@@ -47,9 +47,9 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
 
             this.Add(floors);
+            this.Add(walls);
             this.Add(xaxis);
             this.Add(yaxis);
-            this.Add(walls);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
