@@ -9,9 +9,9 @@ namespace FancyKlepto.GameObjects
 {
     class yAxis : SpriteGameObject
     {
-        public yAxis(int x) : base("vertical")
+        public yAxis(int x) : base("spr_vertical_art_blue")
         {
-            position = new Vector2(18 + x * (unitSize + unitSpacing)-sprite.Width/2,0);
+            position = new Vector2(18 + x * (unitSize + unitSpacing)-sprite.Width/2,10);
         }
     }
 }

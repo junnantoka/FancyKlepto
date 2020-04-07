@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 public class SpriteGameObject : GameObject
 {
     protected SpriteSheet sprite;
     protected Vector2 origin;
-    public bool PerPixelCollisionDetection = false;
+    public bool PerPixelCollisionDetection = true;
 
     public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0)
         : base(layer, id)
@@ -66,7 +67,50 @@ public class SpriteGameObject : GameObject
         get { return origin; }
         set { origin = value; }
     }
+    public Vector2 Intersection(SpriteGameObject spriteGameObject)
+    {
+        Vector2 minDistance = new Vector2(sprite.Width + spriteGameObject.Width, sprite.Height + spriteGameObject.Height)/2;
 
+        Vector2 centerA = new Vector2(BoundingBox.Center.X, BoundingBox.Center.Y);
+        Vector2 centerB = new Vector2(spriteGameObject.BoundingBox.Center.X, spriteGameObject.BoundingBox.Center.Y);
+        Vector2 distance = centerA - centerB;
+        Vector2 depth = Vector2.Zero;
+
+        if(distance.X <= minDistance.X)
+        {
+            depth.X = minDistance.X - Math.Abs(distance.X);
+        }
+
+        if (distance.Y <= minDistance.Y)
+        {
+            depth.Y = minDistance.Y - Math.Abs(distance.Y);
+        }
+        return depth;
+    }
+    public void xCol(SpriteGameObject spriteGameObject)
+    {
+        if (spriteGameObject.Position.X > position.X)
+        {
+            position.X -= Intersection(spriteGameObject).X;
+        }
+
+        if (spriteGameObject.Position.X < position.X)
+        {
+            position.X += Intersection(spriteGameObject).X;
+        }
+    }
+    public void yCol(SpriteGameObject spriteGameObject)
+    {
+        if (spriteGameObject.Position.Y < position.Y)
+        {
+            position.Y += Intersection(spriteGameObject).Y;
+        }
+
+        if (spriteGameObject.Position.Y > position.Y)
+        {
+            position.Y -= Intersection(spriteGameObject).Y;
+        }
+    }
     public override Rectangle BoundingBox
     {
         get
@@ -76,7 +120,24 @@ public class SpriteGameObject : GameObject
             return new Rectangle(left, top, Width, Height);
         }
     }
-
+    public bool xaxisCol(SpriteGameObject spriteGameObject)
+    {
+        if (BoundingBox.Center.X < spriteGameObject.BoundingBox.Right &&
+            BoundingBox.Center.X > spriteGameObject.BoundingBox.Left)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool yaxisCol(SpriteGameObject spriteGameObject)
+    {
+        if ((BoundingBox.Center.Y < spriteGameObject.BoundingBox.Bottom &&
+            BoundingBox.Center.Y > spriteGameObject.BoundingBox.Top))
+        {
+            return true;
+        }
+        return false;
+    }
     public bool CollidesWith(SpriteGameObject obj)
     {
         if (!visible || !obj.visible || !BoundingBox.Intersects(obj.BoundingBox))

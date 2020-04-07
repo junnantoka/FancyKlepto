@@ -14,6 +14,8 @@ namespace FancyKlepto.GameStates
         Door door;
         xAxis xaxis;
         yAxis yaxis;
+        SwitchBoard switchBoard1;
+        SwitchBoard switchBoard2;
 
         GameObjectList floors;
         GameObjectList vensters;
@@ -21,35 +23,35 @@ namespace FancyKlepto.GameStates
         GameObjectList goals;
         GameObjectList guards;
         GameObjectList lasers;
-        GameObjectList switchboards;
 
 
         public PlayingState()
         {
             this.Add(new SpriteGameObject("spr_background"));
             thePlayer = new Player(3, 13);
+            switchBoard1 = new SwitchBoard(14, 10, Color.Red);
+            switchBoard2 = new SwitchBoard(6, 12, Color.Yellow);
             goal = new MainGoal(19, 10);
-            door = new Door(2,15);
+            door = new Door(2, 15);
 
             xaxis = new xAxis(8);
             yaxis = new yAxis(10);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
-            //score = new Score();
             floors = new GameObjectList();
             walls = new GameObjectList();
             vensters = new GameObjectList();
             goals = new GameObjectList();
             guards = new GameObjectList();
             lasers = new GameObjectList();
-            switchboards = new GameObjectList();
 
             this.Add(floors);
-            this.Add(switchboards);
-            this.Add(walls);
             this.Add(xaxis);
             this.Add(yaxis);
+            this.Add(walls);
+            this.Add(switchBoard1);
+            this.Add(switchBoard2);
             this.Add(door);
             this.Add(goals);
             this.Add(lasers);
@@ -58,15 +60,16 @@ namespace FancyKlepto.GameStates
             this.Add(vensters);
             this.Add(thePlayer);
 
-            goals.Add(new ExtraGoal(2, 2));
+            goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
             lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), Color.Red));
-            //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), "spr_laser_pixel_purple"));
-            switchboards.Add(new SwitchBoard(14, 10, Color.Red));
+            //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Yellow));
 
             FloorSetup();
             WallSetup();
             VensterSetup();
+
+
         }
 
         public override void HandleInput(InputHelper inputHelper)
@@ -112,40 +115,60 @@ namespace FancyKlepto.GameStates
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            foreach (SwitchBoard switchBoard in switchboards.Children)
+
+            if (thePlayer.CollidesWith(switchBoard1) || thePlayer.CollidesWith(switchBoard2))
             {
-                if (thePlayer.CollidesWith(switchBoard))
+                foreach (Venster_Object venster in vensters.Children)
                 {
-                    foreach (Venster_Object venster in vensters.Children)
+                    if (inputHelper.KeyPressed(Keys.Space))
                     {
-                        if (inputHelper.KeyPressed(Keys.Space))
-                        {
-                            venster.open = true;
-                        }
+                        venster.open = true;
                     }
                 }
-                else
+            }
+            else if (!thePlayer.CollidesWith(switchBoard1) && !thePlayer.CollidesWith(switchBoard2))
+            {
+                foreach (Venster_Object venster in vensters.Children)
                 {
-                    foreach (Venster_Object venster in vensters.Children)
-                    {
-                        venster.open = false;
-                    }
+                    venster.open = false;
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)
             {
-                if (Math.Abs(thePlayer.Position.X - wall.Position.X) <= thePlayer.Sprite.Width * 2 &&
-                    Math.Abs(thePlayer.Position.Y - wall.Position.Y) <= thePlayer.Sprite.Height * 2)
-                {
-                    thePlayer.Collision(wall);
-                }
-
                 if (door.Visible)
                 {
                     if (wall.CollidesWith(door))
                     {
                         wall.Die = true;
+                    }
+                }
+                if (switchBoard1.CollidesWith(wall) || switchBoard2.CollidesWith(wall))
+                {
+                    wall.Die = true;
+                }
+
+                if (thePlayer.xaxisCol(wall))
+                {
+                    if (thePlayer.Intersection(wall).Y > 0)
+                        thePlayer.yCol(wall);
+                }
+                if (thePlayer.yaxisCol(wall))
+                {
+                    if (thePlayer.Intersection(wall).X > 0)
+                        thePlayer.xCol(wall);
+                }
+                foreach (Guard guard in guards.Children)
+                {
+                    if (guard.xaxisCol(wall))
+                    {
+                        if (guard.Intersection(wall).Y > 0)
+                            guard.yCol(wall);
+                    }
+                    if (guard.yaxisCol(wall))
+                    {
+                        if (guard.Intersection(wall).X > 0)
+                            guard.xCol(wall);
                     }
                 }
             }
@@ -160,30 +183,22 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Guard guard in guards.Children)
             {
-                foreach (Wall wall in walls.Children)
-                {
-                    if (Math.Abs(guard.Position.X - wall.Position.X) <= guard.Sprite.Width * 2 &&
-                        Math.Abs(guard.Position.Y - wall.Position.Y) <= guard.Sprite.Height * 2)
-                    {
-                        guard.Collision(wall);
-                    }
-                }
                 if (guard.CollidesWith(thePlayer))
                 {
                     thePlayer.Reset();
                 }
             }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (door.Visible && thePlayer.CollidesWith(goal) && goal.hold && thePlayer.CollidesWith(door))
-            {
-                GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
-                Reset();
-            }
-        }
 
-        public override void Reset()
-        {
-            base.Reset();
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (door.Visible)
+            {
+                if (goal.hold && thePlayer.CollidesWith(door))
+                {
+                    GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
+                    Reset();
+                }
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
         public void FloorSetup()
@@ -247,6 +262,7 @@ namespace FancyKlepto.GameStates
 
         public void VensterSetup()
         {
+            /*
             vensters.Add(new Venster_Object(0, 0, "spr_point_bar"));
             vensters.Add(new Venster_Object(5, 1067, "spr_point_bar_point"));
             vensters.Add(new Venster_Object(5, 1067 - 8 - 2 * unitSpacing, "spr_point_bar_point"));
@@ -258,6 +274,8 @@ namespace FancyKlepto.GameStates
             vensters.Add(new Venster_Object(64, 730, "spr_collected_items"));
             vensters.Add(new Venster_Object(64, 917, "spr_lives"));
             vensters.Add(new Venster_Object(64, 990, "spr_score"));
+            */
+            vensters.Add(new Venster_Object(0, 0, "spr_venster_352"));
         }
     }
 }

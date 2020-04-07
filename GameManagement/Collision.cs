@@ -81,57 +81,6 @@ public class Collision
         }
         return false;
     }
-    /*public static bool LinePix(Vector2 pos1, Vector2 pos2, Rectangle obj, Texture2D objecttexture)
-    {
-        Texture2D linetexture;
-        Vector2 topLeft, botLeft, topRight, botRight;
-        topLeft.X = obj.Left;
-        topLeft.Y = obj.Top;
-        botLeft.X = obj.Left;
-        topRight.Y = obj.Top;
-        botRight.X = obj.Right+ obj.Left;
-        botRight.Y = obj.Bottom + obj.Top;
-        topRight.X = obj.Right+ obj.Left;
-        botLeft.Y = obj.Bottom + obj.Top;
-        linetexture.Width = (int)Math.Abs(pos1.X - pos2.X);
-        linetexture.Height = (int)Math.Abs(pos1.Y - pos2.Y);
-
-        Color[] colorData1 = new Color[objecttexture.Width * objecttexture.Height];
-        Color[] colorData2 = new Color[(int)Math.Abs(pos1.X - pos2.X) * (int)Math.Abs(pos1.Y - pos2.Y)];
-        objecttexture.GetData<Color>(colorData1);
-        linetexture.GetData<Color>(colorData2);
-
-        float lazerTop, lazerBot, lazerLeft, lazerRight;
-
-        lazerTop = Math.Max((int)pos1.Y, (int)pos2.Y);
-        lazerBot = Math.Min((int)pos1.Y, (int)pos2.Y);
-        lazerLeft = Math.Max((int)pos1.X, (int)pos2.X);
-        lazerRight = Math.Min((int)pos1.X, (int)pos2.X);
-
-        bool Left = lineLine(pos1, pos2, topLeft, botLeft);
-        bool Right = lineLine(pos1, pos2, topRight, botRight);
-        bool Top = lineLine(pos1, pos2, topLeft, topRight);
-        bool Bottom = lineLine(pos1, pos2, botLeft, botRight);
-
-
-        for (int y = (int)lazerTop; y < (int)lazerBot; y++)
-        {
-            for (int x = (int)lazerLeft; x < (int)lazerRight; x++)
-            {
-                Color A = colorData1[(y - obj.Top) * (obj.Width) + (x - obj.Left)];
-                Color B = colorData2[(y - (int)lazerTop) * ((int)Math.Abs(lazerRight-lazerLeft)) + (x - (int)lazerLeft)];
-
-                if (A.A != 0 && B.A != 0)
-                {
-                    if (Left || Right || Top || Bottom)
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }*/
     public static bool PixelCollision(Texture2D sprite1, Texture2D sprite2, Rectangle player, Rectangle enemy)
     {
         Color[] colorData1 = new Color[sprite1.Width * sprite1.Height];

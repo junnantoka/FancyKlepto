@@ -3,7 +3,7 @@
 class MainGoal : SpriteGameObject
 {
     public bool hold;
-    public MainGoal(int x, int y) : base("spr_maingoal")
+    public MainGoal(int x, int y) : base("spr_nachtwacht_frame")
     {
         Reset();
         position = new Vector2(18 + 1 + x * (unitSize + unitSpacing), 10 + 1 + y * (unitSize + unitSpacing));

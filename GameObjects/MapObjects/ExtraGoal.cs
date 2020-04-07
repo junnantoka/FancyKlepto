@@ -3,7 +3,7 @@
 class ExtraGoal : SpriteGameObject
 {
     public bool hold;
-    public ExtraGoal(int x, int y) : base("spr_secondgoal")
+    public ExtraGoal(int x, int y) : base("spr_diamond_dark")
     {
         Reset();
         position = new Vector2(18 + 1 + x * (unitSize + unitSpacing), 10 + 1 + y * (unitSize + unitSpacing));
