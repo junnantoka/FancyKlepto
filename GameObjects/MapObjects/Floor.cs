@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 class Floor : SpriteGameObject
 {
-    public Floor(int x, int y) : base("spr_floor_choco")
+    public Floor(int x, int y) : base("spr_floor_art_light")
     {
         Reset();
         position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));

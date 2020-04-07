@@ -262,6 +262,7 @@ namespace FancyKlepto.GameStates
 
         public void VensterSetup()
         {
+            /*
             vensters.Add(new Venster_Object(0, 0, "spr_point_bar"));
             vensters.Add(new Venster_Object(5, 1067, "spr_point_bar_point"));
             vensters.Add(new Venster_Object(5, 1067 - 8 - 2 * unitSpacing, "spr_point_bar_point"));
@@ -273,6 +274,8 @@ namespace FancyKlepto.GameStates
             vensters.Add(new Venster_Object(64, 730, "spr_collected_items"));
             vensters.Add(new Venster_Object(64, 917, "spr_lives"));
             vensters.Add(new Venster_Object(64, 990, "spr_score"));
+            */
+            vensters.Add(new Venster_Object(0, 0, "spr_venster_352"));
         }
     }
 }

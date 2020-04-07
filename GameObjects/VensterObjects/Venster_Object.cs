@@ -14,7 +14,7 @@ class Venster_Object : SpriteGameObject
         position.X += screenWidth;
         defPos = position;
         // 353 is total width of the open window
-        openPos.X = defPos.X - 353;
+        openPos.X = defPos.X - 352;
     }
     public override void Update(GameTime gameTime)
     {
