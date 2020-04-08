@@ -31,11 +31,7 @@ namespace FancyKlepto.GameStates
             thePlayer = new Player(3, 13);
             switchBoard1 = new SwitchBoard(14, 10, Color.Red);
             switchBoard2 = new SwitchBoard(6, 12, Color.Yellow);
-            goal = new MainGoal(19, 10);
             door = new Door(2, 15);
-
-            xaxis = new xAxis(8);
-            yaxis = new yAxis(10);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
@@ -43,19 +39,23 @@ namespace FancyKlepto.GameStates
             walls = new GameObjectList();
             vensters = new GameObjectList();
             goals = new GameObjectList();
+
+            xaxis = new xAxis(8);
+            yaxis = new yAxis(10);
+            goal = new MainGoal(19, 10);
             guards = new GameObjectList();
             lasers = new GameObjectList();
 
             this.Add(floors);
             this.Add(walls);
-            this.Add(xaxis);
-            this.Add(yaxis);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
-            this.Add(goals);
             this.Add(lasers);
+            this.Add(xaxis);
+            this.Add(yaxis);
             this.Add(goal);
+            this.Add(goals);
             this.Add(guards);
             this.Add(vensters);
             this.Add(thePlayer);
