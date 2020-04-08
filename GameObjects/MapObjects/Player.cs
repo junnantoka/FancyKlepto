@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using FancyKlepto.GameObjects;
+using Microsoft.Xna.Framework.Audio;
 
 class Player : SpriteGameObject
 {
+    SoundEffect Player_Walk1, Player_Walk2, Player_Walk3, Player_Walk4;
     protected KeyboardState currentKeyboardState;
     public Vector2 maxVelocity;
     public Vector2 minVelocity;
@@ -14,6 +16,11 @@ class Player : SpriteGameObject
 
     public Player(int x, int y) : base("spr_thief")
     {
+
+        Player_Walk1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile1");
+        Player_Walk2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile2");
+        Player_Walk3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile3");
+        Player_Walk4 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile4");
         velocityVelocity = new Vector2(0.6f, 0.6f);
         stopVelocity = 2;
         position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
@@ -30,7 +37,7 @@ class Player : SpriteGameObject
         velocity = Vector2.Zero;
     }
 
-    public override void Update(GameTime gameTime) 
+    public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
         currentKeyboardState = Keyboard.GetState();

@@ -1,24 +1,32 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 class Venster_Object : SpriteGameObject
 {
+    SoundEffect Venster;
+    public int Timer;
     private Vector2 openPos;
     private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+
     public Venster_Object(int x, int y, String pObject) : base(pObject)
     {
+        Venster = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
         velocity = new Vector2(15, 0);
         position = new Vector2(x, y);
         position.X += screenWidth;
         defPos = position;
-        // 353 is total width of the open window
+        // 352 is total width of the open window
         openPos.X = defPos.X - 352;
     }
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        if (Timer == 1)
+        {
+            Venster.Play();
+            Timer = 0;
+        }
         Move();
     }
 

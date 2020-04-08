@@ -25,6 +25,42 @@
 /processorParam:TextureFormat=Color
 /build:agent.png
 
+#begin alert.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:alert.wav
+
+#begin Appear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Appear.wav
+
+#begin Collected1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Collected1.mp3
+
+#begin Collected2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Collected2.mp3
+
+#begin Collected3.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Collected3.mp3
+
+#begin Correct.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Correct.mp3
+
 #begin door.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +72,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:door.png
+
+#begin Enter.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Enter.mp3
 
 #begin horizontal.png
 /importer:TextureImporter
@@ -60,6 +102,96 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:lazer.png
+
+#begin Lazer_Col.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Lazer_Col.wav
+
+#begin Lazer_Col_Alarm.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Lazer_Col_Alarm.wav
+
+#begin Lazer_Off.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Lazer_Off.wav
+
+#begin Lazer_Spark.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Lazer_Spark.wav
+
+#begin Level Win.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Level Win.mp3
+
+#begin npc_step1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:npc_step1.wav
+
+#begin npc_step2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:npc_step2.wav
+
+#begin npc_step3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:npc_step3.wav
+
+#begin npc_step4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:npc_step4.wav
+
+#begin npc_step4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:npc_step4.wav
+
+#begin pl_tile1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pl_tile1.wav
+
+#begin pl_tile2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pl_tile2.wav
+
+#begin pl_tile3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pl_tile3.wav
+
+#begin pl_tile4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pl_tile4.wav
+
+#begin Slide.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Slide.wav
 
 #begin spr_background.png
 /importer:TextureImporter
@@ -673,6 +805,36 @@
 /processorParam:TextureFormat=Color
 /build:spr_xyz.png
 
+#begin Time.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Time.png
+
+#begin typing1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:typing1.mp3
+
+#begin typing2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:typing2.mp3
+
+#begin typing3.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:typing3.mp3
+
 #begin vertical.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -684,4 +846,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:vertical.png
+
+#begin Wrong.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Wrong.wav
 

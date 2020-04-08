@@ -4,11 +4,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using FancyKlepto.GameObjects;
 using FancyKlepto.GameObjects.MapObjects;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Content;
 
 namespace FancyKlepto.GameStates
 {
     class PlayingState : GameObjectList
     {
+        Song Loop;
+        SoundEffect Level_Win, Level_Lose;
+        SoundEffect Input_Correct, Input_Wrong;
+        SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
+
         Player thePlayer;
         MainGoal goal;
         Door door;
@@ -16,17 +24,22 @@ namespace FancyKlepto.GameStates
         yAxis yaxis;
         SwitchBoard switchBoard1;
         SwitchBoard switchBoard2;
+        Venster_Object venster;
 
+        GameObjectList times;
         GameObjectList floors;
-        GameObjectList vensters;
         GameObjectList walls;
         GameObjectList goals;
         GameObjectList guards;
         GameObjectList lasers;
 
+        public float timer, total_time,time;
+        public float timebarSpace;
 
         public PlayingState()
         {
+            Reset();
+            timebarSpace = 10.768F;
             this.Add(new SpriteGameObject("spr_background"));
             thePlayer = new Player(3, 13);
             switchBoard1 = new SwitchBoard(14, 10, Color.Red);
@@ -37,7 +50,7 @@ namespace FancyKlepto.GameStates
 
             floors = new GameObjectList();
             walls = new GameObjectList();
-            vensters = new GameObjectList();
+            venster = new Venster_Object(0, 0, "spr_venster_352");
             goals = new GameObjectList();
 
             xaxis = new xAxis(8);
@@ -45,6 +58,11 @@ namespace FancyKlepto.GameStates
             goal = new MainGoal(19, 10);
             guards = new GameObjectList();
             lasers = new GameObjectList();
+            times = new GameObjectList();
+            FloorSetup();
+            WallSetup();
+            TimeBarSetup();
+            SoundSetup();
 
             this.Add(floors);
             this.Add(walls);
@@ -57,7 +75,8 @@ namespace FancyKlepto.GameStates
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
-            this.Add(vensters);
+            this.Add(venster);
+            this.Add(times);
             this.Add(thePlayer);
 
             goals.Add(new ExtraGoal(3, 3));
@@ -65,13 +84,15 @@ namespace FancyKlepto.GameStates
             lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), Color.Red));
             //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Yellow));
 
-            FloorSetup();
-            WallSetup();
-            VensterSetup();
-
 
         }
-
+        public override void Reset()
+        {
+            base.Reset();
+            total_time = 5*60;
+            time = total_time;
+            timer = 0;
+        }
         public override void HandleInput(InputHelper inputHelper)
         {
             base.HandleInput(inputHelper);
@@ -118,20 +139,22 @@ namespace FancyKlepto.GameStates
 
             if (thePlayer.CollidesWith(switchBoard1) || thePlayer.CollidesWith(switchBoard2))
             {
-                foreach (Venster_Object venster in vensters.Children)
-                {
                     if (inputHelper.KeyPressed(Keys.Space))
                     {
                         venster.open = true;
+                        foreach (TimeBar timebar in times.Children)
+                        {
+                            timebar.open = true;
+                        }
                     }
-                }
             }
             else if (!thePlayer.CollidesWith(switchBoard1) && !thePlayer.CollidesWith(switchBoard2))
             {
-                foreach (Venster_Object venster in vensters.Children)
-                {
                     venster.open = false;
-                }
+                    foreach (TimeBar timebar in times.Children)
+                    {
+                        timebar.open = false;
+                    }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)
@@ -200,6 +223,22 @@ namespace FancyKlepto.GameStates
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            timer++;
+            if (timer % 60 == 0)
+            {
+                time--;
+            }
+            foreach(TimeBar timebar in times.Children)
+            {
+                if ((total_time-time)/ total_time > timebar.Position.Y / GameEnvironment.Screen.Y)
+                {
+                    timebar.Sprite.color = Color.DarkBlue;
+                } 
+            }
+        }
 
         public void FloorSetup()
         {
@@ -259,23 +298,28 @@ namespace FancyKlepto.GameStates
                 walls.Add(new Wall(i, 7));
             }
         }
-
-        public void VensterSetup()
+        public void SoundSetup()
         {
-            /*
-            vensters.Add(new Venster_Object(0, 0, "spr_point_bar"));
-            vensters.Add(new Venster_Object(5, 1067, "spr_point_bar_point"));
-            vensters.Add(new Venster_Object(5, 1067 - 8 - 2 * unitSpacing, "spr_point_bar_point"));
-            vensters.Add(new Venster_Object(32, 0, "spr_venster_background"));
-            vensters.Add(new Venster_Object(64, 34, "spr_nickname"));
-            vensters.Add(new Venster_Object(64, 132, "spr_lineair_visualiseren"));
-            vensters.Add(new Venster_Object(64, 420, "spr_input"));
-            vensters.Add(new Venster_Object(64, 516, "spr_xyz"));
-            vensters.Add(new Venster_Object(64, 730, "spr_collected_items"));
-            vensters.Add(new Venster_Object(64, 917, "spr_lives"));
-            vensters.Add(new Venster_Object(64, 990, "spr_score"));
-            */
-            vensters.Add(new Venster_Object(0, 0, "spr_venster_352"));
+
+            //Level_Win =      GameEnvironment.AssetManager.Content.Load<SoundEffect>("Level Win");
+            //Level_Lose =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
+            
+            //Input_Correct =  GameEnvironment.AssetManager.Content.Load<SoundEffect>("Correct");
+            //Input_Wrong =    GameEnvironment.AssetManager.Content.Load<SoundEffect>("Wrong");
+            
+            //Button_Enter =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Enter");
+            //Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing1");
+            //Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing2");
+            //Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing3");
+            
+            //Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
+        }
+        public void TimeBarSetup()
+        {
+            for (int i = 0; i<100; i++)
+            {
+                times.Add(new TimeBar(new Vector2(8,i* timebarSpace), time));
+            }
         }
     }
 }

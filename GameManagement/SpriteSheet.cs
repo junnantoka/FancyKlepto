@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 public class SpriteSheet
 {
+    public Color color = Color.White;
     protected Texture2D sprite;
     protected bool[] collisionMask;
     protected int sheetIndex;
@@ -55,7 +56,7 @@ public class SpriteSheet
         {
             spriteEffects = SpriteEffects.FlipHorizontally;
         }
-        spriteBatch.Draw(sprite, position, spritePart, Color.White,
+        spriteBatch.Draw(sprite, position, spritePart, color,
             0.0f, origin, 1.0f, spriteEffects, 0.0f);
     }
 

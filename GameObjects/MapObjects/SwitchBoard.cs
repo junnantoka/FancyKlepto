@@ -4,9 +4,7 @@ using System;
 class SwitchBoard : SpriteGameObject
 {
     Color color;
-    private Texture2D light1;
-    private Texture2D light2;
-    private Texture2D light3;
+    private Texture2D light1, light2, light3;
     bool blink,solved;
     int blink_timer;
 
