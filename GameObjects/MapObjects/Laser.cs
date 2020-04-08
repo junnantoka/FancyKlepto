@@ -44,7 +44,7 @@ class Laser : SpriteGameObject
         //Draws the laser
         if (Active)
         {
-            if (Spark == 0)
+            if (Spark <= 0)
             {
                 Lazer_Spark.Play();
                 Spark = GameEnvironment.Random.Next(360,480);

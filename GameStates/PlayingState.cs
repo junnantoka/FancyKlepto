@@ -108,11 +108,20 @@ namespace FancyKlepto.GameStates
 
             if (goal.CollidesWith(thePlayer))
             {
-                goal.hold = true;
+
                 if (inputHelper.IsKeyDown(Keys.Space))
                 {
                     goal.Hold(thePlayer);
+                    if (!door.Visible)
+                    {
+                        door.Timer = 1;
+                    }
                     door.Visible = true;
+                    if (!goal.hold)
+                    {
+                        goal.Timer = GameEnvironment.Random.Next(1, 3);
+                    }
+                    goal.hold = true;
                 }
             }
             else
@@ -124,10 +133,14 @@ namespace FancyKlepto.GameStates
             {
                 if (extraGoal.CollidesWith(thePlayer))
                 {
-                    extraGoal.hold = true;
                     if (inputHelper.IsKeyDown(Keys.Space))
                     {
                         extraGoal.Hold(thePlayer);
+                        if (!extraGoal.hold)
+                        {
+                            extraGoal.Timer = GameEnvironment.Random.Next(1, 3);
+                        }
+                        extraGoal.hold = true;
                     }
                 }
                 else
@@ -141,7 +154,8 @@ namespace FancyKlepto.GameStates
             {
                     if (inputHelper.KeyPressed(Keys.Space))
                     {
-                        venster.open = true;
+                    venster.open = true;
+                    venster.Timer = 1;
                         foreach (TimeBar timebar in times.Children)
                         {
                             timebar.open = true;
@@ -150,6 +164,10 @@ namespace FancyKlepto.GameStates
             }
             else if (!thePlayer.CollidesWith(switchBoard1) && !thePlayer.CollidesWith(switchBoard2))
             {
+                if (venster.open)
+                {
+                    venster.Timer = 1 ;
+                }
                     venster.open = false;
                     foreach (TimeBar timebar in times.Children)
                     {
@@ -200,6 +218,9 @@ namespace FancyKlepto.GameStates
             {
                 if (Collision.LineRect(laser.Position, laser.position2, thePlayer.BoundingBox))
                 {
+                    laser.Alert = 1;
+                    laser.Col = 1;
+                    //laser.Col_Alarm = 1;
                     thePlayer.Reset();
                 }
             }
@@ -300,19 +321,20 @@ namespace FancyKlepto.GameStates
         }
         public void SoundSetup()
         {
-
-            //Level_Win =      GameEnvironment.AssetManager.Content.Load<SoundEffect>("Level Win");
-            //Level_Lose =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
+            /*
+            Level_Win =      GameEnvironment.AssetManager.Content.Load<SoundEffect>("Level Win");
+            Level_Lose =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
             
-            //Input_Correct =  GameEnvironment.AssetManager.Content.Load<SoundEffect>("Correct");
-            //Input_Wrong =    GameEnvironment.AssetManager.Content.Load<SoundEffect>("Wrong");
+            Input_Correct =  GameEnvironment.AssetManager.Content.Load<SoundEffect>("Correct");
+            Input_Wrong =    GameEnvironment.AssetManager.Content.Load<SoundEffect>("Wrong");
             
-            //Button_Enter =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Enter");
-            //Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing1");
-            //Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing2");
-            //Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing3");
+            Button_Enter =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Enter");
+            Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing1");
+            Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing2");
+            Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing3");
             
-            //Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
+            Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
+            */
         }
         public void TimeBarSetup()
         {

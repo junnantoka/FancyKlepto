@@ -37,29 +37,29 @@
 /processorParam:Quality=Best
 /build:Appear.wav
 
-#begin Collected1.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin Collected1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Collected1.mp3
+/build:Collected1.wav
 
-#begin Collected2.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin Collected2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Collected2.mp3
+/build:Collected2.wav
 
-#begin Collected3.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin Collected3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Collected3.mp3
+/build:Collected3.wav
 
-#begin Correct.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin Correct.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Correct.mp3
+/build:Correct.wav
 
 #begin door.png
 /importer:TextureImporter
@@ -73,11 +73,11 @@
 /processorParam:TextureFormat=Color
 /build:door.png
 
-#begin Enter.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin Enter.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Enter.mp3
+/build:Enter.wav
 
 #begin horizontal.png
 /importer:TextureImporter
@@ -127,11 +127,11 @@
 /processorParam:Quality=Best
 /build:Lazer_Spark.wav
 
-#begin Level Win.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin Level Win.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Level Win.mp3
+/build:Level Win.wav
 
 #begin npc_step1.wav
 /importer:WavImporter
@@ -150,12 +150,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:npc_step3.wav
-
-#begin npc_step4.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:npc_step4.wav
 
 #begin npc_step4.wav
 /importer:WavImporter
@@ -817,23 +811,23 @@
 /processorParam:TextureFormat=Color
 /build:Time.png
 
-#begin typing1.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin typing1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:typing1.mp3
+/build:typing1.wav
 
-#begin typing2.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin typing2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:typing2.mp3
+/build:typing2.wav
 
-#begin typing3.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin typing3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:typing3.mp3
+/build:typing3.wav
 
 #begin vertical.png
 /importer:TextureImporter
