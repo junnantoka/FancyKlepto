@@ -25,6 +25,7 @@ namespace FancyKlepto.GameStates
         SwitchBoard switchBoard1;
         SwitchBoard switchBoard2;
         Venster_Object venster;
+        Score score;
 
         GameObjectList times;
         GameObjectList floors;
@@ -33,7 +34,7 @@ namespace FancyKlepto.GameStates
         GameObjectList guards;
         GameObjectList lasers;
 
-        public float timer, total_time,time;
+        public float timer, total_time, time;
         public float timebarSpace;
 
         public PlayingState()
@@ -59,6 +60,7 @@ namespace FancyKlepto.GameStates
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
+            score = new Score((int) time);
             FloorSetup();
             WallSetup();
             TimeBarSetup();
@@ -89,7 +91,7 @@ namespace FancyKlepto.GameStates
         public override void Reset()
         {
             base.Reset();
-            total_time = 5*60;
+            total_time = 5 * 60;
             time = total_time;
             timer = 0;
         }
@@ -139,22 +141,22 @@ namespace FancyKlepto.GameStates
 
             if (thePlayer.CollidesWith(switchBoard1) || thePlayer.CollidesWith(switchBoard2))
             {
-                    if (inputHelper.KeyPressed(Keys.Space))
+                if (inputHelper.KeyPressed(Keys.Space))
+                {
+                    venster.open = true;
+                    foreach (TimeBar timebar in times.Children)
                     {
-                        venster.open = true;
-                        foreach (TimeBar timebar in times.Children)
-                        {
-                            timebar.open = true;
-                        }
+                        timebar.open = true;
                     }
+                }
             }
             else if (!thePlayer.CollidesWith(switchBoard1) && !thePlayer.CollidesWith(switchBoard2))
             {
-                    venster.open = false;
-                    foreach (TimeBar timebar in times.Children)
-                    {
-                        timebar.open = false;
-                    }
+                venster.open = false;
+                foreach (TimeBar timebar in times.Children)
+                {
+                    timebar.open = false;
+                }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)
@@ -231,12 +233,12 @@ namespace FancyKlepto.GameStates
             {
                 time--;
             }
-            foreach(TimeBar timebar in times.Children)
+            foreach (TimeBar timebar in times.Children)
             {
-                if ((total_time-time)/ total_time > timebar.Position.Y / GameEnvironment.Screen.Y)
+                if ((total_time - time) / total_time > timebar.Position.Y / GameEnvironment.Screen.Y)
                 {
                     timebar.Sprite.color = Color.DarkBlue;
-                } 
+                }
             }
         }
 
@@ -303,22 +305,22 @@ namespace FancyKlepto.GameStates
 
             //Level_Win =      GameEnvironment.AssetManager.Content.Load<SoundEffect>("Level Win");
             //Level_Lose =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
-            
+
             //Input_Correct =  GameEnvironment.AssetManager.Content.Load<SoundEffect>("Correct");
             //Input_Wrong =    GameEnvironment.AssetManager.Content.Load<SoundEffect>("Wrong");
-            
+
             //Button_Enter =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Enter");
             //Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing1");
             //Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing2");
             //Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing3");
-            
+
             //Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
         }
         public void TimeBarSetup()
         {
-            for (int i = 0; i<100; i++)
+            for (int i = 0; i < 100; i++)
             {
-                times.Add(new TimeBar(new Vector2(8,i* timebarSpace), time));
+                times.Add(new TimeBar(new Vector2(8, i * timebarSpace), time));
             }
         }
     }

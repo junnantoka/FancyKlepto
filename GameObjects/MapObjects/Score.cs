@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace FancyKlepto.GameObjects.MapObjects
 {
@@ -12,7 +13,7 @@ namespace FancyKlepto.GameObjects.MapObjects
         int timer;
         public int time;
         public int score;
-        public Score(int Time) : base("Old_Englished_Boots")
+        public Score(int Time) : base("Score")
         {
             time = Time;
             Reset();
@@ -37,6 +38,12 @@ namespace FancyKlepto.GameObjects.MapObjects
             {
                 time--;
             }
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            base.Draw(gameTime, spriteBatch);
+            spriteBatch.DrawString(spriteFont, "UMU", new Vector2(GameEnvironment.Screen.X / 2, 50), Color.White);
         }
     }
 }
