@@ -17,6 +17,7 @@ namespace FancyKlepto.GameStates
         SoundEffect Input_Correct, Input_Wrong;
         SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
 
+
         Player thePlayer;
         MainGoal goal;
         Door door;
@@ -239,6 +240,7 @@ namespace FancyKlepto.GameStates
                 if (goal.hold && thePlayer.CollidesWith(door))
                 {
                     GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
+                    Level_Win.Play();
                     Reset();
                 }
             }
@@ -321,7 +323,6 @@ namespace FancyKlepto.GameStates
         }
         public void SoundSetup()
         {
-            /*
             Level_Win =      GameEnvironment.AssetManager.Content.Load<SoundEffect>("Level Win");
             Level_Lose =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
             
@@ -333,8 +334,7 @@ namespace FancyKlepto.GameStates
             Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing2");
             Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing3");
             
-            Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
-            */
+            //Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
         }
         public void TimeBarSetup()
         {

@@ -72,10 +72,11 @@
     <Compile Include="GameObjects\MapObjects\Player.cs" />
     <Compile Include="GameObjects\MapObjects\Score.cs" />
     <Compile Include="GameObjects\MapObjects\SwitchBoard.cs" />
-    <Compile Include="GameObjects\MapObjects\TimeBar.cs" />
+    <Compile Include="GameObjects\VensterObjects\TimeBar.cs" />
     <Compile Include="GameObjects\MapObjects\Wall.cs" />
     <Compile Include="GameObjects\MapObjects\axis\xAxis.cs" />
     <Compile Include="GameObjects\MapObjects\axis\yAxis.cs" />
+    <Compile Include="GameObjects\VensterObjects\Input.cs" />
     <Compile Include="GameObjects\VensterObjects\Venster_Object.cs" />
     <Compile Include="GameStates\EndStateLost.cs" />
     <Compile Include="GameStates\EndStateWon.cs" />

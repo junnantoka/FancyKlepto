@@ -4,9 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using FancyKlepto.GameObjects;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
 class Player : SpriteGameObject
 {
+    private string _stringValue = string.Empty;
     SoundEffect Player_Walk1, Player_Walk2, Player_Walk3, Player_Walk4;
     protected KeyboardState currentKeyboardState;
     public Vector2 maxVelocity;
@@ -40,15 +42,14 @@ class Player : SpriteGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        position += velocity;
         currentKeyboardState = Keyboard.GetState();
     }
 
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);
-
-        position += velocity;
-
+        Console.WriteLine(Keyboard.GetState().GetPressedKeys());
         #region acceleration
         if (inputHelper.IsKeyDown(Keys.A) && velocity.X > minVelocity.X)
         {

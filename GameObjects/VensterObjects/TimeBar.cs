@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FancyKlepto.GameObjects.MapObjects
+namespace FancyKlepto.GameObjects
 {
     class TimeBar : SpriteGameObject
     {
