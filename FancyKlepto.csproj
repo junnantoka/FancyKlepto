@@ -67,6 +67,7 @@
     <Compile Include="GameObjects\MapObjects\ExtraGoal.cs" />
     <Compile Include="GameObjects\MapObjects\Floor.cs" />
     <Compile Include="GameObjects\MapObjects\Guard.cs" />
+    <Compile Include="GameObjects\MapObjects\InputAnwser.cs" />
     <Compile Include="GameObjects\MapObjects\Laser.cs" />
     <Compile Include="GameObjects\MapObjects\MainGoal.cs" />
     <Compile Include="GameObjects\MapObjects\Player.cs" />

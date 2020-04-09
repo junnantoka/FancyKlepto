@@ -16,6 +16,7 @@ namespace FancyKlepto.GameStates
         yAxis yaxis;
         SwitchBoard switchBoard1;
         SwitchBoard switchBoard2;
+        InputAnwser inputanwser;
 
         GameObjectList floors;
         GameObjectList vensters;
@@ -36,6 +37,7 @@ namespace FancyKlepto.GameStates
 
             xaxis = new xAxis(8);
             yaxis = new yAxis(10);
+            inputanwser = new InputAnwser(75, 715);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
@@ -58,6 +60,7 @@ namespace FancyKlepto.GameStates
             this.Add(goal);
             this.Add(guards);
             this.Add(vensters);
+            this.Add(inputanwser);
             this.Add(thePlayer);
 
             goals.Add(new ExtraGoal(3, 3));
@@ -123,6 +126,7 @@ namespace FancyKlepto.GameStates
                     if (inputHelper.KeyPressed(Keys.Space))
                     {
                         venster.open = true;
+                        inputanwser.open = true;
                     }
                 }
             }
@@ -130,6 +134,7 @@ namespace FancyKlepto.GameStates
             {
                 foreach (Venster_Object venster in vensters.Children)
                 {
+                    inputanwser.open = false;
                     venster.open = false;
                 }
             }

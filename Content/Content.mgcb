@@ -37,6 +37,13 @@
 /processorParam:TextureFormat=Color
 /build:door.png
 
+#begin GameFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:GameFont.spritefont
+
 #begin horizontal.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -48,6 +55,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:horizontal.png
+
+#begin Input.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Input.spritefont
 
 #begin lazer.png
 /importer:TextureImporter
