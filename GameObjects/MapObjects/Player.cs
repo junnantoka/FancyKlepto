@@ -16,7 +16,7 @@ class Player : RotatingSpriteGameObject
     int degreeRotater = 6;
     double radius = 0.0174532925;
 
-    public Player(int x, int y) : base("idle")
+    public Player(int x, int y) : base("Player/idle")
     {
         position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
         defPos = position;
@@ -25,17 +25,16 @@ class Player : RotatingSpriteGameObject
 
         VelocitySetup();
         #region walk Sound
-        Player_Walk1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile1");
-        Player_Walk2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile2");
-        Player_Walk3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile3");
-        Player_Walk4 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile4");
+        Player_Walk1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile1");
+        Player_Walk2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile2");
+        Player_Walk3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile3");
+        Player_Walk4 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile4");
         #endregion
         Reset();
     }
     public void VelocitySetup()
     {
         Acceleration = new Vector2(25  ,25);
-        //Acceleration = new Vector2(0.6f, 0.6f);
         stopVelocity = 2;
         maxVelocity = new Vector2(5, 5);
         minVelocity = -1 * maxVelocity;
@@ -107,5 +106,9 @@ class Player : RotatingSpriteGameObject
         {
             offsetDegrees -= degreeRotater;
         }
+    }
+
+    public void LoadContent()
+    {
     }
 }

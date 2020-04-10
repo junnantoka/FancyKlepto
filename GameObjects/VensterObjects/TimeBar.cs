@@ -9,9 +9,9 @@ namespace FancyKlepto.GameObjects
         private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         private Vector2 openPos;
         public SoundEffect Color_Off;
-        public TimeBar(Vector2 pos,float Time) : base("Time")
+        public TimeBar(Vector2 pos,float Time) : base("Map/Time")
         {
-            Color_Off = GameEnvironment.AssetManager.Content.Load<SoundEffect>("beep");
+            Color_Off = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/beep");
             velocity = new Vector2(15, 0);
             position = pos;
             position.Y += 3;

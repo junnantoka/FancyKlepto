@@ -7,12 +7,12 @@ class ExtraGoal : SpriteGameObject
     SoundEffect Item_Collected1, Item_Collected2, Item_Collected3;
     public int Timer;
     public bool hold;
-    public ExtraGoal(int x, int y) : base("spr_red_diamond_small")
+    public ExtraGoal(int x, int y) : base("Map/spr_red_diamond_small")
     {
-        Item_Collected1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Collected1");
+        Item_Collected1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected1");
         
-        Item_Collected2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Collected2");
-        Item_Collected3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Collected3");
+        Item_Collected2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected2");
+        Item_Collected3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected3");
         Reset();
         position = new Vector2(18 + 1 + x * (unitSize + unitSpacing), 10 + 1 + y * (unitSize + unitSpacing));
         defPos = position;

@@ -2,59 +2,76 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-public class Animation : SpriteSheet
+/// <summary>
+/// Represents an animated texture.
+/// </summary>
+/// <remarks>
+/// Currently, this class assumes that each frame of animation is
+/// as wide as each animation is tall. The number of frames in the
+/// animation are inferred from this.
+/// </remarks>
+class Animation
 {
-    protected float frameTime;
-    protected bool isLooping;
-    protected float time;
-
-    public Animation(string assetname, bool isLooping, float frameTime = 0.1f) : base(assetname)
+    /// <summary>
+    /// All frames in the animation arranged horizontally.
+    /// </summary>
+    public Texture2D Texture
     {
-        this.frameTime = frameTime;
-        this.isLooping = isLooping;
+        get { return texture; }
     }
+    Texture2D texture;
 
-    public void Play()
-    {
-        sheetIndex = 0;
-        time = 0.0f;
-    }
-
-    public void Update(GameTime gameTime)
-    {
-        time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-        while (time > frameTime)
-        {
-            time -= frameTime;
-            if (isLooping)
-            {
-                sheetIndex = (sheetIndex + 1) % NumberSheetElements;
-            }
-            else
-            {
-                sheetIndex = Math.Min(sheetIndex + 1, NumberSheetElements - 1);
-            }
-        }
-    }
-
+    /// <summary>
+    /// Duration of time to show each frame.
+    /// </summary>
     public float FrameTime
     {
         get { return frameTime; }
     }
+    float frameTime;
 
+    /// <summary>
+    /// When the end of the animation is reached, should it
+    /// continue playing from the beginning?
+    /// </summary>
     public bool IsLooping
     {
         get { return isLooping; }
     }
+    bool isLooping;
 
-    public int CountFrames
+    /// <summary>
+    /// Gets the number of frames in the animation.
+    /// </summary>
+    public int FrameCount
     {
-        get { return NumberSheetElements; }
+        get { return Texture.Width / FrameWidth; }
     }
 
-    public bool AnimationEnded
+    /// <summary>
+    /// Gets the width of a frame in the animation.
+    /// </summary>
+    public int FrameWidth
     {
-        get { return !isLooping && sheetIndex >= NumberSheetElements - 1; }
+        // Assume square frames.
+        get { return Texture.Height; }
+    }
+
+    /// <summary>
+    /// Gets the height of a frame in the animation.
+    /// </summary>
+    public int FrameHeight
+    {
+        get { return Texture.Height; }
+    }
+
+    /// <summary>
+    /// Constructors a new animation.
+    /// </summary>
+    public Animation(Texture2D texture, float frameTime, bool isLooping)
+    {
+        this.texture = texture;
+        this.frameTime = frameTime;
+        this.isLooping = isLooping;
     }
 }
-
