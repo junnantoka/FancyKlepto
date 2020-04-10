@@ -15,18 +15,18 @@ class Laser : SpriteGameObject
 
     public Vector2 position2;
     Color color;
-    public Laser(Vector2 position, Vector2 position2, Color color) : base("lazer")
+    public Laser(Vector2 position, Vector2 position2, Color color) : base("Laser/lazer")
     {
-        Lazer_Off = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Lazer_Off");
-        Lazer_Alert = GameEnvironment.AssetManager.Content.Load<SoundEffect>("alert");
-        Lazer_Col = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Lazer_Col");
-        Lazer_Col_Alarm = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Lazer_Col_Alarm");
-        Lazer_Spark = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Lazer_Spark");
+        Lazer_Off = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Off");
+        Lazer_Alert = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/alert");
+        Lazer_Col = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Col");
+        Lazer_Col_Alarm = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Col_Alarm");
+        Lazer_Spark = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Spark");
         this.color = color;
         this.position = new Vector2(18 + position.X * (unitSize + unitSpacing), 10 + position.Y * (unitSize + unitSpacing));
         this.position2 = new Vector2(18 + position2.X * (unitSize + unitSpacing), 10 + position2.Y * (unitSize + unitSpacing));
 
-        texture = GameEnvironment.AssetManager.GetSprite("lazer");
+        texture = GameEnvironment.AssetManager.GetSprite("Laser/lazer");
         Active = true;
     }
 
@@ -44,10 +44,10 @@ class Laser : SpriteGameObject
         //Draws the laser
         if (Active)
         {
-            if (Spark == 0)
+            if (Spark <= 0)
             {
                 Lazer_Spark.Play();
-                Spark = GameEnvironment.Random.Next(360,480);
+                Spark = GameEnvironment.Random.Next(420,600);
             }
             spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 7), new Rectangle(0, 0, 1, 1), color, angle, new Vector2(0, 0), SpriteEffects.None, 1);
         }

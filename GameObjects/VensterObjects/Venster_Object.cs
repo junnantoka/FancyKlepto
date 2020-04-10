@@ -9,9 +9,9 @@ class Venster_Object : SpriteGameObject
     private Vector2 openPos;
     private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 
-    public Venster_Object(int x, int y, String pObject) : base(pObject)
+    public Venster_Object(int x, int y, string pObject) : base(pObject)
     {
-        Venster = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
+        Venster = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Slide");
         velocity = new Vector2(15, 0);
         position = new Vector2(x, y);
         position.X += screenWidth;

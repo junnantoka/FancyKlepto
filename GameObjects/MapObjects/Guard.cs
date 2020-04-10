@@ -24,10 +24,10 @@ namespace FancyKlepto.GameObjects
         {
             walkEffects = new List<SoundEffect>();
 
-            walkEffects.Add(GameEnvironment.AssetManager.Content.Load<SoundEffect>("npc_step1"));
-            walkEffects.Add(GameEnvironment.AssetManager.Content.Load<SoundEffect>("npc_step2"));
-            walkEffects.Add(GameEnvironment.AssetManager.Content.Load<SoundEffect>("npc_step3"));
-            walkEffects.Add(GameEnvironment.AssetManager.Content.Load<SoundEffect>("npc_step4"));
+            walkEffects.Add(GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/npc_step1"));
+            walkEffects.Add(GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/npc_step2"));
+            walkEffects.Add(GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/npc_step3"));
+            walkEffects.Add(GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/npc_step4"));
 
             position = new Vector2(18 + positionA.X * (unitSize + unitSpacing), 10 + positionA.Y * (unitSize + unitSpacing));
             positionA = position;

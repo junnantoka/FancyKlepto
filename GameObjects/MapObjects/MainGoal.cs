@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework.Input;
 
 class MainGoal : SpriteGameObject
 {
-     Song Item_Collected1, Item_Collected2, Item_Collected3;
+     SoundEffect Item_Collected1, Item_Collected2, Item_Collected3;
     public int Timer;
     public bool hold;
-    public MainGoal(int x, int y) : base("spr_nachtwacht_frame")
+    public MainGoal(int x, int y) : base("Map/spr_nachtwacht_frame")
     {
-        Item_Collected1 = GameEnvironment.AssetManager.Content.Load<Song>("Collected1");
-        Item_Collected2 = GameEnvironment.AssetManager.Content.Load<Song>("Collected2");
-        Item_Collected3 = GameEnvironment.AssetManager.Content.Load<Song>("Collected3");
+        Item_Collected1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected1");
+        Item_Collected2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected2");
+        Item_Collected3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected3");
         Reset();
         position = new Vector2(18 + 1 + x * (unitSize + unitSpacing), 10 + 1 + y * (unitSize + unitSpacing));
         defPos = position;
@@ -26,17 +26,17 @@ class MainGoal : SpriteGameObject
     {
         if (Timer == 1)
         {
-            MediaPlayer.Play(Item_Collected1);
+            Item_Collected1.Play();
             Timer = 0;
         }
         if (Timer == 2)
         {
-            MediaPlayer.Play(Item_Collected2);
+            Item_Collected2.Play();
             Timer = 0;
         }
         if (Timer == 3)
         {
-            MediaPlayer.Play(Item_Collected3);
+            Item_Collected3.Play();
             Timer = 0;
         }
         base.Update(gameTime);

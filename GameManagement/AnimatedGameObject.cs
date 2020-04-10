@@ -1,50 +1,84 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-public class AnimatedGameObject : SpriteGameObject
+struct AnimationPlayer
 {
-    protected Dictionary<string, Animation> animations;
-
-    public AnimatedGameObject(int layer = 0, string id = "")
-        : base("", layer, id)
+    /// <summary>
+    /// Gets the animation which is currently playing.
+    /// </summary>
+    public Animation Animation
     {
-        animations = new Dictionary<string, Animation>();
+        get { return animation; }
+    }
+    Animation animation;
+
+    /// <summary>
+    /// Gets the index of the current frame in the animation.
+    /// </summary>
+    public int FrameIndex
+    {
+        get { return frameIndex; }
+    }
+    int frameIndex;
+
+    /// <summary>
+    /// The amount of time in seconds that the current frame has been shown for.
+    /// </summary>
+    private float time;
+
+    /// <summary>
+    /// Gets a texture origin at the bottom center of each frame.
+    /// </summary>
+    public Vector2 Origin
+    {
+        get { return new Vector2(Animation.FrameWidth / 2.0f, Animation.FrameHeight); }
     }
 
-    public void LoadAnimation(string assetName, string id, bool looping,
-                              float frameTime = 0.1f)
+    /// <summary>
+    /// Begins or continues playback of an animation.
+    /// </summary>
+    public void PlayAnimation(Animation animation)
     {
-        Animation anim = new Animation(assetName, looping, frameTime);
-        animations[id] = anim;
-    }
-
-    public void PlayAnimation(string id)
-    {
-        if (sprite == animations[id])
-        {
+        // If this animation is already running, do not restart it.
+        if (Animation == animation)
             return;
-        }
-        if (sprite != null)
-        {
-            animations[id].Mirror = sprite.Mirror;
-        }
-        animations[id].Play();
-        sprite = animations[id];
-        origin = new Vector2(sprite.Width / 2, sprite.Height);
+
+        // Start the new animation.
+        this.animation = animation;
+        this.frameIndex = 0;
+        this.time = 0.0f;
     }
 
-    public override void Update(GameTime gameTime)
+    /// <summary>
+    /// Advances the time position and draws the current frame of the animation.
+    /// </summary>
+    public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects)
     {
-        if (sprite == null)
-        {
-            return;
-        }
-        Current.Update(gameTime);
-        base.Update(gameTime);
-    }
+        if (Animation == null)
+            throw new NotSupportedException("No animation is currently playing.");
 
-    public Animation Current
-    {
-        get { return sprite as Animation; }
+        // Process passing time.
+        time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+        while (time > Animation.FrameTime)
+        {
+            time -= Animation.FrameTime;
+
+            // Advance the frame index; looping or clamping as appropriate.
+            if (Animation.IsLooping)
+            {
+                frameIndex = (frameIndex + 1) % Animation.FrameCount;
+            }
+            else
+            {
+                frameIndex = Math.Min(frameIndex + 1, Animation.FrameCount - 1);
+            }
+        }
+
+        // Calculate the source rectangle of the current frame.
+        Rectangle source = new Rectangle(FrameIndex * Animation.Texture.Height, 0, Animation.Texture.Height, Animation.Texture.Height);
+
+        // Draw the current frame.
+        spriteBatch.Draw(Animation.Texture, position, source, Color.White, 0.0f, Origin, 1.0f, spriteEffects, 0.0f);
     }
 }

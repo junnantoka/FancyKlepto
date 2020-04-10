@@ -15,13 +15,13 @@ namespace FancyKlepto.GameObjects.MapObjects
     {
         SoundEffect Door_Appear;
         public int Timer;
-        public Door (int x, int y): base("spr_door_art_light")
+        public Door (int x, int y): base("Map/door")
         {
             Reset();
             position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + 1 + y * (unitSize + unitSpacing));
             defPos = position;
 
-            Door_Appear = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Appear");
+            Door_Appear = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Appear");
         }
 
         public override void Reset()

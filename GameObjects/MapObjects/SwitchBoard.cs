@@ -10,15 +10,15 @@ class SwitchBoard : SpriteGameObject
 
     private Vector2 lightpos1, lightpos2, lightpos3;
 
-    public SwitchBoard(int x, int y, Color color) : base("spr_switchboard_art")
+    public SwitchBoard(int x, int y, Color color) : base("Map/spr_switchboard_art")
     {
         this.color = color;
         position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
         defPos = position;
 
-        light1 = GameEnvironment.AssetManager.GetSprite("spr_switchboard_light");
-        light2 = GameEnvironment.AssetManager.GetSprite("spr_switchboard_light");
-        light3 = GameEnvironment.AssetManager.GetSprite("spr_switchboard_light");
+        light1 = GameEnvironment.AssetManager.GetSprite("Map/spr_switchboard_light");
+        light2 = GameEnvironment.AssetManager.GetSprite("Map/spr_switchboard_light");
+        light3 = GameEnvironment.AssetManager.GetSprite("Map/spr_switchboard_light");
         solved = false;
         Reset();
     }
