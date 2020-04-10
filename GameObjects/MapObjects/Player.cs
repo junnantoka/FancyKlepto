@@ -6,32 +6,40 @@ using FancyKlepto.GameObjects;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 
-class Player : SpriteGameObject
+class Player : RotatingSpriteGameObject
 {
-    private string _stringValue = string.Empty;
     SoundEffect Player_Walk1, Player_Walk2, Player_Walk3, Player_Walk4;
     protected KeyboardState currentKeyboardState;
-    public Vector2 maxVelocity;
-    public Vector2 minVelocity;
+    public Vector2 maxVelocity, minVelocity, Acceleration;
     public int stopVelocity;
-    public Vector2 velocityVelocity;
 
-    public Player(int x, int y) : base("spr_thief")
+    int degreeRotater = 6;
+    double radius = 0.0174532925;
+
+    public Player(int x, int y) : base("idle")
     {
+        position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
+        defPos = position;
 
+        origin = sprite.Center;
+
+        VelocitySetup();
+        #region walk Sound
         Player_Walk1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile1");
         Player_Walk2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile2");
         Player_Walk3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile3");
         Player_Walk4 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("pl_tile4");
-        velocityVelocity = new Vector2(0.6f, 0.6f);
-        stopVelocity = 2;
-        position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
-        defPos = position;
-        maxVelocity = new Vector2(5, 5);
-        minVelocity = -1 * maxVelocity;
+        #endregion
         Reset();
     }
-
+    public void VelocitySetup()
+    {
+        Acceleration = new Vector2(25  ,25);
+        //Acceleration = new Vector2(0.6f, 0.6f);
+        stopVelocity = 2;
+        maxVelocity = new Vector2(5, 5);
+        minVelocity = -1 * maxVelocity;
+    }
     public override void Reset()
     {
         base.Reset();
@@ -41,69 +49,63 @@ class Player : SpriteGameObject
 
     public override void Update(GameTime gameTime)
     {
-        base.Update(gameTime);
-        position += velocity;
         currentKeyboardState = Keyboard.GetState();
+        #region offset
+        if (offsetDegrees > 360)
+        {
+            offsetDegrees = offsetDegrees % 360;
+        }
+        else if (offsetDegrees < 0)
+        {
+            offsetDegrees += 360;
+        }
+        #endregion
+
+        #region velocity reseter
+            if (velocity.X > 0)
+            {
+                velocity.X--;
+            }
+            else if (velocity.X < 0)
+            {
+                velocity.X++;
+            }
+            if (velocity.Y > 0)
+            {
+                velocity.Y--;
+            }
+            else if (velocity.Y < 0)
+            {
+                velocity.Y++;
+            }
+            velocity.X /= 5;
+            velocity.Y /= 5;
+        #endregion
     }
 
     public override void HandleInput(InputHelper inputHelper)
     {
-        base.HandleInput(inputHelper);
-        Console.WriteLine(Keyboard.GetState().GetPressedKeys());
-        #region acceleration
-        if (inputHelper.IsKeyDown(Keys.A) && velocity.X > minVelocity.X)
+        if (inputHelper.IsKeyDown(Keys.Up))
         {
-            velocity.X -= velocityVelocity.X;
+            position.X += (float)Math.Cos(offsetDegrees * radius) * velocity.X;
+            position.Y -= (float)Math.Sin(offsetDegrees * radius) * velocity.Y;
+            velocity += Acceleration;
+
         }
-        if (inputHelper.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X)
+        if (inputHelper.IsKeyDown(Keys.Down))
         {
-            velocity.X += velocityVelocity.X;
-        }
-        if (inputHelper.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y)
-        {
-            velocity.Y -= velocityVelocity.Y;
-        }
-        if (inputHelper.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y)
-        {
-            velocity.Y += velocityVelocity.Y;
+            position.X -= (float)Math.Cos(offsetDegrees * radius) * velocity.X;
+            position.Y += (float)Math.Sin(offsetDegrees * radius) * velocity.Y;
+            velocity += Acceleration;
         }
 
-        if (currentKeyboardState.IsKeyUp(Keys.W) &&
-            currentKeyboardState.IsKeyUp(Keys.S))
+        if (inputHelper.IsKeyDown(Keys.Left))
         {
-            if (velocity.Y > Vector2.Zero.Y)
-            {
-                velocity.Y -= velocityVelocity.Y;
-            }
-            if (velocity.Y < Vector2.Zero.Y)
-            {
-                velocity.Y += velocityVelocity.Y;
-            }
-
-            if (velocity.Y < stopVelocity &&
-                velocity.Y > -stopVelocity)
-            {
-                velocity.Y = Vector2.Zero.Y;
-            }
+            offsetDegrees += degreeRotater;
         }
-        if (currentKeyboardState.IsKeyUp(Keys.A) &&
-            currentKeyboardState.IsKeyUp(Keys.D))
+        if (inputHelper.IsKeyDown(Keys.Right))
         {
-            if (velocity.X > Vector2.Zero.X)
-            {
-                velocity.X -= velocityVelocity.X;
-            }
-            if (velocity.X < Vector2.Zero.X)
-            {
-                velocity.X += velocityVelocity.X;
-            }
-
-            if (velocity.X < stopVelocity &&
-                velocity.X > -stopVelocity)
-            {
-                velocity.X = Vector2.Zero.X;
-            }
+            offsetDegrees -= degreeRotater;
         }
-        #endregion
     }
 }
