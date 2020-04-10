@@ -47,7 +47,7 @@ class Laser : SpriteGameObject
             if (Spark <= 0)
             {
                 Lazer_Spark.Play();
-                Spark = GameEnvironment.Random.Next(360,480);
+                Spark = GameEnvironment.Random.Next(420,600);
             }
             spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 7), new Rectangle(0, 0, 1, 1), color, angle, new Vector2(0, 0), SpriteEffects.None, 1);
         }
