@@ -80,6 +80,7 @@ namespace FancyKlepto.GameStates
             this.Add(venster);
             this.Add(times);
             this.Add(thePlayer);
+            this.Add(score);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
@@ -221,6 +222,7 @@ namespace FancyKlepto.GameStates
                 {
                     GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
                     Reset();
+                    score.Reset();
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

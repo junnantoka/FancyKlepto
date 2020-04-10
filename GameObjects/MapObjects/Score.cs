@@ -16,7 +16,6 @@ namespace FancyKlepto.GameObjects.MapObjects
         public Score(int Time) : base("Score")
         {
             time = Time;
-            Reset();
         }
 
         public override void Reset()
@@ -43,7 +42,7 @@ namespace FancyKlepto.GameObjects.MapObjects
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
-            spriteBatch.DrawString(spriteFont, "UMU", new Vector2(GameEnvironment.Screen.X / 2, 50), Color.White);
+            spriteBatch.DrawString(spriteFont, text, new Vector2(GameEnvironment.Screen.X / 2, 40), Color.White);
         }
     }
 }
