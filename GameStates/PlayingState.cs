@@ -34,7 +34,7 @@ namespace FancyKlepto.GameStates
         GameObjectList guards;
         GameObjectList lasers;
 
-        public float timer, total_time,time;
+        public float timer, total_time, time;
         public float timebarSpace;
 
         public PlayingState()
@@ -90,7 +90,7 @@ namespace FancyKlepto.GameStates
         public override void Reset()
         {
             base.Reset();
-            total_time = 5*60;
+            total_time = 5 * 60;
             time = total_time;
             timer = 0;
         }
@@ -153,27 +153,28 @@ namespace FancyKlepto.GameStates
 
             if (thePlayer.CollidesWith(switchBoard1) || thePlayer.CollidesWith(switchBoard2))
             {
-                    if (inputHelper.KeyPressed(Keys.Space))
-                    {
+                if (inputHelper.KeyPressed(Keys.Space))
+                {
+                    if (!venster.open)
+                        venster.Timer = 1;
                     venster.open = true;
-                    venster.Timer = 1;
-                        foreach (TimeBar timebar in times.Children)
-                        {
-                            timebar.open = true;
-                        }
+                    foreach (TimeBar timebar in times.Children)
+                    {
+                        timebar.open = true;
                     }
+                }
             }
             else if (!thePlayer.CollidesWith(switchBoard1) && !thePlayer.CollidesWith(switchBoard2))
             {
                 if (venster.open)
                 {
-                    venster.Timer = 1 ;
+                    venster.Timer = 1;
                 }
-                    venster.open = false;
-                    foreach (TimeBar timebar in times.Children)
-                    {
-                        timebar.open = false;
-                    }
+                venster.open = false;
+                foreach (TimeBar timebar in times.Children)
+                {
+                    timebar.open = false;
+                }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)
@@ -254,12 +255,16 @@ namespace FancyKlepto.GameStates
             {
                 time--;
             }
-            foreach(TimeBar timebar in times.Children)
+            foreach (TimeBar timebar in times.Children)
             {
-                if ((total_time-time)/ total_time > timebar.Position.Y / GameEnvironment.Screen.Y)
+                if ((total_time - time) / total_time > timebar.Position.Y / GameEnvironment.Screen.Y)
                 {
+                    if (timebar.Sprite.color != Color.DarkBlue && timebar.open)
+                    {
+                        timebar.Color_Off.Play();
+                    }
                     timebar.Sprite.color = Color.DarkBlue;
-                } 
+                }
             }
         }
 
@@ -276,53 +281,53 @@ namespace FancyKlepto.GameStates
         public void WallSetup()
         {
             #region wall_color
-            for(int i = 1; i < 6; i++)
+            for (int i = 1; i < 6; i++)
             {
                 walls.Add(new Wall(i, 0, "wall_color"));
             }
-            for(int i = 9; i < 28; i++)
+            for (int i = 9; i < 28; i++)
             {
                 walls.Add(new Wall(i, 0, "wall_color"));
             }
-            for(int i = 6; i < 9; i++)
+            for (int i = 6; i < 9; i++)
             {
                 walls.Add(new Wall(i, 5, "wall_color"));
             }
-            for(int i = 17; i < 22; i++)
+            for (int i = 17; i < 22; i++)
             {
                 walls.Add(new Wall(i, 7, "wall_color"));
             }
             #endregion
             #region wall_bot
-            for(int i = 1; i < 6; i++)
+            for (int i = 1; i < 6; i++)
             {
-                walls.Add(new Wall(i,15, "wall_bot"));
+                walls.Add(new Wall(i, 15, "wall_bot"));
             }
-            for(int i = 7; i < 8; i++)
+            for (int i = 7; i < 8; i++)
             {
                 walls.Add(new Wall(i, 11, "wall_bot"));
             }
-            for(int i = 9; i < 14; i++)
+            for (int i = 9; i < 14; i++)
             {
-                walls.Add(new Wall(i,15, "wall_bot"));
+                walls.Add(new Wall(i, 15, "wall_bot"));
             }
-            for(int i = 15; i < 22; i++)
+            for (int i = 15; i < 22; i++)
             {
-                walls.Add(new Wall(i,5, "wall_bot"));
+                walls.Add(new Wall(i, 5, "wall_bot"));
             }
-            for(int i= 17; i < 28; i++)
+            for (int i = 17; i < 28; i++)
             {
-                walls.Add(new Wall(i,15, "wall_bot"));
+                walls.Add(new Wall(i, 15, "wall_bot"));
             }
             #endregion
             #region wall_left
-            for(int j = 1; j < 15; j++)
+            for (int j = 1; j < 15; j++)
             {
-                walls.Add(new Wall(0,j,"wall_left"));
+                walls.Add(new Wall(0, j, "wall_left"));
             }
-            for(int j = 1; j < 5; j++)
+            for (int j = 1; j < 5; j++)
             {
-                walls.Add(new Wall(8,j,"wall_left"));
+                walls.Add(new Wall(8, j, "wall_left"));
             }
             for (int j = 12; j < 15; j++)
             {
@@ -339,9 +344,9 @@ namespace FancyKlepto.GameStates
 
             #endregion
             #region wall_right
-            for(int j = 1; j<5;j++ )
+            for (int j = 1; j < 5; j++)
             {
-                walls.Add(new Wall(6,j,"wall_right"));
+                walls.Add(new Wall(6, j, "wall_right"));
             }
             for (int j = 12; j < 15; j++)
             {
@@ -351,13 +356,13 @@ namespace FancyKlepto.GameStates
             {
                 walls.Add(new Wall(14, j, "wall_right"));
             }
-            for (int j = 1;j<15;j++)
+            for (int j = 1; j < 15; j++)
             {
                 walls.Add(new Wall(28, j, "wall_right"));
             }
             #endregion
             #region wall_inside
-            walls.Add(new Wall(0,0,"wall_inside_left_top"));
+            walls.Add(new Wall(0, 0, "wall_inside_left_top"));
             walls.Add(new Wall(8, 0, "wall_inside_left_top"));
             walls.Add(new Wall(16, 7, "wall_inside_left_top"));
 
@@ -387,13 +392,13 @@ namespace FancyKlepto.GameStates
                 walls.Add(new Wall(15, j, "wall_inside"));
             }
 
-            for( int i = 16; i < 22; i++)
+            for (int i = 16; i < 22; i++)
             {
-                walls.Add(new Wall(i,6,"wall_inside"));
+                walls.Add(new Wall(i, 6, "wall_inside"));
             }
             #endregion
             #region corners
-            walls.Add(new Wall(8, 11,"wall_right_top"));
+            walls.Add(new Wall(8, 11, "wall_right_top"));
             walls.Add(new Wall(22, 5, "wall_right_top"));
 
             walls.Add(new Wall(6, 11, "wall_left_top"));
@@ -451,24 +456,24 @@ namespace FancyKlepto.GameStates
         }
         public void SoundSetup()
         {
-            Level_Win =      GameEnvironment.AssetManager.Content.Load<SoundEffect>("Level Win");
-            Level_Lose =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
-            
-            Input_Correct =  GameEnvironment.AssetManager.Content.Load<SoundEffect>("Correct");
-            Input_Wrong =    GameEnvironment.AssetManager.Content.Load<SoundEffect>("Wrong");
-            
-            Button_Enter =   GameEnvironment.AssetManager.Content.Load<SoundEffect>("Enter");
+            Level_Win = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Level Win");
+            Level_Lose = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Slide");
+
+            Input_Correct = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Correct");
+            Input_Wrong = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Wrong");
+
+            Button_Enter = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Enter");
             Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing1");
             Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing2");
             Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("typing3");
-            
+
             //Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
         }
         public void TimeBarSetup()
         {
-            for (int i = 0; i<100; i++)
+            for (int i = 0; i < 100; i++)
             {
-                times.Add(new TimeBar(new Vector2(8,i* timebarSpace), time));
+                times.Add(new TimeBar(new Vector2(8, i * timebarSpace), time));
             }
         }
     }

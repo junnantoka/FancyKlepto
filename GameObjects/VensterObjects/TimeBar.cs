@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace FancyKlepto.GameObjects
@@ -7,8 +8,10 @@ namespace FancyKlepto.GameObjects
     {
         private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         private Vector2 openPos;
+        public SoundEffect Color_Off;
         public TimeBar(Vector2 pos,float Time) : base("Time")
         {
+            Color_Off = GameEnvironment.AssetManager.Content.Load<SoundEffect>("beep");
             velocity = new Vector2(15, 0);
             position = pos;
             position.Y += 3;
