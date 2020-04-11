@@ -13,6 +13,7 @@ class MainGoal : SpriteGameObject
         Item_Collected1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected1");
         Item_Collected2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected2");
         Item_Collected3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Collected3");
+        origin = sprite.Center;
         Reset();
         position = new Vector2(18 + 1 + x * (unitSize + unitSpacing), 10 + 1 + y * (unitSize + unitSpacing));
         defPos = position;
@@ -43,7 +44,7 @@ class MainGoal : SpriteGameObject
     }
     public void Hold(SpriteGameObject pObject)
     {
-        position.X = pObject.Position.X + pObject.Sprite.Width / 2 - sprite.Width / 2;
-        position.Y = pObject.Position.Y + pObject.Sprite.Height / 2 - sprite.Height / 2;
+        position.X = pObject.Position.X; //+ pObject.Sprite.Width / 2 - sprite.Width / 2;
+        position.Y = pObject.Position.Y; //+ pObject.Sprite.Height / 2 - sprite.Height / 2;
     }
 }

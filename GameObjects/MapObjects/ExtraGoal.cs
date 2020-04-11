@@ -24,8 +24,8 @@ class ExtraGoal : SpriteGameObject
     }
     public void Hold(SpriteGameObject pObject)
     {
-        position.X = pObject.Position.X + pObject.Sprite.Width / 2 - sprite.Width / 2;
-        position.Y = pObject.Position.Y + pObject.Sprite.Height / 2 - sprite.Height / 2;
+        position.X = pObject.Position.X /*+ pObject.Sprite.Width / 2*/ - sprite.Width / 2;
+        position.Y = pObject.Position.Y /*+ pObject.Sprite.Height / 2*/ - sprite.Height / 2;
     }
     public override void Update(GameTime gameTime)
     {

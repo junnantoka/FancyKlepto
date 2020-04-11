@@ -110,7 +110,7 @@ public abstract class GameObject : IGameLoopObject
         get { return id; }
     }
 
-    public bool Visible
+    public bool Open
     {
         get { return visible; }
         set { visible = value; }

@@ -46,7 +46,7 @@ namespace FancyKlepto.GameStates
             thePlayer = new Player(3, 13);
             switchBoard1 = new SwitchBoard(14, 10, Color.Red);
             switchBoard2 = new SwitchBoard(6, 12, Color.Blue);
-            door = new Door(2, 15);
+            door = new Door(2, 0);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
@@ -57,11 +57,11 @@ namespace FancyKlepto.GameStates
 
             xaxis = new xAxis(8);
             yaxis = new yAxis(10);
-            goal = new MainGoal(19, 10);
+            goal = new MainGoal(20, 11);
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            score = new Score((int) time);
+            //score = new Score((int) time);
             FloorSetup();
             WallSetup();
             TimeBarSetup();
@@ -85,7 +85,7 @@ namespace FancyKlepto.GameStates
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
             lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), Color.Red));
-            lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue));
+            //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue));
 
 
         }
@@ -115,11 +115,11 @@ namespace FancyKlepto.GameStates
                 if (inputHelper.IsKeyDown(Keys.Space))
                 {
                     goal.Hold(thePlayer);
-                    if (!door.Visible)
+                    if (!door.Open)
                     {
                         door.Timer = 1;
                     }
-                    door.Visible = true;
+                    door.Open = true;
                     if (!goal.hold)
                     {
                         goal.Timer = GameEnvironment.Random.Next(1, 3);
@@ -181,7 +181,7 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)
             {
-                if (door.Visible)
+                if (door.Open)
                 {
                     if (wall.CollidesWith(door))
                     {
@@ -238,7 +238,7 @@ namespace FancyKlepto.GameStates
             }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (door.Visible)
+            if (door.Open)
             {
                 if (goal.hold && thePlayer.CollidesWith(door))
                 {
