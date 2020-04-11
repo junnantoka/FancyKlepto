@@ -1,123 +1,114 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using FancyKlepto.GameManagement;
+using FancyKlepto.GameObjects;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
-namespace FancyKlepto
+class Player : RotatingSpriteGameObject
 {
-    class Player : GameObject
+    SoundEffect Player_Walk1, Player_Walk2, Player_Walk3, Player_Walk4;
+    protected KeyboardState currentKeyboardState;
+    public Vector2 maxVelocity, minVelocity, Acceleration;
+    public int stopVelocity;
+
+    int degreeRotater = 6;
+    double radius = 0.0174532925;
+
+    public Player(int x, int y) : base("Player/idle")
     {
-        public KeyboardState oldState = Keyboard.GetState();
-        private KeyboardState key = GameEnvironment.KeyboardState;
-        public Vector2 maxVelocity;
-        public Vector2 zeroVelocity;
-        public Vector2 minVelocity;
-        public int stopVelocity;
-        public Vector2 velocityVelocity;
+        position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
+        defPos = position;
 
-        public bool moveRight, moveLeft, moveUp, moveDown;
-        public Player(int x, int y) : base("spr_player")
+        origin = sprite.Center;
+
+        VelocitySetup();
+        #region walk Sound
+        Player_Walk1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile1");
+        Player_Walk2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile2");
+        Player_Walk3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile3");
+        Player_Walk4 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile4");
+        #endregion
+        Reset();
+    }
+    public void VelocitySetup()
+    {
+        Acceleration = new Vector2(25, 25);
+        stopVelocity = 2;
+        maxVelocity = new Vector2(5, 5);
+        minVelocity = -1 * maxVelocity;
+    }
+    public override void Reset()
+    {
+        base.Reset();
+        position = defPos;
+        velocity = Vector2.Zero;
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+        currentKeyboardState = Keyboard.GetState();
+        #region offset
+        if (offsetDegrees > 360)
         {
-            velocityVelocity = new Vector2(0.1f,0.1f);
-            stopVelocity=2;
-            position = new Vector2(x * (unitSize + unitSpacing), y * (unitSize+ unitSpacing));
-            pPosition = position;
-            maxVelocity = new Vector2(10, 10);
-            zeroVelocity = new Vector2(0, 0);
-            minVelocity = -1 * maxVelocity;
-            Reset();
+            offsetDegrees = offsetDegrees % 360;
+        }
+        else if (offsetDegrees < 0)
+        {
+            offsetDegrees += 360;
+        }
+        #endregion
+
+        #region velocity reseter
+        if (velocity.X > 0)
+        {
+            velocity.X--;
+        }
+        else if (velocity.X < 0)
+        {
+            velocity.X++;
+        }
+        if (velocity.Y > 0)
+        {
+            velocity.Y--;
+        }
+        else if (velocity.Y < 0)
+        {
+            velocity.Y++;
+        }
+        velocity.X /= 5;
+        velocity.Y /= 5;
+        #endregion
+    }
+
+    public override void HandleInput(InputHelper inputHelper)
+    {
+        if (inputHelper.IsKeyDown(Keys.Up))
+        {
+            position.X += (float)Math.Cos(offsetDegrees * radius) * velocity.X;
+            position.Y -= (float)Math.Sin(offsetDegrees * radius) * velocity.Y;
+            velocity += Acceleration;
+
+        }
+        if (inputHelper.IsKeyDown(Keys.Down))
+        {
+            position.X -= (float)Math.Cos(offsetDegrees * radius) * velocity.X;
+            position.Y += (float)Math.Sin(offsetDegrees * radius) * velocity.Y;
+            velocity += Acceleration;
         }
 
-        public override void Reset()
+        if (inputHelper.IsKeyDown(Keys.Left))
         {
-            moveRight = true;
-            moveLeft = true;
-            moveUp = true;
-            moveDown = true;
-            position = pPosition;
-            velocity = zeroVelocity;
+            offsetDegrees += degreeRotater;
         }
-
-        public override void Update()
+        if (inputHelper.IsKeyDown(Keys.Right))
         {
-            base.Update();
-            Move();
-
-            key = GameEnvironment.KeyboardState;
-            position.X = MathHelper.Clamp(position.X, 0, GameEnvironment.Screen.X - texture.Width);
-            position.Y = MathHelper.Clamp(position.Y, 0, GameEnvironment.Screen.Y - texture.Height);
+            offsetDegrees -= degreeRotater;
         }
+    }
 
-        public void Move()
-        {
-            position += velocity;
-            if (key.IsKeyDown(Keys.A) && velocity.X > minVelocity.X && moveLeft)
-            {
-                velocity.X -= velocityVelocity.X;
-            }
-            if (key.IsKeyDown(Keys.D) && velocity.X < maxVelocity.X && moveRight)
-            {
-                velocity.X += velocityVelocity.X;
-            }
-            if (key.IsKeyDown(Keys.W) && velocity.Y > minVelocity.Y && moveUp)
-            {
-                velocity.Y -= velocityVelocity.Y;
-            }
-            if (key.IsKeyDown(Keys.S) && velocity.Y < maxVelocity.Y && moveDown)
-            {
-                velocity.Y += velocityVelocity.Y;
-            }
-
-            if (key.IsKeyUp(Keys.A)&& key.IsKeyUp(Keys.D) && key.IsKeyUp(Keys.W) && key.IsKeyUp(Keys.S))
-            {
-                if(velocity.X< stopVelocity && velocity.X>-stopVelocity && velocity.Y< stopVelocity && velocity.Y > -stopVelocity)
-                {
-                    velocity = zeroVelocity;
-                }
-
-                if (velocity.X > zeroVelocity.X)
-                {
-                    velocity.X -= velocityVelocity.X;
-                }
-                if (velocity.X < zeroVelocity.X)
-                {
-                    velocity.X += velocityVelocity.X;
-                }
-
-                if (velocity.Y > zeroVelocity.Y)
-                {
-                    velocity.Y -= velocityVelocity.Y;
-                }
-                if (velocity.Y < zeroVelocity.Y)
-                {
-                    velocity.Y += velocityVelocity.Y;
-                }
-            }
-            if (key.IsKeyUp(Keys.A))
-            {
-                moveLeft = true;
-            }
-            if (key.IsKeyUp(Keys.D))
-            {
-                moveRight = true;
-            }
-            if (key.IsKeyUp(Keys.W))
-            {
-                moveUp = true;
-            }
-            if (key.IsKeyUp(Keys.S))
-            {
-                moveDown = true;
-            }
-        }
-        public void checkForCollision(GameObject pObject)
-        {
-            if (Overlaps(pObject)) Reset();
-        }
+    public void LoadContent()
+    {
     }
 }
