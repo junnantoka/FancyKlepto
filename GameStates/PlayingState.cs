@@ -61,7 +61,7 @@ namespace FancyKlepto.GameStates
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            //score = new Score((int) time);
+            score = new Score((int) time);
             FloorSetup();
             WallSetup();
             TimeBarSetup();
