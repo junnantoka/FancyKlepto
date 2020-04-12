@@ -23,7 +23,8 @@ namespace FancyKlepto.GameObjects.MapObjects
         public InputAnwser(float x, float y) : base("Input")
         {
             color = Color.Gray;
-            velocity = new Vector2(15, 0); position = new Vector2(x, y);
+            velocity = new Vector2(15, 0);
+            position = new Vector2(x, y);
             position.X += screenWidth;
             defPos = position;
             // 352 is total width of the open window            

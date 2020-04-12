@@ -37,7 +37,7 @@ namespace FancyKlepto.GameStates
 
             xaxis = new xAxis(8);
             yaxis = new yAxis(10);
-            inputanwser = new InputAnwser(75, 715);
+            inputanwser = new InputAnwser(75, 700);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
