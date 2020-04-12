@@ -8,6 +8,7 @@ public abstract class GameObject : IGameLoopObject
     protected int layer;
     protected string id;
     protected bool visible;
+    protected Vector2 size;
 
     public int unitSize;
     public int unitSpacing;
@@ -120,7 +121,7 @@ public abstract class GameObject : IGameLoopObject
     {
         get
         {
-            return new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, 0, 0);
+            return new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, (int)size.X, (int)size.Y);
         }
     }
 }

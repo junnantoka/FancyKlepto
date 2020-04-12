@@ -13,7 +13,7 @@ class Player : RotatingSpriteGameObject
     public Vector2 maxVelocity, minVelocity, Acceleration;
     public int stopVelocity;
 
-    int degreeRotater = 6;
+    int degreeRotater = 3;
     double radius = 0.0174532925;
 
     public Player(int x, int y) : base("Player/idle")

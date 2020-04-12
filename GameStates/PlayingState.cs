@@ -109,7 +109,7 @@ namespace FancyKlepto.GameStates
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if (goal.CollidesWith(thePlayer))
+            if (goal.PixelCollision(thePlayer))
             {
 
                 if (inputHelper.IsKeyDown(Keys.Space))
@@ -134,7 +134,7 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (ExtraGoal extraGoal in goals.Children)
             {
-                if (extraGoal.CollidesWith(thePlayer))
+                if (extraGoal.PixelCollision(thePlayer))
                 {
                     if (inputHelper.IsKeyDown(Keys.Space))
                     {
@@ -153,7 +153,7 @@ namespace FancyKlepto.GameStates
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if (thePlayer.CollidesWith(switchBoard1) || thePlayer.CollidesWith(switchBoard2))
+            if (thePlayer.PixelCollision(switchBoard1) || thePlayer.PixelCollision(switchBoard2))
             {
                 if (inputHelper.KeyPressed(Keys.Space))
                 {
@@ -166,7 +166,7 @@ namespace FancyKlepto.GameStates
                     }
                 }
             }
-            else if (!thePlayer.CollidesWith(switchBoard1) && !thePlayer.CollidesWith(switchBoard2))
+            else if (!thePlayer.PixelCollision(switchBoard1) && !thePlayer.PixelCollision(switchBoard2))
             {
                 if (venster.open)
                 {
@@ -231,7 +231,7 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Guard guard in guards.Children)
             {
-                if (guard.CollidesWith(thePlayer))
+                if (thePlayer.PixelCollision(guard))
                 {
                     thePlayer.Reset();
                 }
@@ -240,7 +240,7 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (door.Open)
             {
-                if (goal.hold && thePlayer.CollidesWith(door))
+                if (goal.hold && thePlayer.PixelCollision(door))
                 {
                     GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
                     Level_Win.Play();

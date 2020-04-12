@@ -30,7 +30,7 @@ namespace FancyKlepto.GameObjects.MapObjects
             position = defPos;
         }
 
-        public override void Update(GameTime gameTime)
+        public  override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             if (Timer == 1)
@@ -38,6 +38,10 @@ namespace FancyKlepto.GameObjects.MapObjects
                 Door_Appear.Play();
                 Timer = 0;
             }
+        }
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            base.Draw(gameTime, spriteBatch);
         }
     }
 }

@@ -19,6 +19,8 @@ public class SpriteGameObject : GameObject
         {
             sprite = null;
         }
+        size.X = sprite.Width;
+        size.Y = sprite.Height;
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -69,14 +71,14 @@ public class SpriteGameObject : GameObject
     }
     public Vector2 Intersection(SpriteGameObject spriteGameObject)
     {
-        Vector2 minDistance = new Vector2(sprite.Width + spriteGameObject.Width, sprite.Height + spriteGameObject.Height)/2;
+        Vector2 minDistance = new Vector2(sprite.Width + spriteGameObject.Width, sprite.Height + spriteGameObject.Height) / 2;
 
         Vector2 centerA = new Vector2(BoundingBox.Center.X, BoundingBox.Center.Y);
         Vector2 centerB = new Vector2(spriteGameObject.BoundingBox.Center.X, spriteGameObject.BoundingBox.Center.Y);
         Vector2 distance = centerA - centerB;
         Vector2 depth = Vector2.Zero;
 
-        if(distance.X <= minDistance.X)
+        if (distance.X <= minDistance.X)
         {
             depth.X = minDistance.X - Math.Abs(distance.X);
         }
@@ -165,5 +167,31 @@ public class SpriteGameObject : GameObject
         }
         return false;
     }
-}
+    public bool PixelCollision(SpriteGameObject spriteGameObject)
+    {
+        Color[] colorData1 = new Color[sprite.Sprite.Width * sprite.Sprite.Height];
+        Color[] colorData2 = new Color[spriteGameObject.sprite.Sprite.Width * spriteGameObject.sprite.Sprite.Height];
 
+        sprite.Sprite.GetData<Color>(colorData1);
+        spriteGameObject.sprite.Sprite.GetData<Color>(colorData2);
+
+        int top, bottom, left, right;
+
+        top = Math.Max(BoundingBox.Top, spriteGameObject.BoundingBox.Top);
+        bottom = Math.Min(BoundingBox.Bottom, spriteGameObject.BoundingBox.Bottom);
+        left = Math.Max(BoundingBox.Left, spriteGameObject.BoundingBox.Left);
+        right = Math.Min(BoundingBox.Right, spriteGameObject.BoundingBox.Right);
+
+        for (int y = top; y < bottom; y++)
+        {
+            for (int x = left; x < right; x++)
+            {
+                Color A = colorData1[(y - BoundingBox.Top) * (BoundingBox.Width) + (x - BoundingBox.Left)];
+                Color B = colorData2[(y - spriteGameObject.BoundingBox.Top) * (spriteGameObject.BoundingBox.Width) + (x - spriteGameObject.BoundingBox.Left)];
+
+                if (A.A != 0 && B.A != 0) return true;
+            }
+        }
+        return false;
+    }
+}
