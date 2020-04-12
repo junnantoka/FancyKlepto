@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Security.AccessControl;
+using System.Security.Cryptography;
 
 namespace FancyKlepto.GameObjects.MapObjects
 {
@@ -20,7 +22,7 @@ namespace FancyKlepto.GameObjects.MapObjects
         {
             color = Color.Gray;
             velocity = new Vector2(15, 0); position = new Vector2(x, y);
-            //position.X += screenWidth;
+            position.X += screenWidth;
             defPos = position;
             // 352 is total width of the open window            
             openPos.X = defPos.X - 352;
@@ -53,34 +55,92 @@ namespace FancyKlepto.GameObjects.MapObjects
 
         public override void HandleInput(InputHelper inputHelper)
         {
-            base.HandleInput(inputHelper);
             if (length < 6)
-
             {
-                
-                if (inputHelper.KeyPressed(Keys.NumPad0) || inputHelper.KeyPressed(Keys.NumPad1) || inputHelper.KeyPressed(Keys.NumPad2) || inputHelper.KeyPressed(Keys.NumPad3) || inputHelper.KeyPressed(Keys.NumPad4)
-                   || inputHelper.KeyPressed(Keys.NumPad5) || inputHelper.KeyPressed(Keys.NumPad6) || inputHelper.KeyPressed(Keys.NumPad7) || inputHelper.KeyPressed(Keys.NumPad8)
-                   || inputHelper.KeyPressed(Keys.NumPad9) || inputHelper.KeyPressed(Keys.X) || inputHelper.KeyPressed(Keys.Y) || inputHelper.KeyPressed(Keys.OemPlus) || inputHelper.KeyPressed(Keys.OemMinus)
-                   || inputHelper.KeyPressed(Keys.D0) || inputHelper.KeyPressed(Keys.D1) || inputHelper.KeyPressed(Keys.D2) || inputHelper.KeyPressed(Keys.D3) || inputHelper.KeyPressed(Keys.D4)
-                   || inputHelper.KeyPressed(Keys.D5) || inputHelper.KeyPressed(Keys.D6) || inputHelper.KeyPressed(Keys.D7) || inputHelper.KeyPressed(Keys.D8) || inputHelper.KeyPressed(Keys.D9))
-                { 
-                    
-
-                    var keyboardState = Keyboard.GetState(); var keys = keyboardState.GetPressedKeys();
-
-                    if (keys.Length > 0)
-                    {
-                        _stringValue = keys[0].ToString();
-                        text += _stringValue;
-                        length++;
-                    }
-                } 
-                
-                else if (inputHelper.KeyPressed(Keys.Back))
+                if (inputHelper.KeyPressed(Keys.NumPad0) || inputHelper.KeyPressed(Keys.D0))
                 {
-                    var keyboardState = Keyboard.GetState(); var keys = keyboardState.GetPressedKeys();
-                    text.Remove(keys.Length - 1);
+                    _stringValue = "0";
+                    length++;
                 }
+                else if (inputHelper.KeyPressed(Keys.NumPad1) || inputHelper.KeyPressed(Keys.D1))
+                {
+                    _stringValue = "1";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad2) || inputHelper.KeyPressed(Keys.D2))
+                {
+                    _stringValue = "2";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad3) || inputHelper.KeyPressed(Keys.D3))
+                {
+                    _stringValue = "3";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad4) || inputHelper.KeyPressed(Keys.D4))
+                {
+                    _stringValue = "4";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad5) || inputHelper.KeyPressed(Keys.D5))
+                {
+                    _stringValue = "5";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad6) || inputHelper.KeyPressed(Keys.D6))
+                {
+                    _stringValue = "6";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad7) || inputHelper.KeyPressed(Keys.D7))
+                {
+                    _stringValue = "7";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad8) || inputHelper.KeyPressed(Keys.D8))
+                {
+                    _stringValue = "8";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad9) || inputHelper.KeyPressed(Keys.D9))
+                {
+                    _stringValue = "9";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.NumPad9) || inputHelper.KeyPressed(Keys.D9))
+                {
+                    _stringValue = "9";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.X))
+                {
+                    _stringValue = "X";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.Y))
+                {
+                    _stringValue = "Y";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.OemPlus))
+                {
+                    _stringValue = "+";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.OemMinus))
+                {
+                    _stringValue = "-";
+                    length++;
+                }
+                else
+                {
+                    _stringValue = "";
+                }
+                text += _stringValue;
+            }
+            if (inputHelper.KeyPressed(Keys.Back) && length > 1)
+            {
+                text.Remove(length-1,1);
             }
         }
     }
