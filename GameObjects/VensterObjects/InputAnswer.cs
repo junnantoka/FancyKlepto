@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace FancyKlepto.GameObjects.VensterObjects
+namespace FancyKlepto.GameObjects
 {
-    class InputAnwser : TextGameObject
+    class InputAnswer : TextGameObject
     {
         public int length;
 
@@ -12,7 +12,7 @@ namespace FancyKlepto.GameObjects.VensterObjects
         private string _stringValue = string.Empty;
 
         private Vector2 openPos; private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-        public InputAnwser(float x, float y) : base("Input")
+        public InputAnswer(float x, float y) : base("Input")
         {
             color = Color.Gray;
             velocity = new Vector2(15, 0);

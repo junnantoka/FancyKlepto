@@ -27,6 +27,7 @@ namespace FancyKlepto.GameStates
         SwitchBoard switchBoard2;
         Venster_Object venster;
         Score score;
+        InputAnswer inputanswer;
 
         GameObjectList times;
         GameObjectList floors;
@@ -62,6 +63,7 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
             times = new GameObjectList();
             score = new Score((int) time);
+            inputanswer = new InputAnswer(75, 700);
             FloorSetup();
             WallSetup();
             TimeBarSetup();
@@ -82,6 +84,7 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(thePlayer);
             this.Add(score);
+            this.Add(inputanswer);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
