@@ -15,7 +15,7 @@ namespace FancyKlepto
             screen = new Point(1920, 1080);
             ApplyResolutionSettings();
 
-            FullScreen = false;
+            FullScreen = true;
             
             GameStateManager.AddGameState("StartState", new StartState());
             GameStateManager.AddGameState("PlayingState", new PlayingState());
