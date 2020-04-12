@@ -15,6 +15,8 @@ namespace FancyKlepto.GameObjects.MapObjects
     class InputAnwser : TextGameObject
     {
         public int length;
+
+        private string[] _OldText= new string[6];
         private string _stringValue = string.Empty;
 
         private Vector2 openPos; private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -27,6 +29,12 @@ namespace FancyKlepto.GameObjects.MapObjects
             // 352 is total width of the open window            
             openPos.X = defPos.X - 352;
             text = "";
+            _OldText[0] = text;
+            _OldText[1] = text;
+            _OldText[2] = text;
+            _OldText[3] = text;
+            _OldText[4] = text;
+            _OldText[5] = text;
         }
         public override void Update(GameTime gameTime)
         {
@@ -136,11 +144,18 @@ namespace FancyKlepto.GameObjects.MapObjects
                 {
                     _stringValue = "";
                 }
+
+                if (_stringValue != "")
+                {
+                    _OldText[length-1] = text;
+                }
+
                 text += _stringValue;
             }
-            if (inputHelper.KeyPressed(Keys.Back) && length > 1)
+            if (inputHelper.KeyPressed(Keys.Back)&&length>=1)
             {
-                text.Remove(length-1,1);
+                text = _OldText[length-1];
+                length -= 1;
             }
         }
     }
