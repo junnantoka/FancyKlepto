@@ -15,7 +15,6 @@ namespace FancyKlepto.GameStates
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
         SoundEffect Input_Correct, Input_Wrong;
-        SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
 
 
         Player thePlayer;
@@ -428,10 +427,6 @@ namespace FancyKlepto.GameStates
             Input_Correct = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Correct");
             Input_Wrong = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Wrong");
 
-            Button_Enter = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Enter");
-            Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing1");
-            Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing2");
-            Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing3");
 
             //Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
         }
