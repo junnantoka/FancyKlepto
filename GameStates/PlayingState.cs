@@ -15,7 +15,6 @@ namespace FancyKlepto.GameStates
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
         SoundEffect Input_Correct, Input_Wrong;
-        SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
 
 
         Player thePlayer;
@@ -25,8 +24,9 @@ namespace FancyKlepto.GameStates
         yAxis yaxis;
         SwitchBoard switchBoard1;
         SwitchBoard switchBoard2;
-        Venster_Object venster;
+        Venster venster;
         Score score;
+        InputAnswer inputanswer;
 
         GameObjectList times;
         GameObjectList floors;
@@ -34,6 +34,7 @@ namespace FancyKlepto.GameStates
         GameObjectList goals;
         GameObjectList guards;
         GameObjectList lasers;
+        GameObjectList vensters;
 
         public float timer, total_time, time;
         public float timebarSpace;
@@ -43,6 +44,7 @@ namespace FancyKlepto.GameStates
             Reset();
             timebarSpace = 10.768F;
             this.Add(new SpriteGameObject("spr_background"));
+
             thePlayer = new Player(3, 13);
             switchBoard1 = new SwitchBoard(14, 10, Color.Red);
             switchBoard2 = new SwitchBoard(6, 12, Color.Blue);
@@ -52,8 +54,9 @@ namespace FancyKlepto.GameStates
 
             floors = new GameObjectList();
             walls = new GameObjectList();
-            venster = new Venster_Object(0, 0, "Map/spr_venster_352");
+            venster = new Venster(0, 0, "Map/spr_venster_352");
             goals = new GameObjectList();
+            vensters = new GameObjectList();
 
             xaxis = new xAxis(8);
             yaxis = new yAxis(10);
@@ -62,30 +65,32 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
             times = new GameObjectList();
             score = new Score((int) time);
-            FloorSetup();
-            WallSetup();
-            TimeBarSetup();
-            SoundSetup();
+            inputanswer = new InputAnswer(75, 700);
 
             this.Add(floors);
+            this.Add(lasers);
             this.Add(walls);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
-            this.Add(lasers);
             this.Add(xaxis);
             this.Add(yaxis);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
+            this.Add(thePlayer);
             this.Add(venster);
             this.Add(times);
-            this.Add(thePlayer);
             this.Add(score);
+            this.Add(inputanswer);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
             lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), Color.Red));
+            FloorSetup();
+            WallSetup();
+            TimeBarSetup();
+            SoundSetup();
             //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue));
 
 
@@ -161,6 +166,7 @@ namespace FancyKlepto.GameStates
                     if (!venster.open)
                         venster.Timer = 1;
                     venster.open = true;
+                    inputanswer.open = true;
                     foreach (TimeBar timebar in times.Children)
                     {
                         timebar.open = true;
@@ -174,6 +180,7 @@ namespace FancyKlepto.GameStates
                     venster.Timer = 1;
                 }
                 venster.open = false;
+                inputanswer.open = false;
                 foreach (TimeBar timebar in times.Children)
                 {
                     timebar.open = false;
@@ -420,10 +427,6 @@ namespace FancyKlepto.GameStates
             Input_Correct = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Correct");
             Input_Wrong = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Wrong");
 
-            Button_Enter = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Enter");
-            Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing1");
-            Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing2");
-            Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing3");
 
             //Loop = GameEnvironment.AssetManager.Content.Load<Song>("Loop");
         }

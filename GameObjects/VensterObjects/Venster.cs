@@ -2,16 +2,17 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-class Venster_Object : SpriteGameObject
+using FancyKlepto.GameObjects.MapObjects;
+class Venster : SpriteGameObject
 {
-    SoundEffect Venster;
+    SoundEffect SlideSound;
     public int Timer;
     private Vector2 openPos;
     private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 
-    public Venster_Object(int x, int y, string pObject) : base(pObject)
+    public Venster(int x, int y, string pObject) : base(pObject)
     {
-        Venster = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Slide");
+        SlideSound = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Slide");
         velocity = new Vector2(15, 0);
         position = new Vector2(x, y);
         position.X += screenWidth;
@@ -24,7 +25,7 @@ class Venster_Object : SpriteGameObject
         base.Update(gameTime);
         if (Timer == 1)
         {
-            Venster.Play();
+            SlideSound.Play();
             Timer = 0;
         }
         Move();
