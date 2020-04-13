@@ -44,6 +44,7 @@ class Player : RotatingSpriteGameObject
         base.Reset();
         position = defPos;
         velocity = Vector2.Zero;
+        offsetDegrees = 90;
     }
 
     public override void Update(GameTime gameTime)

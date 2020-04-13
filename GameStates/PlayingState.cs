@@ -121,11 +121,11 @@ namespace FancyKlepto.GameStates
                 if (inputHelper.IsKeyDown(Keys.Space))
                 {
                     goal.Hold(thePlayer);
-                    if (!door.Open)
+                    if (!door.open)
                     {
                         door.Timer = 1;
                     }
-                    door.Open = true;
+                    door.open = true;
                     if (!goal.hold)
                     {
                         goal.Timer = GameEnvironment.Random.Next(1, 3);
