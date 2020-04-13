@@ -44,6 +44,7 @@ namespace FancyKlepto.GameStates
             Reset();
             timebarSpace = 10.768F;
             this.Add(new SpriteGameObject("spr_background"));
+
             thePlayer = new Player(3, 13);
             switchBoard1 = new SwitchBoard(14, 10, Color.Red);
             switchBoard2 = new SwitchBoard(6, 12, Color.Blue);
@@ -64,31 +65,31 @@ namespace FancyKlepto.GameStates
             times = new GameObjectList();
             score = new Score((int) time);
             inputanswer = new InputAnswer(75, 700);
-            FloorSetup();
-            WallSetup();
-            TimeBarSetup();
-            SoundSetup();
 
             this.Add(floors);
+            this.Add(lasers);
             this.Add(walls);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
-            this.Add(lasers);
             this.Add(xaxis);
             this.Add(yaxis);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
+            this.Add(thePlayer);
             this.Add(venster);
             this.Add(times);
-            this.Add(thePlayer);
             this.Add(score);
             this.Add(inputanswer);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
             lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), Color.Red));
+            FloorSetup();
+            WallSetup();
+            TimeBarSetup();
+            SoundSetup();
             //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue));
 
 
@@ -164,6 +165,7 @@ namespace FancyKlepto.GameStates
                     if (!venster.open)
                         venster.Timer = 1;
                     venster.open = true;
+                    inputanswer.open = true;
                     foreach (TimeBar timebar in times.Children)
                     {
                         timebar.open = true;
@@ -177,6 +179,7 @@ namespace FancyKlepto.GameStates
                     venster.Timer = 1;
                 }
                 venster.open = false;
+                inputanswer.open = false;
                 foreach (TimeBar timebar in times.Children)
                 {
                     timebar.open = false;

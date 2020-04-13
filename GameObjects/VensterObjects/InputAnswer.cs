@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace FancyKlepto.GameObjects
 {
@@ -16,11 +17,12 @@ namespace FancyKlepto.GameObjects
         {
             color = Color.Gray;
             velocity = new Vector2(15, 0);
-            position = new Vector2(x, y);
-            position.X += screenWidth;
+
+            position = new Vector2(x+screenWidth, y);
             defPos = position;
             // 352 is total width of the open window            
             openPos.X = defPos.X - 352;
+
             text = "";
             _OldText[0] = text;
             _OldText[1] = text;
@@ -33,6 +35,7 @@ namespace FancyKlepto.GameObjects
         {
             base.Update(gameTime);
             Move();
+            Console.WriteLine(position);
         }
         public void Move()
         {
@@ -145,7 +148,7 @@ namespace FancyKlepto.GameObjects
 
                 text += _stringValue;
             }
-            if (inputHelper.KeyPressed(Keys.Back) && length >= 1)
+            if (inputHelper.KeyPressed(Keys.Back) && length > 0)
             {
                 text = _OldText[length - 1];
                 length -= 1;
