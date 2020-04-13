@@ -35,6 +35,7 @@ namespace FancyKlepto.GameStates
         GameObjectList goals;
         GameObjectList guards;
         GameObjectList lasers;
+        GameObjectList vensters;
 
         public float timer, total_time, time;
         public float timebarSpace;
@@ -56,6 +57,7 @@ namespace FancyKlepto.GameStates
             walls = new GameObjectList();
             venster = new Venster(0, 0, "Map/spr_venster_352");
             goals = new GameObjectList();
+            vensters = new GameObjectList();
 
             xaxis = new xAxis(8);
             yaxis = new yAxis(10);

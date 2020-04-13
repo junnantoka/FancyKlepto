@@ -72,6 +72,7 @@
     <Compile Include="GameObjects\MapObjects\Player.cs" />
     <Compile Include="GameObjects\MapObjects\Score.cs" />
     <Compile Include="GameObjects\MapObjects\SwitchBoard.cs" />
+    <Compile Include="GameObjects\VensterObjects\Venster_Objects.cs" />
     <Compile Include="GameObjects\VensterObjects\InputAnswer.cs" />
     <Compile Include="GameObjects\VensterObjects\TimeBar.cs" />
     <Compile Include="GameObjects\MapObjects\Wall.cs" />
