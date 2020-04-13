@@ -77,7 +77,7 @@
     <Compile Include="GameObjects\MapObjects\Wall.cs" />
     <Compile Include="GameObjects\MapObjects\axis\xAxis.cs" />
     <Compile Include="GameObjects\MapObjects\axis\yAxis.cs" />
-    <Compile Include="GameObjects\VensterObjects\Venster_Object.cs" />
+    <Compile Include="GameObjects\VensterObjects\Venster.cs" />
     <Compile Include="GameStates\EndStateLost.cs" />
     <Compile Include="GameStates\EndStateWon.cs" />
     <Compile Include="GameStates\PlayingState.cs" />

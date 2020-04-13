@@ -25,7 +25,7 @@ namespace FancyKlepto.GameStates
         yAxis yaxis;
         SwitchBoard switchBoard1;
         SwitchBoard switchBoard2;
-        Venster_Object venster;
+        Venster venster;
         Score score;
         InputAnswer inputanswer;
 
@@ -54,7 +54,7 @@ namespace FancyKlepto.GameStates
 
             floors = new GameObjectList();
             walls = new GameObjectList();
-            venster = new Venster_Object(0, 0, "Map/spr_venster_352");
+            venster = new Venster(0, 0, "Map/spr_venster_352");
             goals = new GameObjectList();
 
             xaxis = new xAxis(8);
