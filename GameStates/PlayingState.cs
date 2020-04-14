@@ -65,7 +65,7 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
             times = new GameObjectList();
             score = new Score((int) time);
-            inputanswer = new InputAnswer(75, 700);
+            inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);
             this.Add(lasers);
@@ -86,14 +86,20 @@ namespace FancyKlepto.GameStates
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
-            lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), Color.Red));
             FloorSetup();
             WallSetup();
             TimeBarSetup();
             SoundSetup();
-            //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue));
+            lasers.Add(new Laser(new Vector2(1, 11), new Vector2(8, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue, xaxis.gridPos, yaxis.gridPos));
 
-
+            foreach(Laser laser in lasers.Children)
+            {
+                laser.formulPos.X = laser.gridPos.X - xaxis.gridPos;
+                laser.formulPos.Y = laser.gridPos.Y - yaxis.gridPos;
+                laser.formulPos2.X = laser.gridPos.X - xaxis.gridPos;
+                laser.formulPos2.Y = laser.gridPos.Y - yaxis.gridPos;
+            }
         }
         public override void Reset()
         {
