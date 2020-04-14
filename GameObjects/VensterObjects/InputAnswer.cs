@@ -44,7 +44,8 @@ namespace FancyKlepto.GameObjects
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Move(); Sound();
+            Move();
+            Sound();
         }
         public void Move()
         {

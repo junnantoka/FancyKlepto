@@ -10,10 +10,10 @@ class Laser : SpriteGameObject
 {
     SoundEffect Lazer_Off, Lazer_Alert, Lazer_Col, Lazer_Col_Alarm, Lazer_Spark;
     public int Off, Alert, Col, Col_Alarm, Spark;
-    private bool Active;
+    public bool Active;
     private float angle, radius;
     private readonly Texture2D texture;
-    Color color;
+    public Color color;
 
     public Vector2 position2;
     public Vector2 formulPos, formulPos2;
@@ -53,17 +53,8 @@ class Laser : SpriteGameObject
         cBot = slopeY;
         c = cTop / cBot;
 
-        cTop_string = cTop.ToString();
-        cBot_string = cBot.ToString();
-        c_string = c.ToString();
-
-        slopeX_string = slopeX.ToString();
-        slopeY_string = slopeY.ToString();
-        slope_string = slope.ToString();
-
         if (slope % 1 == 0)
         {
-
             slope_string =slope.ToString();
             Formula = slope_string;
         }
@@ -126,10 +117,8 @@ class Laser : SpriteGameObject
                 Formula += "+" + cTop_string + "/" + cBot_string;
             }
         }
-
         Console.WriteLine(Formula);
     }
-
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -174,6 +163,5 @@ class Laser : SpriteGameObject
             Lazer_Col_Alarm.Play();
             Col_Alarm = 0;
         }
-
     }
 }

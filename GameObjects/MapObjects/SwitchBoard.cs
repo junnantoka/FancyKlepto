@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 class SwitchBoard : SpriteGameObject
 {
-    Color color;
+    public Color color;
     private Texture2D light1, light2, light3;
     bool blink,solved;
     int blink_timer;

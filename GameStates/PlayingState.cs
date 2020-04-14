@@ -7,6 +7,7 @@ using FancyKlepto.GameObjects.MapObjects;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
+using System.Diagnostics;
 
 namespace FancyKlepto.GameStates
 {
@@ -123,7 +124,6 @@ namespace FancyKlepto.GameStates
 
             if (goal.PixelCollision(thePlayer))
             {
-
                 if (inputHelper.IsKeyDown(Keys.Space))
                 {
                     goal.Hold(thePlayer);
@@ -193,6 +193,32 @@ namespace FancyKlepto.GameStates
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (thePlayer.PixelCollision(switchBoard1))
+            {
+                foreach (Laser laser in lasers.Children)
+                {
+                    if (laser.color == switchBoard1.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                    {
+                        laser.Active = false;
+                        Console.WriteLine("Pressed");
+                    }
+                }
+            }
+
+            if (thePlayer.PixelCollision(switchBoard2))
+            {
+                foreach (Laser laser in lasers.Children)
+                {
+                    if (laser.color == switchBoard2.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                    {
+                        laser.Active = false;
+                        Console.WriteLine("Pressed");
+                    }
+                }
+            }
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)
             {
                 if (door.Open)
@@ -234,7 +260,7 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Laser laser in lasers.Children)
             {
-                if (Collision.LineRect(laser.Position, laser.position2, thePlayer.BoundingBox))
+                if (Collision.LineRect(laser.Position, laser.position2, thePlayer.BoundingBox)&& laser.Active)
                 {
                     laser.Alert = 1;
                     laser.Col = 1;
