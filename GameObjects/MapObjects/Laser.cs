@@ -14,9 +14,14 @@ class Laser : SpriteGameObject
     private float angle, radius;
     private readonly Texture2D texture;
     Color color;
-    public Vector2 position2,formulPos, formulPos2,gridPos,gridPos2, slope;
-    public float c;
-    public string Formul,SlopeX,SlopeY,C;
+
+    public Vector2 position2;
+    public Vector2 formulPos, formulPos2;
+    public Vector2 gridPos,gridPos2;
+
+    public float slopeX, slopeY, slope, c, cTop, cBot;
+    public string Formula;
+    public string slope_string,slopeX_string,slopeY_string,c_string,cTop_string,cBot_string;
     public Laser(Vector2 position, Vector2 position2, Color color,int xaxis,int yaxis) : base("Laser/lazer")
     {
         Active = true;
@@ -39,42 +44,90 @@ class Laser : SpriteGameObject
         formulPos2.X = gridPos2.X - xaxis;
         formulPos2.Y = gridPos2.Y - yaxis;
 
-        slope.X = (formulPos.X - formulPos2.X);
-        slope.Y = (formulPos.Y - formulPos2.Y);
-        c = gridPos.Y-((slope.X) / (slope.Y)) * gridPos.X;
+        slopeX = (formulPos.X - formulPos2.X);
+        slopeY = (formulPos.Y - formulPos2.Y);
+        slope = slopeX / slopeY;
 
-        if (slope.X<0 && slope.Y<0)
+
+        cTop = (gridPos.Y * slopeY - gridPos.X * slopeX);
+        cBot = slopeY;
+        c = cTop / cBot;
+
+        cTop_string = cTop.ToString();
+        cBot_string = cBot.ToString();
+        c_string = c.ToString();
+
+        slopeX_string = slopeX.ToString();
+        slopeY_string = slopeY.ToString();
+        slope_string = slope.ToString();
+
+        if (slope % 1 == 0)
         {
-            SlopeX = Math.Abs(slope.X).ToString();
-            SlopeY = Math.Abs(slope.Y).ToString();
-        } else if (slope.X>0 && slope.Y < 0)
-        {
-            SlopeX = (slope.X * -1).ToString();
-            SlopeY = Math.Abs(slope.Y).ToString();
-        } else if (slope.X<0 && slope.Y > 0)
-        {
-            SlopeX = slope.X.ToString();
-            SlopeY = slope.Y.ToString();
+
+            slope_string =slope.ToString();
+            Formula = slope_string;
         }
-        else if (slope.X>0 && slope.Y > 0)
+        else
         {
-            SlopeX = Math.Abs(slope.X).ToString();
-            SlopeY = Math.Abs(slope.Y).ToString();
+            slopeX_string = Math.Abs(slopeX).ToString();
+            slopeY_string = Math.Abs(slopeY).ToString();
+            if (slopeX < 0 && slopeY < 0)
+            {
+                Formula = slopeX_string + "/" + slopeY_string;
+            }
+            else if (slopeX > 0 && slopeY < 0)
+            {
+                Formula = "-" + slopeX_string + "/" + slopeY_string;
+            }
+            else if (slopeX < 0 && slopeY > 0)
+            {
+                Formula = "-" + slopeX_string + "/" + slopeY_string;
+            }
+            else if (slopeX > 0 && slopeY > 0)
+            {
+                Formula = slopeX_string + "/" + slopeY_string;
+            }
         }
 
-        if (c > 0)
+        Formula += "X";
+
+
+        if (c % 1 == 0)
         {
-            C = "+" + c.ToString();
+            if (c > 0)
+            {
+                c_string ="+" + c.ToString();
+            } else if (c < 0)
+            {
+                c_string = c.ToString();
+            }
+            Formula += c_string;
         }
-        else if (c < 0)
+        else
         {
-            C = c.ToString();
+            cTop_string = Math.Abs(cTop).ToString();
+            cBot_string = Math.Abs(cBot).ToString();
+            if (cTop > 0 && cBot > 0)
+            {
+                Formula += "+" + cTop_string + "/" + cBot_string;
+            }
+            else if (cTop > 0 && cBot < 0)
+            {
+                Formula += "-" + cTop_string + "/" + cBot_string;
+
+            }
+            else if (cTop < 0 && cBot > 0)
+            {
+                Formula += "-" + cTop_string + "/" + cBot_string;
+
+            }
+            else if (cTop < 0 && cBot < 0)
+            {
+                Formula += "+" + cTop_string + "/" + cBot_string;
+            }
         }
 
-        Formul += SlopeX+"/"+SlopeY;
-        Formul += "X";
-        Formul += C;
-        Console.WriteLine(Formul);
+        Console.WriteLine(Formula);
     }
 
     public override void Update(GameTime gameTime)
