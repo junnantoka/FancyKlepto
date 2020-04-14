@@ -33,10 +33,10 @@ namespace FancyKlepto.GameObjects.MapObjects
             text = score.ToString();
 
             timer++;
-            score = time * 33;
             if (timer % 60 == 0)
             {
                 time--;
+                score--;
             }
         }
     }
