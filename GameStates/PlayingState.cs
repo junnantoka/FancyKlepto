@@ -200,7 +200,6 @@ namespace FancyKlepto.GameStates
                     if (laser.color == switchBoard1.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
                     {
                         laser.Active = false;
-                        Console.WriteLine("Pressed");
                     }
                 }
             }
@@ -212,12 +211,14 @@ namespace FancyKlepto.GameStates
                     if (laser.color == switchBoard2.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
                     {
                         laser.Active = false;
-                        Console.WriteLine("Pressed");
                     }
                 }
             }
 
-
+            if (inputHelper.KeyPressed(Keys.Enter) && venster.open)
+            {
+                inputanswer.Button_Enter.Play();
+            }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)
             {
@@ -264,7 +265,6 @@ namespace FancyKlepto.GameStates
                 {
                     laser.Alert = 1;
                     laser.Col = 1;
-                    //laser.Col_Alarm = 1;
                     thePlayer.Reset();
                 }
             }

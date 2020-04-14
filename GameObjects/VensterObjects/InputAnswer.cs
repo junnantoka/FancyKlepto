@@ -8,7 +8,7 @@ namespace FancyKlepto.GameObjects
 {
     class InputAnswer : TextGameObject
     {
-        SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
+        public SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
         public int length;
         public int maxLength =11;
         bool pressed;
@@ -21,6 +21,7 @@ namespace FancyKlepto.GameObjects
             Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing1");
             Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing2");
             Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing3");
+            Button_Enter = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Enter");
             color = Color.Gray;
             velocity = new Vector2(15, 0);
 
