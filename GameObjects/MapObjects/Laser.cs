@@ -57,6 +57,10 @@ class Laser : SpriteGameObject
         {
             slope_string =slope.ToString();
             Formula = slope_string;
+            if (slope == 1)
+            {
+                Formula = "";
+            }
         }
         else
         {
@@ -82,13 +86,16 @@ class Laser : SpriteGameObject
 
         Formula += "X";
 
-
         if (c % 1 == 0)
         {
             if (c > 0)
             {
                 c_string ="+" + c.ToString();
             } else if (c < 0)
+            {
+                c_string = c.ToString();
+            }
+            if (c==0)
             {
                 c_string = c.ToString();
             }
