@@ -28,6 +28,7 @@ namespace FancyKlepto.GameObjects.MapObjects
         public override void Reset()
         {
             open_sprite = new SpriteSheet("Map/Door_Open", 0);
+            open = false;
             base.Reset();
             position = defPos;
         }
