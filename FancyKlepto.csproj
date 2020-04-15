@@ -45,7 +45,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FancyKlepto.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="GameManagement\AnimatedGameObject.cs" />
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
