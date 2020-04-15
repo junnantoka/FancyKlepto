@@ -289,6 +289,9 @@ namespace FancyKlepto.GameStates
                     Level_Win.Play();
                     Reset();
                     score.Reset();
+                    thePlayer.Reset();
+                    lasers.Reset();
+                    door.Reset();
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

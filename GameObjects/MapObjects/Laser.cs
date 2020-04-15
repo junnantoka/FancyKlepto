@@ -171,4 +171,10 @@ class Laser : SpriteGameObject
             Col_Alarm = 0;
         }
     }
+
+    public override void Reset()
+    {
+        base.Reset();
+        Active = true;
+    }
 }
