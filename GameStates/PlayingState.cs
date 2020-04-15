@@ -7,6 +7,7 @@ using FancyKlepto.GameObjects.MapObjects;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
+using System.Diagnostics;
 
 namespace FancyKlepto.GameStates
 {
@@ -65,7 +66,7 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
             times = new GameObjectList();
             score = new Score((int) time);
-            inputanswer = new InputAnswer(75, 700);
+            inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);
             this.Add(lasers);
@@ -86,14 +87,20 @@ namespace FancyKlepto.GameStates
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
-            lasers.Add(new Laser(new Vector2(1, 6), new Vector2(6, 5), Color.Red));
             FloorSetup();
             WallSetup();
             TimeBarSetup();
             SoundSetup();
-            //lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue));
+            lasers.Add(new Laser(new Vector2(1, 11), new Vector2(8, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue, xaxis.gridPos, yaxis.gridPos));
 
-
+            foreach(Laser laser in lasers.Children)
+            {
+                laser.formulPos.X = laser.gridPos.X - xaxis.gridPos;
+                laser.formulPos.Y = laser.gridPos.Y - yaxis.gridPos;
+                laser.formulPos2.X = laser.gridPos.X - xaxis.gridPos;
+                laser.formulPos2.Y = laser.gridPos.Y - yaxis.gridPos;
+            }
         }
         public override void Reset()
         {
@@ -117,15 +124,14 @@ namespace FancyKlepto.GameStates
 
             if (goal.PixelCollision(thePlayer))
             {
-
                 if (inputHelper.IsKeyDown(Keys.Space))
                 {
                     goal.Hold(thePlayer);
-                    if (!door.Open)
+                    if (!door.open)
                     {
                         door.Timer = 1;
                     }
-                    door.Open = true;
+                    door.open = true;
                     if (!goal.hold)
                     {
                         goal.Timer = GameEnvironment.Random.Next(1, 3);
@@ -188,6 +194,33 @@ namespace FancyKlepto.GameStates
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (thePlayer.PixelCollision(switchBoard1))
+            {
+                foreach (Laser laser in lasers.Children)
+                {
+                    if (laser.color == switchBoard1.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                    {
+                        laser.Active = false;
+                    }
+                }
+            }
+
+            if (thePlayer.PixelCollision(switchBoard2))
+            {
+                foreach (Laser laser in lasers.Children)
+                {
+                    if (laser.color == switchBoard2.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                    {
+                        laser.Active = false;
+                    }
+                }
+            }
+
+            if (inputHelper.KeyPressed(Keys.Enter) && venster.open)
+            {
+                inputanswer.Button_Enter.Play();
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)
             {
                 if (door.Open)
@@ -229,11 +262,10 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Laser laser in lasers.Children)
             {
-                if (Collision.LineRect(laser.Position, laser.position2, thePlayer.BoundingBox))
+                if (Collision.LineRect(laser.Position, laser.position2, thePlayer.BoundingBox)&& laser.Active)
                 {
                     laser.Alert = 1;
                     laser.Col = 1;
-                    //laser.Col_Alarm = 1;
                     thePlayer.Reset();
                     score.score -= 500;
                 }

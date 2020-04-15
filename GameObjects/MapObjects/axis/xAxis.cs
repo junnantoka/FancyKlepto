@@ -9,10 +9,11 @@ namespace FancyKlepto.GameObjects
 {
     class xAxis : SpriteGameObject
     {
+        public int gridPos;
         public xAxis(int y) : base("Map/spr_horizontal_art_blue2")
         {
+            gridPos = y;
             position = new Vector2(18, 10 + y * (unitSize + unitSpacing)-sprite.Height/2);
-
         }
     }
 }

@@ -8,19 +8,20 @@ namespace FancyKlepto.GameObjects
 {
     class InputAnswer : TextGameObject
     {
-        SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
+        public SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
         public int length;
+        public int maxLength =11;
         bool pressed;
-        private string[] _OldText = new string[6];
+        private string[] _OldText = new string[11];
         private string _stringValue = string.Empty;
 
         private Vector2 openPos; private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         public InputAnswer(float x, float y) : base("Input")
         {
-
             Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing1");
             Button_Typing2 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing2");
             Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing3");
+            Button_Enter = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Enter");
             color = Color.Gray;
             velocity = new Vector2(15, 0);
 
@@ -36,11 +37,16 @@ namespace FancyKlepto.GameObjects
             _OldText[3] = text;
             _OldText[4] = text;
             _OldText[5] = text;
+            _OldText[6] = text;
+            _OldText[7] = text;
+            _OldText[8] = text;
+            _OldText[9] = text;
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Move(); Sound();
+            Move();
+            Sound();
         }
         public void Move()
         {
@@ -64,7 +70,7 @@ namespace FancyKlepto.GameObjects
 
         public override void HandleInput(InputHelper inputHelper)
         {
-            if (length < 6)
+            if (length < maxLength)
             {
                 if (inputHelper.KeyPressed(Keys.NumPad0) || inputHelper.KeyPressed(Keys.D0))
                 {
@@ -142,6 +148,18 @@ namespace FancyKlepto.GameObjects
                 {
                     pressed = true;
                     _stringValue = "Y";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.OemComma))
+                {
+                    pressed = true;
+                    _stringValue = ",";
+                    length++;
+                }
+                else if (inputHelper.KeyPressed(Keys.Divide))
+                {
+                    pressed = true;
+                    _stringValue = "/";
                     length++;
                 }
                 else if (inputHelper.KeyPressed(Keys.OemPlus))

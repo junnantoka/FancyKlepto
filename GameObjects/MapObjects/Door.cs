@@ -13,6 +13,7 @@ namespace FancyKlepto.GameObjects.MapObjects
 {
     class Door : SpriteGameObject
     {
+        protected SpriteSheet open_sprite;
         SoundEffect Door_Appear;
         public int Timer;
         public Door (int x, int y): base("Map/Door_Close")
@@ -26,6 +27,7 @@ namespace FancyKlepto.GameObjects.MapObjects
 
         public override void Reset()
         {
+            open_sprite = new SpriteSheet("Map/Door_Open", 0);
             base.Reset();
             position = defPos;
         }
@@ -41,7 +43,12 @@ namespace FancyKlepto.GameObjects.MapObjects
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            base.Draw(gameTime, spriteBatch);
+            if (open) {
+                open_sprite.Draw(spriteBatch, this.GlobalPosition, origin);
+            } else
+            {
+                sprite.Draw(spriteBatch, this.GlobalPosition, origin);
+            }
         }
     }
 }

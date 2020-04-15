@@ -13,7 +13,7 @@ class RotatingSpriteGameObject : SpriteGameObject
     protected GameObject targetObject;
     protected float offsetDegrees;
 
-    private float radians;
+    public float radians;
     /// <summary>
     /// RotatingSpriteGameObject constructor.
     /// </summary>
