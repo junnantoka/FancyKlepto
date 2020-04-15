@@ -148,6 +148,7 @@ namespace FancyKlepto.GameStates
                         if (!extraGoal.hold)
                         {
                             extraGoal.Timer = GameEnvironment.Random.Next(1, 3);
+                            score.score += 1000;
                         }
                         extraGoal.hold = true;
                     }
@@ -234,6 +235,7 @@ namespace FancyKlepto.GameStates
                     laser.Col = 1;
                     //laser.Col_Alarm = 1;
                     thePlayer.Reset();
+                    score.score -= 500;
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -242,6 +244,7 @@ namespace FancyKlepto.GameStates
                 if (thePlayer.PixelCollision(guard))
                 {
                     thePlayer.Reset();
+                    score.score -= 500;
                 }
             }
 
