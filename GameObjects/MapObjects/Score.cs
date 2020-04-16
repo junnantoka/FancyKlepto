@@ -22,7 +22,7 @@ namespace FancyKlepto.GameObjects.MapObjects
         public override void Reset()
         {
             base.Reset();
-            position = new Vector2(GameEnvironment.Screen.X / 2, 40);
+            position = new Vector2(GameEnvironment.Screen.X / 2 - 70, 40);
             timer = 0;
             score = 9900;
         }
@@ -30,7 +30,7 @@ namespace FancyKlepto.GameObjects.MapObjects
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            text = score.ToString();
+            text = "Score: " + score.ToString();
 
             timer++;
             if (timer % 60 == 0)
