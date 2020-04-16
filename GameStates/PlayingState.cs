@@ -65,7 +65,7 @@ namespace FancyKlepto.GameStates
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            score = new Score((int) time);
+            score = new Score((int)time);
             inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);
@@ -94,7 +94,7 @@ namespace FancyKlepto.GameStates
             lasers.Add(new Laser(new Vector2(1, 11), new Vector2(8, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue, xaxis.gridPos, yaxis.gridPos));
 
-            foreach(Laser laser in lasers.Children)
+            foreach (Laser laser in lasers.Children)
             {
                 laser.formulPos.X = laser.gridPos.X - xaxis.gridPos;
                 laser.formulPos.Y = laser.gridPos.Y - yaxis.gridPos;
@@ -273,7 +273,7 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Laser laser in lasers.Children)
             {
-                if (Collision.LineRect(laser.Position, laser.position2, thePlayer.BoundingBox)&& laser.Active)
+                if (Collision.LineRect(laser.Position, laser.position2, thePlayer.BoundingBox) && laser.Active)
                 {
                     laser.Alert = 1;
                     laser.Col = 1;
