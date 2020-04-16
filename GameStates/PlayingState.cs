@@ -171,9 +171,11 @@ namespace FancyKlepto.GameStates
                 if (inputHelper.KeyPressed(Keys.Space))
                 {
                     if (!venster.open)
+                    {
                         venster.Timer = 1;
-                    venster.open = true;
-                    inputanswer.open = true;
+                        venster.open = true;
+                        inputanswer.open = true;
+                    }
                     foreach (TimeBar timebar in times.Children)
                     {
                         timebar.open = true;
@@ -198,6 +200,10 @@ namespace FancyKlepto.GameStates
             {
                 foreach (Laser laser in lasers.Children)
                 {
+                    if (laser.color == switchBoard1.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                    {
+                        score.score -= 500;
+                    }
                     if (laser.color == switchBoard1.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
                     {
                         laser.Active = false;
@@ -209,6 +215,10 @@ namespace FancyKlepto.GameStates
             {
                 foreach (Laser laser in lasers.Children)
                 {
+                    if (laser.color == switchBoard2.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                    {
+                        score.score -= 500;
+                    }
                     if (laser.color == switchBoard2.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
                     {
                         laser.Active = false;
