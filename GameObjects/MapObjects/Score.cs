@@ -38,6 +38,10 @@ namespace FancyKlepto.GameObjects.MapObjects
                 time--;
                 score--;
             }
+            if (score < 0)
+            {
+                score = 0;
+            }
         }
     }
 }
