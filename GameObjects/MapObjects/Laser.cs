@@ -22,7 +22,7 @@ class Laser : SpriteGameObject
     public float slopeX, slopeY, slope, c, cTop, cBot;
     public string Formula;
     public string slope_string,slopeX_string,slopeY_string,c_string,cTop_string,cBot_string;
-    public Laser(Vector2 position, Vector2 position2, Color color,int xaxis,int yaxis) : base("Laser/lazer")
+    public Laser(Vector2 position, Vector2 position2, Color color,int xaxis,int yaxis) : base("Laser/laser")
     {
         Active = true;
         #region sound
@@ -32,7 +32,7 @@ class Laser : SpriteGameObject
         Lazer_Col_Alarm = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Col_Alarm");
         Lazer_Spark = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Spark");
         #endregion
-        texture = GameEnvironment.AssetManager.GetSprite("Laser/lazer");
+        texture = GameEnvironment.AssetManager.GetSprite("Laser/laser");
         this.color = color;
         this.position = new Vector2(18 + position.X * (unitSize + unitSpacing), 10 + position.Y * (unitSize + unitSpacing));
         this.position2 = new Vector2(18 + position2.X * (unitSize + unitSpacing), 10 + position2.Y * (unitSize + unitSpacing));
@@ -143,7 +143,7 @@ class Laser : SpriteGameObject
             if (Spark <= 0)
             {
                 Lazer_Spark.Play();
-                Spark = GameEnvironment.Random.Next(420,600);
+                Spark = GameEnvironment.Random.Next(600,1000);
             }
             spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 7), new Rectangle(0, 0, 1, 1), color, angle, new Vector2(0, 0), SpriteEffects.None, 1);
         }

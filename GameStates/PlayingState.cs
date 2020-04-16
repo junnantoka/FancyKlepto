@@ -188,6 +188,7 @@ namespace FancyKlepto.GameStates
                 }
                 venster.open = false;
                 inputanswer.open = false;
+                inputanswer.Reset();
                 foreach (TimeBar timebar in times.Children)
                 {
                     timebar.open = false;

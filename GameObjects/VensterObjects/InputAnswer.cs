@@ -64,6 +64,7 @@ namespace FancyKlepto.GameObjects
                 if (position.X > defPos.X)
                 {
                     position.X = defPos.X;
+                    text = "";
                 }
             }
         }
