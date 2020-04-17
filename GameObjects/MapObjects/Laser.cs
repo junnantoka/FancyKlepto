@@ -17,12 +17,12 @@ class Laser : SpriteGameObject
 
     public Vector2 position2;
     public Vector2 formulPos, formulPos2;
-    public Vector2 gridPos,gridPos2;
+    public Vector2 gridPos, gridPos2;
 
     public float slopeX, slopeY, slope, c, cTop, cBot;
     public string Formula;
-    public string slope_string,slopeX_string,slopeY_string,c_string,cTop_string,cBot_string;
-    public Laser(Vector2 position, Vector2 position2, Color color,int xaxis,int yaxis) : base("Laser/laser")
+    public string slope_string, slopeX_string, slopeY_string, c_string, cTop_string, cBot_string;
+    public Laser(Vector2 position, Vector2 position2, Color color, int xaxis, int yaxis) : base("Laser/laser")
     {
         Active = true;
         #region sound
@@ -55,7 +55,7 @@ class Laser : SpriteGameObject
 
         if (slope % 1 == 0)
         {
-            slope_string =slope.ToString();
+            slope_string = slope.ToString();
             Formula = slope_string;
             if (slope == 1)
             {
@@ -90,12 +90,13 @@ class Laser : SpriteGameObject
         {
             if (c > 0)
             {
-                c_string ="+" + c.ToString();
-            } else if (c < 0)
+                c_string = "+" + c.ToString();
+            }
+            else if (c < 0)
             {
                 c_string = c.ToString();
             }
-            if (c==0)
+            if (c == 0)
             {
                 c_string = c.ToString();
             }
@@ -143,19 +144,19 @@ class Laser : SpriteGameObject
             if (Spark <= 0)
             {
                 Lazer_Spark.Play();
-                Spark = GameEnvironment.Random.Next(600,1000);
+                Spark = GameEnvironment.Random.Next(600, 1000);
             }
             spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 7), new Rectangle(0, 0, 1, 1), color, angle, new Vector2(0, 0), SpriteEffects.None, 1);
         }
     }
     public void Sound()
     {
-        if(Off == 1)
+        if (Off == 1)
         {
             Lazer_Off.Play();
             Off = 0;
         }
-        if(Alert == 1)
+        if (Alert == 1)
         {
             Lazer_Alert.Play();
             Alert = 0;
