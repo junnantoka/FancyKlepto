@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace FancyKlepto.GameStates
 {
-    class PlayingState : GameObjectList
+    class Level2 : GameObjectList
     {
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
@@ -40,7 +40,7 @@ namespace FancyKlepto.GameStates
         public float timer, total_time, time;
         public float timebarSpace;
 
-        public PlayingState()
+        public Level2()
         {
             Reset();
             timebarSpace = 10.768F;
@@ -292,11 +292,11 @@ namespace FancyKlepto.GameStates
             }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (door.Open && score.score != 0)
+            if (door.Open)
             {
                 if (goal.hold && thePlayer.PixelCollision(door))
                 {
-                    GameEnvironment.GameStateManager.SwitchTo("Level2");
+                    GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
                     Level_Win.Play();
                     Reset();
                     score.Reset();
@@ -304,11 +304,6 @@ namespace FancyKlepto.GameStates
                     lasers.Reset();
                     door.Reset();
                 }
-                
-            }
-            else
-            {
-                GameEnvironment.GameStateManager.SwitchTo("EndStateLost");
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
