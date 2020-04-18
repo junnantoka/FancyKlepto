@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoSprites;
 using System;
 
 public class SpriteGameObject : GameObject
@@ -89,7 +90,7 @@ public class SpriteGameObject : GameObject
         }
         return depth;
     }
-    public void xCol(SpriteGameObject spriteGameObject)
+    public void Xcol(SpriteGameObject spriteGameObject)
     {
         if (spriteGameObject.Position.X > position.X)
         {
@@ -101,7 +102,7 @@ public class SpriteGameObject : GameObject
             position.X += Intersection(spriteGameObject).X;
         }
     }
-    public void yCol(SpriteGameObject spriteGameObject)
+    public void Ycol(SpriteGameObject spriteGameObject)
     {
         if (spriteGameObject.Position.Y < position.Y)
         {
@@ -122,7 +123,16 @@ public class SpriteGameObject : GameObject
             return new Rectangle(left, top, Width, Height);
         }
     }
-    public bool xaxisCol(SpriteGameObject spriteGameObject)
+    public Vector3 Dist(SpriteGameObject obj)
+    {
+        Vector3 dist;
+        dist.X = Math.Abs(obj.Center.X - Center.X);
+        dist.Y = Math.Abs(obj.Center.Y - Center.Y);
+        dist.Z = (float)Math.Sqrt((dist.X)*(dist.X)+(dist.Y)*(dist.Y));
+        return dist;
+        
+    }
+    public bool XaxisCol(SpriteGameObject spriteGameObject)
     {
         if (BoundingBox.Center.X < spriteGameObject.BoundingBox.Right &&
             BoundingBox.Center.X > spriteGameObject.BoundingBox.Left)
@@ -131,7 +141,7 @@ public class SpriteGameObject : GameObject
         }
         return false;
     }
-    public bool yaxisCol(SpriteGameObject spriteGameObject)
+    public bool YaxisCol(SpriteGameObject spriteGameObject)
     {
         if ((BoundingBox.Center.Y < spriteGameObject.BoundingBox.Bottom &&
             BoundingBox.Center.Y > spriteGameObject.BoundingBox.Top))

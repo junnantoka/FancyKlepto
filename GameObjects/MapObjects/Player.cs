@@ -42,8 +42,7 @@ class Player : RotatingSpriteGameObject
         Player_Walk4 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/pl_tile4");
         #endregion
         position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
-        position.X += sprite.Width/2;
-        position.Y += sprite.Height/2;
+        position.X += 2;
         defPos = position;
 
         origin = sprite.Center;

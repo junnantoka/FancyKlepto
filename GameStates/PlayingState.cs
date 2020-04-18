@@ -70,12 +70,12 @@ namespace FancyKlepto.GameStates
 
             this.Add(floors);
             this.Add(lasers);
+            this.Add(xaxis);
+            this.Add(yaxis);
             this.Add(walls);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
-            this.Add(xaxis);
-            this.Add(yaxis);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
@@ -246,27 +246,35 @@ namespace FancyKlepto.GameStates
                     wall.Die = true;
                 }
 
-                if (thePlayer.xaxisCol(wall))
+                if (thePlayer.XaxisCol(wall))
                 {
-                    if (thePlayer.Intersection(wall).Y > 0)
-                        thePlayer.yCol(wall);
+                    if (thePlayer.CollidesWith(wall))
+                    {
+                        thePlayer.Ycol(wall);
+                    }
                 }
-                if (thePlayer.yaxisCol(wall))
+                if (thePlayer.YaxisCol(wall))
                 {
-                    if (thePlayer.Intersection(wall).X > 0)
-                        thePlayer.xCol(wall);
+                    if (thePlayer.CollidesWith(wall))
+                    {
+                        thePlayer.Xcol(wall);
+                    }
                 }
                 foreach (Guard guard in guards.Children)
                 {
-                    if (guard.xaxisCol(wall))
+                    if (guard.XaxisCol(wall))
                     {
-                        if (guard.Intersection(wall).Y > 0)
-                            guard.yCol(wall);
+                        if (guard.CollidesWith(wall))
+                        {
+                            guard.Ycol(wall);
+                        }
                     }
-                    if (guard.yaxisCol(wall))
+                    if (guard.YaxisCol(wall))
                     {
-                        if (guard.Intersection(wall).X > 0)
-                            guard.xCol(wall);
+                        if (guard.CollidesWith(wall))
+                        {
+                            guard.Xcol(wall);
+                        }
                     }
                 }
             }
