@@ -51,7 +51,7 @@ class Laser : SpriteGameObject
 
         cTop = (gridPos.Y * slopeY - gridPos.X * slopeX);
         cBot = slopeY;
-        c = cTop / cBot;
+        c = (cTop+2*cBot) / cBot;
 
         if (slope % 1 == 0)
         {
@@ -104,7 +104,7 @@ class Laser : SpriteGameObject
         }
         else
         {
-            cTop_string = Math.Abs(cTop).ToString();
+            cTop_string = Math.Abs(cTop+2*cBot).ToString();
             cBot_string = Math.Abs(cBot).ToString();
             if (cTop > 0 && cBot > 0)
             {
