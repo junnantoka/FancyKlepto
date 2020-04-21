@@ -61,6 +61,7 @@ namespace FancyKlepto.GameStates
 
             xaxis = new xAxis(8);
             yaxis = new yAxis(10);
+
             goal = new MainGoal(20, 11);
             guards = new GameObjectList();
             lasers = new GameObjectList();
@@ -91,7 +92,7 @@ namespace FancyKlepto.GameStates
             WallSetup();
             TimeBarSetup();
             SoundSetup();
-            lasers.Add(new Laser(new Vector2(1, 11), new Vector2(8, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(1, 11), new Vector2(6, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue, xaxis.gridPos, yaxis.gridPos));
 
             foreach (Laser laser in lasers.Children)
