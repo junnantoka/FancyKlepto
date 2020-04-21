@@ -12,7 +12,7 @@ namespace FancyKlepto.GameObjects
         public int gridPos;
         public yAxis(int x) : base("Map/spr_vertical_art_blue")
         {
-            gridPos = x;
+            gridPos = x-2;
             position = new Vector2(18 + (x - 2) * (unitSize + unitSpacing) - sprite.Width / 2, 10);
         }
     }
