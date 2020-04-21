@@ -104,7 +104,7 @@ class Laser : SpriteGameObject
         }
         else
         {
-            cTop_string = Math.Abs(cTop+2*cBot).ToString();
+            cTop_string = (Math.Abs(cTop) + Math.Abs(2 * cBot)).ToString();
             cBot_string = Math.Abs(cBot).ToString();
             if (cTop > 0 && cBot > 0)
             {
