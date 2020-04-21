@@ -22,7 +22,7 @@ class Laser : SpriteGameObject
     public float slopeX, slopeY, slope, c, cTop, cBot;
     public string Formula;
     public string slope_string, slopeX_string, slopeY_string, c_string, cTop_string, cBot_string;
-    public Laser(Vector2 position, Vector2 position2, Color color, int xaxis, int yaxis) : base("Laser/laser")
+    public Laser(Vector2 position, Vector2 position2, Color color, int xaxis, int yaxis) : base("Laser/lazer")
     {
         Active = true;
         #region sound
@@ -32,26 +32,29 @@ class Laser : SpriteGameObject
         Lazer_Col_Alarm = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Col_Alarm");
         Lazer_Spark = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Spark");
         #endregion
-        texture = GameEnvironment.AssetManager.GetSprite("Laser/laser");
+        texture = GameEnvironment.AssetManager.GetSprite("Laser/lazer");
         this.color = color;
         this.position = new Vector2(18 + position.X * (unitSize + unitSpacing), 10 + position.Y * (unitSize + unitSpacing));
         this.position2 = new Vector2(18 + position2.X * (unitSize + unitSpacing), 10 + position2.Y * (unitSize + unitSpacing));
+
         gridPos = position;
         gridPos2 = position2;
 
         formulPos.X = gridPos.X - xaxis;
-        formulPos.Y = gridPos.Y - yaxis;
+        formulPos.Y = gridPos.Y - yaxis - 6;
         formulPos2.X = gridPos2.X - xaxis;
-        formulPos2.Y = gridPos2.Y - yaxis;
+        formulPos2.Y = gridPos2.Y - yaxis + 4;
 
         slopeX = (formulPos.X - formulPos2.X);
         slopeY = (formulPos.Y - formulPos2.Y);
         slope = slopeX / slopeY;
 
+        Console.WriteLine(gridPos + " " + formulPos + " " + slope);
+        Console.WriteLine(gridPos2 + " " + formulPos2 + " " + slope);
 
-        cTop = (gridPos.Y * slopeY - gridPos.X * slopeX);
+        cTop = (formulPos.Y * slopeY - formulPos.X * slopeX);
         cBot = slopeY;
-        c = (cTop+2*cBot) / cBot;
+        c = cTop / cBot;
 
         if (slope % 1 == 0)
         {
@@ -60,6 +63,10 @@ class Laser : SpriteGameObject
             if (slope == 1)
             {
                 Formula = "";
+            }
+            if (slope == -1)
+            {
+                Formula = "-";
             }
         }
         else
@@ -98,13 +105,13 @@ class Laser : SpriteGameObject
             }
             if (c == 0)
             {
-                c_string = c.ToString();
+                c_string = "";
             }
             Formula += c_string;
         }
         else
         {
-            cTop_string = (Math.Abs(cTop) + Math.Abs(2 * cBot)).ToString();
+            cTop_string = Math.Abs(cTop).ToString();
             cBot_string = Math.Abs(cBot).ToString();
             if (cTop > 0 && cBot > 0)
             {
@@ -125,7 +132,7 @@ class Laser : SpriteGameObject
                 Formula += "+" + cTop_string + "/" + cBot_string;
             }
         }
-        Console.WriteLine(color.ToString() + ";" + " "+ Formula);
+        Console.WriteLine(Formula);
     }
     public override void Update(GameTime gameTime)
     {
