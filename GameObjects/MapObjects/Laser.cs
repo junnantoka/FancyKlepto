@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using System;
 using Newtonsoft.Json;
+using Zds;
+using FancyKlepto;
 
 class Laser : SpriteGameObject
 {
@@ -40,22 +42,21 @@ class Laser : SpriteGameObject
         gridPos = position;
         gridPos2 = position2;
 
-        formulPos.X = gridPos.X - xaxis;
-        formulPos.Y = gridPos.Y - yaxis;
-        formulPos2.X = gridPos2.X - xaxis;
-        formulPos2.Y = gridPos2.Y - yaxis;
+        formulPos.X = gridPos.X - yaxis;
+        formulPos.Y = gridPos.Y -  xaxis;
+        formulPos2.X = gridPos2.X - yaxis;
+        formulPos2.Y = gridPos2.Y -  xaxis;
 
         slopeX = (formulPos.X - formulPos2.X);
         slopeY = (formulPos.Y - formulPos2.Y);
-        slope = slopeX / slopeY;
+        slope = slopeY / slopeX;
 
-        Console.WriteLine(gridPos + " " + formulPos + " " + slope);
-        Console.WriteLine(gridPos2 + " " + formulPos2 + " " + slope);
+        Console.WriteLine(gridPos + " " + gridPos2 + " " + slope);
+        Console.WriteLine(formulPos + " " + formulPos2 + " " + slope);
 
-        cTop = (formulPos.Y * slopeY - formulPos.X * slopeX);
-        cBot = slopeY;
+        cTop = slopeX*formulPos.Y-slopeY*formulPos.X;
+        cBot = slopeX;
         c = cTop / cBot;
-       // c = formulPos.X * slope - formulPos.Y;
 
         if (slope % 1 == 0)
         {
