@@ -10,7 +10,7 @@ namespace FancyKlepto.GameObjects
     class xAxis : SpriteGameObject
     {
         public int gridPos;
-        public xAxis(int y) : base("Map/spr_horizontal_art_blue")
+        public xAxis(int y, string assetName) : base(assetName)
         {
             gridPos = y-2;
             position = new Vector2(18, 10 + (y - 2) * (unitSize + unitSpacing) - sprite.Height / 2);
