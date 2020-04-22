@@ -50,6 +50,7 @@
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Collision.cs" />
     <Compile Include="GameManagement\DrawingHelper.cs" />
+    <Compile Include="GameManagement\FloatToFraction.cs" />
     <Compile Include="GameManagement\GameEnvironment.cs" />
     <Compile Include="GameManagement\GameObject.cs" />
     <Compile Include="GameManagement\GameObjectGrid.cs" />
@@ -87,6 +88,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Fraction, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Zds.Fraction.2.0.0\lib\Fraction.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>

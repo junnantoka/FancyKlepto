@@ -12,8 +12,8 @@ namespace FancyKlepto.GameObjects
         public int gridPos;
         public yAxis(int x, string assetName) : base(assetName)
         {
-            gridPos = x-2;
-            position = new Vector2(18 + (x - 2) * (unitSize + unitSpacing) - sprite.Width / 2, 10);
+            gridPos = x;
+            position = new Vector2(18 + (x) * (unitSize + unitSpacing) - sprite.Width / 2, 10);
         }
     }
 }
