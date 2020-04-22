@@ -15,7 +15,6 @@ namespace FancyKlepto.GameObjects
     {
         List<SoundEffect> walkEffects;
 
-        public int Timer;
         public Vector2 destination;
         public Vector2 posA, posB;
         public bool Moves;
