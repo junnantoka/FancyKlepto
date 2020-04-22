@@ -41,9 +41,9 @@ class Laser : SpriteGameObject
         gridPos2 = position2;
 
         formulPos.X = gridPos.X - xaxis;
-        formulPos.Y = gridPos.Y - yaxis - 6;
+        formulPos.Y = gridPos.Y - yaxis;
         formulPos2.X = gridPos2.X - xaxis;
-        formulPos2.Y = gridPos2.Y - yaxis + 4;
+        formulPos2.Y = gridPos2.Y - yaxis;
 
         slopeX = (formulPos.X - formulPos2.X);
         slopeY = (formulPos.Y - formulPos2.Y);
@@ -55,6 +55,7 @@ class Laser : SpriteGameObject
         cTop = (formulPos.Y * slopeY - formulPos.X * slopeX);
         cBot = slopeY;
         c = cTop / cBot;
+       // c = formulPos.X * slope - formulPos.Y;
 
         if (slope % 1 == 0)
         {
@@ -75,19 +76,19 @@ class Laser : SpriteGameObject
             slopeY_string = Math.Abs(slopeY).ToString();
             if (slopeX < 0 && slopeY < 0)
             {
-                Formula = slopeX_string + "/" + slopeY_string;
+                Formula = slopeY_string  + "/" + slopeX_string;
             }
             else if (slopeX > 0 && slopeY < 0)
             {
-                Formula = "-" + slopeX_string + "/" + slopeY_string;
+                Formula = "-" + slopeY_string + "/" + slopeX_string;
             }
             else if (slopeX < 0 && slopeY > 0)
             {
-                Formula = "-" + slopeX_string + "/" + slopeY_string;
+                Formula = "-" + slopeY_string + "/" + slopeX_string;
             }
             else if (slopeX > 0 && slopeY > 0)
             {
-                Formula = slopeX_string + "/" + slopeY_string;
+                Formula = slopeY_string + "/" + slopeX_string;
             }
         }
 
