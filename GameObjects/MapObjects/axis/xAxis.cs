@@ -17,9 +17,3 @@ namespace FancyKlepto.GameObjects
         }
     }
 }
-
-
-
-
-
-
