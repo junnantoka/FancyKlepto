@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace FancyKlepto.GameObjects
 {
-    class yAxis : SpriteGameObject
+    class Yaxis : SpriteGameObject
     {
         public int gridPos;
-        public yAxis(int x, string assetName) : base(assetName)
+        public Yaxis(int x, string assetName) : base(assetName)
         {
             gridPos = x;
             position = new Vector2(18 + (x) * (unitSize + unitSpacing) - sprite.Width / 2, 10);

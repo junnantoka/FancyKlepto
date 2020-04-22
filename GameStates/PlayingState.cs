@@ -21,8 +21,8 @@ namespace FancyKlepto.GameStates
         Player thePlayer;
         MainGoal goal;
         Door door;
-        xAxis xaxis;
-        yAxis yaxis;
+        Xaxis xaxis;
+        Yaxis yaxis;
         SwitchBoard switchBoard1;
         SwitchBoard switchBoard2;
         Venster venster;
@@ -59,8 +59,8 @@ namespace FancyKlepto.GameStates
             goals = new GameObjectList();
             vensters = new GameObjectList();
 
-            xaxis = new xAxis(0, "Map/spr_horizontal_art_blue_lvl1");
-            yaxis = new yAxis(0, "Map/spr_vertical_art_blue_lvl1");
+            xaxis = new Xaxis(0, "Map/spr_horizontal_art_blue_lvl1");
+            yaxis = new Yaxis(0, "Map/spr_vertical_art_blue_lvl1");
             goal = new MainGoal(20, 11);
             guards = new GameObjectList();
             lasers = new GameObjectList();
