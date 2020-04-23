@@ -70,9 +70,9 @@ namespace FancyKlepto.GameStates
 
             this.Add(floors);
             this.Add(lasers);
+            this.Add(walls);
             this.Add(xaxis);
             this.Add(yaxis);
-            this.Add(walls);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
