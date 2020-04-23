@@ -66,7 +66,7 @@ namespace FancyKlepto.GameStates
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            score = new Score(12, 0, (int)time);
+            score = new Score(12, 20, (int)time);
             inputanswer = new InputAnswer(75, 720);
             Xaxis_nums = new GameObjectList();
 
@@ -86,7 +86,6 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
-            this.Add(Xaxis_nums);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
@@ -177,7 +176,6 @@ namespace FancyKlepto.GameStates
                     {
                         venster.Timer = 1;
                         venster.open = true;
-                        score.open = true;
                         inputanswer.open = true;
                     }
                     foreach (TimeBar timebar in times.Children)
