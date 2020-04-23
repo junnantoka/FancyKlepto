@@ -18,7 +18,7 @@ namespace FancyKlepto
             FullScreen = true;
             
             GameStateManager.AddGameState("StartState", new StartState());
-            GameStateManager.AddGameState("PlayingState", new PlayingState());
+            GameStateManager.AddGameState("Level1", new Level1());
             GameStateManager.AddGameState("Level2", new Level2());
             GameStateManager.AddGameState("EndStateWon", new EndStateWon());
             GameStateManager.AddGameState("EndStateLost", new EndStateLost());

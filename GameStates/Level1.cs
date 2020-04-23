@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace FancyKlepto.GameStates
 {
-    class PlayingState : GameObjectList
+    class Level1 : GameObjectList
     {
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
@@ -40,7 +40,7 @@ namespace FancyKlepto.GameStates
         public float timer, total_time, time;
         public float timebarSpace;
 
-        public PlayingState()
+        public Level1()
         {
             Reset();
             timebarSpace = 10.768F;
