@@ -69,13 +69,13 @@ namespace FancyKlepto.GameStates
             inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);
-            this.Add(lasers);
             this.Add(walls);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
+            this.Add(lasers);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
@@ -358,7 +358,7 @@ namespace FancyKlepto.GameStates
             {
                 walls.Add(new Wall(i, 5, "Map/wall_color"));
             }
-            for (int i = 17; i < 22; i++)
+            for (int i = 17; i < 23; i++)
             {
                 walls.Add(new Wall(i, 7, "Map/wall_color"));
             }
@@ -470,7 +470,6 @@ namespace FancyKlepto.GameStates
             walls.Add(new Wall(14, 5, "Map/wall_left_top"));
 
 
-            walls.Add(new Wall(22, 7, "Map/wall_right_bot"));
             #endregion
         }
         public void SoundSetup()

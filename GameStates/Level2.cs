@@ -70,13 +70,13 @@ namespace FancyKlepto.GameStates
             inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);
-            this.Add(lasers);
             this.Add(walls);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
+            this.Add(lasers);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
@@ -297,7 +297,7 @@ namespace FancyKlepto.GameStates
             {
                 if (goal.hold && thePlayer.PixelCollision(door))
                 {
-                    GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
+                    GameEnvironment.GameStateManager.SwitchTo("Level3");
                     Level_Win.Play();
                     Reset();
                     score.Reset();
