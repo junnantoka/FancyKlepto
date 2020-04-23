@@ -59,8 +59,8 @@ namespace FancyKlepto.GameStates
             goals = new GameObjectList();
             vensters = new GameObjectList();
 
-            xaxis = new Xaxis(0, "Map/spr_horizontal_art_blue_lvl1");
-            yaxis = new Yaxis(0, "Map/spr_vertical_art_blue_lvl1");
+            xaxis = new Xaxis(6, "Map/spr_horizontal_art_blue_lvl1");
+            yaxis = new Yaxis(8, "Map/spr_vertical_art_blue_lvl1");
             goal = new MainGoal(20, 11);
             guards = new GameObjectList();
             lasers = new GameObjectList();
