@@ -50,6 +50,7 @@
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Collision.cs" />
     <Compile Include="GameManagement\DrawingHelper.cs" />
+    <Compile Include="GameManagement\FracMethod.cs" />
     <Compile Include="GameManagement\GameEnvironment.cs" />
     <Compile Include="GameManagement\GameObject.cs" />
     <Compile Include="GameManagement\GameObjectGrid.cs" />
@@ -75,17 +76,21 @@
     <Compile Include="GameObjects\VensterObjects\InputAnswer.cs" />
     <Compile Include="GameObjects\VensterObjects\TimeBar.cs" />
     <Compile Include="GameObjects\MapObjects\Wall.cs" />
-    <Compile Include="GameObjects\MapObjects\axis\xAxis.cs" />
-    <Compile Include="GameObjects\MapObjects\axis\yAxis.cs" />
+    <Compile Include="GameObjects\MapObjects\axis\Xaxis.cs" />
+    <Compile Include="GameObjects\MapObjects\axis\Yaxis.cs" />
     <Compile Include="GameObjects\VensterObjects\Venster.cs" />
     <Compile Include="GameStates\EndStateLost.cs" />
     <Compile Include="GameStates\EndStateWon.cs" />
+    <Compile Include="GameStates\Level2.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
     <Compile Include="GameStates\StartState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Fraction, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Zds.Fraction.2.0.0\lib\Fraction.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>

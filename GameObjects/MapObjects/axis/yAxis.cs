@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework;
 
 namespace FancyKlepto.GameObjects
 {
-    class yAxis : SpriteGameObject
+    class Yaxis : SpriteGameObject
     {
         public int gridPos;
-        public yAxis(int x) : base("Map/spr_vertical_art_blue")
+        public Yaxis(int x, string assetName) : base(assetName)
         {
             gridPos = x;
-            position = new Vector2(18 + (x-2) * (unitSize + unitSpacing)-sprite.Width/2,10);
+            position = new Vector2(18 + (x) * (unitSize + unitSpacing) - sprite.Width / 2, 10);
         }
     }
 }
