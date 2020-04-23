@@ -40,7 +40,7 @@ namespace FancyKlepto.GameStates
         public float timer, total_time, time;
         public float timebarSpace;
 
-        public Level1()
+        public Level5()
         {
             Reset();
             timebarSpace = 10.768F;
