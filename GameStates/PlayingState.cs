@@ -36,6 +36,7 @@ namespace FancyKlepto.GameStates
         GameObjectList guards;
         GameObjectList lasers;
         GameObjectList vensters;
+        GameObjectList Xaxis_nums;
 
         public float timer, total_time, time;
         public float timebarSpace;
@@ -59,14 +60,15 @@ namespace FancyKlepto.GameStates
             goals = new GameObjectList();
             vensters = new GameObjectList();
 
-            xaxis = new Xaxis(6, "Map/spr_horizontal_art_blue_lvl1");
-            yaxis = new Yaxis(8, "Map/spr_vertical_art_blue_lvl1");
+            xaxis = new Xaxis(6, "Map/spr_horizontal_art_blue");
+            yaxis = new Yaxis(8, "Map/spr_vertical_art_blue");
             goal = new MainGoal(20, 11);
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            score = new Score((int)time);
+            score = new Score(12, 0, (int)time);
             inputanswer = new InputAnswer(75, 720);
+            Xaxis_nums = new GameObjectList();
 
             this.Add(floors);
             this.Add(lasers);
@@ -84,6 +86,7 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
+            this.Add(Xaxis_nums);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
@@ -174,6 +177,7 @@ namespace FancyKlepto.GameStates
                     {
                         venster.Timer = 1;
                         venster.open = true;
+                        score.open = true;
                         inputanswer.open = true;
                     }
                     foreach (TimeBar timebar in times.Children)
@@ -210,6 +214,10 @@ namespace FancyKlepto.GameStates
                         laser.Active = false;
                     }
                 }
+            }
+            else
+            {
+                inputanswer.text = "";
             }
 
             if (thePlayer.PixelCollision(switchBoard2))

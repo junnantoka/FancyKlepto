@@ -13,9 +13,15 @@ namespace FancyKlepto.GameObjects.MapObjects
         int timer;
         public int time;
         public int score;
-        public Score(int Time) : base("Score")
+        private Vector2 openPos;
+        private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+
+        public Score(int x, int y, int Time) : base("Score")
         {
+            position = new Vector2(x + screenWidth, y);
             time = Time;
+            // 352 is total width of the open window
+            openPos.X = defPos.X - 352;
             Reset();
         }
 
@@ -41,6 +47,26 @@ namespace FancyKlepto.GameObjects.MapObjects
             if (score < 0)
             {
                 score = 0;
+            }
+        }
+
+        public void Move()
+        {
+            if (open && position.X > openPos.X)
+            {
+                position.X -= velocity.X;
+                if (position.X < openPos.X)
+                {
+                    position.X = openPos.X;
+                }
+            }
+            else if (!open && position.X < defPos.X)
+            {
+                position.X += velocity.X;
+                if (position.X > defPos.X)
+                {
+                    position.X = defPos.X;
+                }
             }
         }
     }
