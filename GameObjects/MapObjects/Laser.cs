@@ -36,20 +36,23 @@ class Laser : SpriteGameObject
         this.color = color;
         this.position = new Vector2(18 + position.X * (unitSize + unitSpacing), 10 + position.Y * (unitSize + unitSpacing));
         this.position2 = new Vector2(18 + position2.X * (unitSize + unitSpacing), 10 + position2.Y * (unitSize + unitSpacing));
+        
         gridPos = position;
         gridPos2 = position2;
 
         formulPos.X = gridPos.X - xaxis;
-        formulPos.Y = gridPos.Y - yaxis;
-        formulPos2.X = gridPos2.X - xaxis;
-        formulPos2.Y = gridPos2.Y - yaxis;
+        formulPos.Y = gridPos.Y - yaxis-6;
+        formulPos2.X = gridPos2.X - xaxis ;
+        formulPos2.Y = gridPos2.Y - yaxis +4;
 
         slopeX = (formulPos.X - formulPos2.X);
         slopeY = (formulPos.Y - formulPos2.Y);
         slope = slopeX / slopeY;
 
+        Console.WriteLine(gridPos + " " + formulPos + " " + slope);
+        Console.WriteLine(gridPos2 + " " + formulPos2 + " " + slope);
 
-        cTop = (gridPos.Y * slopeY - gridPos.X * slopeX);
+        cTop = (formulPos.Y * slopeY - formulPos.X * slopeX);
         cBot = slopeY;
         c = cTop / cBot;
 
@@ -60,6 +63,10 @@ class Laser : SpriteGameObject
             if (slope == 1)
             {
                 Formula = "";
+            }
+            if (slope == -1)
+            {
+                Formula = "-";
             }
         }
         else
@@ -98,7 +105,7 @@ class Laser : SpriteGameObject
             }
             if (c == 0)
             {
-                c_string = c.ToString();
+                c_string = "";
             }
             Formula += c_string;
         }
