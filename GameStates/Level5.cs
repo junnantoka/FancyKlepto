@@ -13,10 +13,10 @@ namespace FancyKlepto.GameStates
 {
     class Level5 : GameObjectList
     {
+        SwitchBoard currentSwitchboard;
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
         SoundEffect Input_Correct, Input_Wrong;
-
 
         Player thePlayer;
         MainGoal goal;
