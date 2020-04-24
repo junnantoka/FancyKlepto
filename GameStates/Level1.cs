@@ -292,6 +292,11 @@ namespace FancyKlepto.GameStates
             else
             {
                 GameEnvironment.GameStateManager.SwitchTo("EndStateLost");
+                Reset();
+                score.Reset();
+                thePlayer.Reset();
+                lasers.Reset();
+                door.Reset();
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if(thePlayer.CollidesWith(door) && !door.open)
