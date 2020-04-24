@@ -35,6 +35,7 @@ namespace FancyKlepto.GameStates
         GameObjectList lasers;
         GameObjectList vensters;
         GameObjectList switchBoards;
+        GameObjectList Xaxis_nums;
 
         public float timer, total_time, time;
         public float timebarSpace;
@@ -58,14 +59,15 @@ namespace FancyKlepto.GameStates
             goals = new GameObjectList();
             vensters = new GameObjectList();
 
-            xaxis = new Xaxis(6, "Map/spr_horizontal_art_blue_lvl1");
-            yaxis = new Yaxis(8, "Map/spr_vertical_art_blue_lvl1");
+            xaxis = new Xaxis(6, "Map/spr_horizontal_art_blue");
+            yaxis = new Yaxis(8, "Map/spr_vertical_art_blue");
             goal = new MainGoal(20, 11);
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            score = new Score((int)time);
+            score = new Score(12, 20, (int)time);
             inputanswer = new InputAnswer(75, 720);
+            Xaxis_nums = new GameObjectList();
 
             this.Add(floors);
             this.Add(walls);
@@ -195,6 +197,15 @@ namespace FancyKlepto.GameStates
                     }
                 }
                 if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
+            }
+            else
+            {
+                inputanswer.text = "";
+            }
+
+            if (thePlayer.PixelCollision(switchBoard2))
+            {
+                foreach (Laser laser in lasers.Children)
                 {
                     if (venster.open)
                     {

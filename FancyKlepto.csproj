@@ -63,6 +63,7 @@
     <Compile Include="GameManagement\SpriteGameObject.cs" />
     <Compile Include="GameManagement\SpriteSheet.cs" />
     <Compile Include="GameManagement\TextGameObject.cs" />
+    <Compile Include="GameObjects\MapObjects\axis\Xaxis_nums.cs" />
     <Compile Include="GameObjects\MapObjects\Door.cs" />
     <Compile Include="GameObjects\MapObjects\ExtraGoal.cs" />
     <Compile Include="GameObjects\MapObjects\Floor.cs" />

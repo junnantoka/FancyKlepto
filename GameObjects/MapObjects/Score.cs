@@ -13,8 +13,10 @@ namespace FancyKlepto.GameObjects.MapObjects
         int timer;
         public int time;
         public int score;
-        public Score(int Time) : base("Score")
+
+        public Score(int x, int y, int Time) : base("Score")
         {
+            position = new Vector2(18 + (x) * (unitSize + unitSpacing), y);
             time = Time;
             Reset();
         }
@@ -22,7 +24,6 @@ namespace FancyKlepto.GameObjects.MapObjects
         public override void Reset()
         {
             base.Reset();
-            position = new Vector2(GameEnvironment.Screen.X / 2 - 70, 40);
             timer = 0;
             score = 9900;
         }

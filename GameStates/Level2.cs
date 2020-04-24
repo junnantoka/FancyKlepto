@@ -59,13 +59,13 @@ namespace FancyKlepto.GameStates
             goals = new GameObjectList();
             vensters = new GameObjectList();
 
-            xaxis = new Xaxis(8, "Map/spr_horizontal_art_blue_lvl2");
-            yaxis = new Yaxis(20, "Map/spr_vertical_art_blue_lvl2");
+            xaxis = new Xaxis(8, "Map/spr_horizontal_art_blue");
+            yaxis = new Yaxis(20, "Map/spr_vertical_art_blue");
             goal = new MainGoal(26, 3);
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            score = new Score((int)time);
+            score = new Score(11, 20, (int)time);
             inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);
