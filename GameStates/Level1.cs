@@ -288,13 +288,38 @@ namespace FancyKlepto.GameStates
                     lasers.Reset();
                     door.Reset();
                 }
-                
             }
             else
             {
                 GameEnvironment.GameStateManager.SwitchTo("EndStateLost");
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if(thePlayer.CollidesWith(door) && !door.open)
+            {
+                if (thePlayer.XaxisCol(door))
+                {
+                    if (thePlayer.Intersection(door).Y > 0)
+                        thePlayer.Ycol(door);
+                }
+                if (thePlayer.YaxisCol(door))
+                {
+                    if (thePlayer.Intersection(door).X > 0)
+                        thePlayer.Xcol(door);
+                }
+                foreach (Guard guard in guards.Children)
+                {
+                    if (guard.XaxisCol(door))
+                    {
+                        if (guard.Intersection(door).Y > 0)
+                            guard.Ycol(door);
+                    }
+                    if (guard.YaxisCol(door))
+                    {
+                        if (guard.Intersection(door).X > 0)
+                            guard.Xcol(door);
+                    }
+                }
+            }
         }
         public override void Update(GameTime gameTime)
         {
