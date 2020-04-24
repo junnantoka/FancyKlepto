@@ -69,6 +69,7 @@ namespace FancyKlepto.GameStates
             switchBoards = new GameObjectList();
 
             this.Add(floors);
+            this.Add(switchBoards);
             this.Add(walls);
             this.Add(door);
             this.Add(xaxis);
@@ -82,7 +83,6 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
-            this.Add(switchBoards);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));

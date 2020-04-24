@@ -65,13 +65,15 @@ namespace FancyKlepto.GameStates
             times = new GameObjectList();
             score = new Score(11, 20, (int)time);
             inputanswer = new InputAnswer(75, 720);
+            switchBoards = new GameObjectList();
 
             this.Add(floors);
+            this.Add(switchBoards);
             this.Add(walls);
             this.Add(door);
+            this.Add(lasers);
             this.Add(xaxis);
             this.Add(yaxis);
-            this.Add(lasers);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
@@ -89,6 +91,8 @@ namespace FancyKlepto.GameStates
             SoundSetup();
             lasers.Add(new Laser(new Vector2(11, 6), new Vector2(14, 10), Color.Red, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(23, 10), new Vector2(28, 7), Color.Blue, xaxis.gridPos, yaxis.gridPos));
+            switchBoards.Add(new SwitchBoard(3, 7, Color.Blue));
+            switchBoards.Add(new SwitchBoard(22, 3, Color.Red));
         }
         public override void Reset()
         {

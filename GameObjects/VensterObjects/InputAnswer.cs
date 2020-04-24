@@ -10,9 +10,9 @@ namespace FancyKlepto.GameObjects
     {
         public SoundEffect Button_Enter, Button_Typing1, Button_Typing2, Button_Typing3;
         public int length;
-        public int maxLength =11;
+        public int maxLength = 12;
         bool pressed;
-        private string[] _OldText = new string[11];
+        private string[] _OldText = new string[12];
         private string _stringValue = string.Empty;
 
         private Vector2 openPos; private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -25,22 +25,16 @@ namespace FancyKlepto.GameObjects
             color = Color.Gray;
             velocity = new Vector2(15, 0);
 
-            position = new Vector2(x+screenWidth, y);
+            position = new Vector2(x + screenWidth, y);
             defPos = position;
             // 352 is total width of the open window            
             openPos.X = defPos.X - 352;
 
             text = "";
-            _OldText[0] = text;
-            _OldText[1] = text;
-            _OldText[2] = text;
-            _OldText[3] = text;
-            _OldText[4] = text;
-            _OldText[5] = text;
-            _OldText[6] = text;
-            _OldText[7] = text;
-            _OldText[8] = text;
-            _OldText[9] = text;
+            for (int i = 0; i < _OldText.Length; i++)
+            {
+                _OldText[i] = text;
+            }
         }
         public override void Update(GameTime gameTime)
         {
@@ -200,7 +194,7 @@ namespace FancyKlepto.GameObjects
             {
                 int rndm = GameEnvironment.Random.Next(1, 3);
 
-                if(rndm == 1)
+                if (rndm == 1)
                 {
                     Button_Typing1.Play();
                 }
@@ -208,7 +202,7 @@ namespace FancyKlepto.GameObjects
                 {
                     Button_Typing2.Play();
                 }
-                else if (rndm ==3)
+                else if (rndm == 3)
                 {
                     Button_Typing3.Play();
                 }

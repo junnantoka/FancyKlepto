@@ -41,7 +41,7 @@ namespace FancyKlepto.GameStates
 
         public Level5()
         {
-
+            Console.WriteLine("Level5");
             Reset();
             timebarSpace = 10.768F;
             this.Add(new SpriteGameObject("spr_background"));
