@@ -83,7 +83,10 @@
     <Compile Include="GameStates\EndStateLost.cs" />
     <Compile Include="GameStates\EndStateWon.cs" />
     <Compile Include="GameStates\Level2.cs" />
-    <Compile Include="GameStates\PlayingState.cs" />
+    <Compile Include="GameStates\Level1.cs" />
+    <Compile Include="GameStates\Level3.cs" />
+    <Compile Include="GameStates\Level4.cs" />
+    <Compile Include="GameStates\Level5.cs" />
     <Compile Include="GameStates\StartState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,8 +18,11 @@ namespace FancyKlepto
             FullScreen = false;
             
             GameStateManager.AddGameState("StartState", new StartState());
-            GameStateManager.AddGameState("PlayingState", new PlayingState());
+            GameStateManager.AddGameState("Level1", new Level1());
             GameStateManager.AddGameState("Level2", new Level2());
+            GameStateManager.AddGameState("Level3", new Level3());
+            GameStateManager.AddGameState("Level4", new Level4());
+            GameStateManager.AddGameState("Level5", new Level5());
             GameStateManager.AddGameState("EndStateWon", new EndStateWon());
             GameStateManager.AddGameState("EndStateLost", new EndStateLost());
 

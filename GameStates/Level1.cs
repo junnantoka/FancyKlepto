@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace FancyKlepto.GameStates
 {
-    class PlayingState : GameObjectList
+    class Level1 : GameObjectList
     {
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
@@ -41,7 +41,7 @@ namespace FancyKlepto.GameStates
         public float timer, total_time, time;
         public float timebarSpace;
 
-        public PlayingState()
+        public Level1()
         {
             Reset();
             timebarSpace = 10.768F;
@@ -71,13 +71,13 @@ namespace FancyKlepto.GameStates
             Xaxis_nums = new GameObjectList();
 
             this.Add(floors);
-            this.Add(lasers);
             this.Add(walls);
             this.Add(switchBoard1);
             this.Add(switchBoard2);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
+            this.Add(lasers);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
@@ -364,7 +364,7 @@ namespace FancyKlepto.GameStates
             {
                 walls.Add(new Wall(i, 5, "Map/wall_color"));
             }
-            for (int i = 17; i < 22; i++)
+            for (int i = 17; i < 23; i++)
             {
                 walls.Add(new Wall(i, 7, "Map/wall_color"));
             }
@@ -476,7 +476,6 @@ namespace FancyKlepto.GameStates
             walls.Add(new Wall(14, 5, "Map/wall_left_top"));
 
 
-            walls.Add(new Wall(22, 7, "Map/wall_right_bot"));
             #endregion
         }
         public void SoundSetup()

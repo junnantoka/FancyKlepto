@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace FancyKlepto.GameStates
 {
-    class Level2 : GameObjectList
+    class Level5 : GameObjectList
     {
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
@@ -23,8 +23,6 @@ namespace FancyKlepto.GameStates
         Door door;
         Xaxis xaxis;
         Yaxis yaxis;
-        SwitchBoard switchBoard1;
-        SwitchBoard switchBoard2;
         Venster venster;
         Score score;
         InputAnswer inputanswer;
@@ -36,43 +34,43 @@ namespace FancyKlepto.GameStates
         GameObjectList guards;
         GameObjectList lasers;
         GameObjectList vensters;
+        GameObjectList switchBoards;
 
         public float timer, total_time, time;
         public float timebarSpace;
 
-        public Level2()
+        public Level5()
         {
-            Console.WriteLine("Level2");
+
             Reset();
             timebarSpace = 10.768F;
             this.Add(new SpriteGameObject("spr_background"));
-
-            thePlayer = new Player(3, 3);
-            switchBoard1 = new SwitchBoard(22, 2, Color.Red);
-            switchBoard2 = new SwitchBoard(4, 7, Color.Blue);
-            door = new Door(14, 0);
+            venster = new Venster(0, 0, "Map/spr_venster_352");
+            thePlayer = new Player(25, 3);
+            door = new Door(24, 0);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
-            floors = new GameObjectList();
-            walls = new GameObjectList();
-            venster = new Venster(0, 0, "Map/spr_venster_352");
-            goals = new GameObjectList();
-            vensters = new GameObjectList();
 
-            xaxis = new Xaxis(8, "Map/spr_horizontal_art_blue");
-            yaxis = new Yaxis(20, "Map/spr_vertical_art_blue");
-            goal = new MainGoal(26, 3);
+            xaxis = new Xaxis(9, "Map/spr_horizontal_art_blue_lvl1");
+            yaxis = new Yaxis(12, "Map/spr_vertical_art_blue_lvl1");
+            goal = new MainGoal(9, 13);
+
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            score = new Score(0,0, (int)time);
+            floors = new GameObjectList();
+            walls = new GameObjectList();
+            goals = new GameObjectList();
+            switchBoards = new GameObjectList();
+            vensters = new GameObjectList();
+
+            score = new Score((int)time);
             inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);
             this.Add(walls);
-            this.Add(switchBoard1);
-            this.Add(switchBoard2);
+            this.Add(switchBoards);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
@@ -86,22 +84,21 @@ namespace FancyKlepto.GameStates
             this.Add(score);
             this.Add(inputanswer);
 
-            goals.Add(new ExtraGoal(11, 9));
-            guards.Add(new Guard(new Vector2(3, 13), new Vector2(25, 13)));
+            goals.Add(new ExtraGoal(14, 13));
+            goals.Add(new ExtraGoal(19, 7));
+            guards.Add(new Guard(new Vector2(2, 2), new Vector2(25, 2)));
             FloorSetup();
             WallSetup();
             TimeBarSetup();
             SoundSetup();
-            lasers.Add(new Laser(new Vector2(11, 6), new Vector2(14, 10), Color.Red, xaxis.gridPos, yaxis.gridPos));
-            lasers.Add(new Laser(new Vector2(23, 10), new Vector2(28, 7), Color.Blue, xaxis.gridPos, yaxis.gridPos));
-
-            foreach (Laser laser in lasers.Children)
-            {
-                laser.formulPos.X = laser.gridPos.X - xaxis.gridPos;
-                laser.formulPos.Y = laser.gridPos.Y - yaxis.gridPos;
-                laser.formulPos2.X = laser.gridPos.X - xaxis.gridPos;
-                laser.formulPos2.Y = laser.gridPos.Y - yaxis.gridPos;
-            }
+            lasers.Add(new Laser(new Vector2(1,5), new Vector2(4, 8), Color.Red, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(13, 13), new Vector2(16, 10), Color.Blue, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(21, 11), new Vector2(21, 15), Color.Yellow, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(23, 10), new Vector2(28, 10), Color.Purple, xaxis.gridPos, yaxis.gridPos));
+            switchBoards.Add(new SwitchBoard(13, 4, Color.Red));
+            switchBoards.Add(new SwitchBoard(4, 9, Color.Blue));
+            switchBoards.Add(new SwitchBoard(12, 11, Color.Yellow));
+            switchBoards.Add(new SwitchBoard(17, 11, Color.Purple));
         }
         public override void Reset()
         {
@@ -166,68 +163,50 @@ namespace FancyKlepto.GameStates
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            if (thePlayer.PixelCollision(switchBoard1) || thePlayer.PixelCollision(switchBoard2))
+            foreach (SwitchBoard switchBoard in switchBoards.Children)
             {
-                if (inputHelper.KeyPressed(Keys.Space))
+                if (!thePlayer.PixelCollision(switchBoard))
                 {
-                    if (!venster.open)
+                    if (venster.open)
                     {
                         venster.Timer = 1;
-                        venster.open = true;
-                        inputanswer.open = true;
                     }
+                    venster.open = false;
+                    inputanswer.open = false;
+                    inputanswer.Reset();
                     foreach (TimeBar timebar in times.Children)
                     {
-                        timebar.open = true;
+                        timebar.open = false;
                     }
-                }
-            }
-            else if (!thePlayer.PixelCollision(switchBoard1) && !thePlayer.PixelCollision(switchBoard2))
-            {
-                if (venster.open)
+                }else if (thePlayer.PixelCollision(switchBoard))
                 {
-                    venster.Timer = 1;
+                    if (inputHelper.KeyPressed(Keys.Space))
+                    {
+                        if (!venster.open)
+                        {
+                            venster.Timer = 1;
+                            venster.open = true;
+                            inputanswer.open = true;
+                        }
+                        foreach (TimeBar timebar in times.Children)
+                        {
+                            timebar.open = true;
+                        }
+                    }
+                    foreach (Laser laser in lasers.Children)
+                    {
+                        if (laser.color == switchBoard.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                        {
+                            score.score -= 500;
+                        }
+                        if (laser.color == switchBoard.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                        {
+                            laser.Active = false;
+                        }
+                    }
                 }
-                venster.open = false;
-                inputanswer.open = false;
-                inputanswer.Reset();
-                foreach (TimeBar timebar in times.Children)
-                {
-                    timebar.open = false;
-                }
+  
             }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (thePlayer.PixelCollision(switchBoard1))
-            {
-                foreach (Laser laser in lasers.Children)
-                {
-                    if (laser.color == switchBoard1.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
-                    {
-                        score.score -= 500;
-                    }
-                    if (laser.color == switchBoard1.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
-                    {
-                        laser.Active = false;
-                    }
-                }
-            }
-
-            if (thePlayer.PixelCollision(switchBoard2))
-            {
-                foreach (Laser laser in lasers.Children)
-                {
-                    if (laser.color == switchBoard2.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
-                    {
-                        score.score -= 500;
-                    }
-                    if (laser.color == switchBoard2.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
-                    {
-                        laser.Active = false;
-                    }
-                }
-            }
-
             if (inputHelper.KeyPressed(Keys.Enter) && venster.open)
             {
                 inputanswer.Button_Enter.Play();
@@ -242,9 +221,12 @@ namespace FancyKlepto.GameStates
                         wall.Die = true;
                     }
                 }
-                if (switchBoard1.CollidesWith(wall) || switchBoard2.CollidesWith(wall))
+                foreach(SwitchBoard switchBoard in switchBoards.Children)
                 {
-                    wall.Die = true;
+                    if (switchBoard.CollidesWith(wall))
+                    {
+                        wall.Die = true;
+                    }
                 }
 
                 if (thePlayer.XaxisCol(wall))
@@ -293,11 +275,11 @@ namespace FancyKlepto.GameStates
             }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (door.Open)
+            if (door.Open && score.score != 0)
             {
                 if (goal.hold && thePlayer.PixelCollision(door))
                 {
-                    GameEnvironment.GameStateManager.SwitchTo("Level3");
+                    GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
                     Level_Win.Play();
                     Reset();
                     score.Reset();
@@ -305,6 +287,10 @@ namespace FancyKlepto.GameStates
                     lasers.Reset();
                     door.Reset();
                 }
+            }
+            else
+            {
+                GameEnvironment.GameStateManager.SwitchTo("EndStateLost");
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
@@ -342,69 +328,82 @@ namespace FancyKlepto.GameStates
         public void WallSetup()
         {
             #region wall_color
-            for (int i = 1; i < 21; i++)
+            for (int i = 1; i < 28; i++)
             {
                 walls.Add(new Wall(i, 0, "Map/wall_color"));
             }
-            for (int i = 23; i < 28; i++)
+            for (int i = 4; i < 21; i++)
             {
-                walls.Add(new Wall(i, 0, "Map/wall_color"));
+                walls.Add(new Wall(i, 5, "Map/wall_color"));
             }
-            for (int i = 1; i < 9; i++)
+            for (int i = 6; i < 11; i++)
             {
-                walls.Add(new Wall(i, 7, "Map/wall_color"));
+                walls.Add(new Wall(i, 9, "Map/wall_color"));
             }
-            for (int i = 9; i < 14; i++)
+            for (int i = 21; i < 23; i++)
             {
-                walls.Add(new Wall(i, 11, "Map/wall_color"));
+                walls.Add(new Wall(i, 10, "Map/wall_color"));
             }
-            for (int i = 17; i < 23; i++)
+            for (int i = 4; i < 6; i++)
             {
                 walls.Add(new Wall(i, 11, "Map/wall_color"));
             }
             #endregion
             #region wall_bot
-            for (int i = 1; i < 10; i++)
-            {
-                walls.Add(new Wall(i, 6, "Map/wall_bot"));
-            }
-            for (int i = 11; i < 13; i++)
-            {
-                walls.Add(new Wall(i, 10, "Map/wall_bot"));
-            }
-            for (int i = 18; i < 21; i++)
-            {
-                walls.Add(new Wall(i, 10, "Map/wall_bot"));
-            }
-            for (int i = 1; i < 28; i++)
+            for (int i = 1; i < 11; i++)
             {
                 walls.Add(new Wall(i, 15, "Map/wall_bot"));
             }
+            for (int i = 13; i < 16; i++)
+            {
+                walls.Add(new Wall(i, 15, "Map/wall_bot"));
+            }
+            for (int i = 18; i < 28; i++)
+            {
+                walls.Add(new Wall(i, 15, "Map/wall_bot"));
+            }
+            for (int i = 5; i < 22; i++)
+            {
+                walls.Add(new Wall(i, 4, "Map/wall_bot"));
+            }
+            for (int i = 5; i < 12; i++)
+            {
+                walls.Add(new Wall(i, 8, "Map/wall_bot"));
+            }
             #endregion
             #region wall_left
-            for (int j = 1; j < 6; j++)
+            for (int j = 1; j < 15; j++)
             {
                 walls.Add(new Wall(0, j, "Map/wall_left"));
             }
-            for (int j = 8; j < 15; j++)
+            walls.Add(new Wall(5, 10, "Map/wall_left"));
+            for (int j = 9; j < 15; j++)
             {
-                walls.Add(new Wall(0, j, "Map/wall_left"));
+                walls.Add(new Wall(12, j, "Map/wall_left"));
             }
-            for (int j = 7; j < 10; j++)
+            for (int j = 10; j < 15; j++)
             {
-                walls.Add(new Wall(10, j, "Map/wall_left"));
+                walls.Add(new Wall(17, j, "Map/wall_left"));
             }
-            for (int j = 1; j < 11; j++)
+            for (int j = 5; j < 10; j++)
             {
                 walls.Add(new Wall(22, j, "Map/wall_left"));
             }
             #endregion
             #region wall_right
-            for (int j = 8; j < 11; j++)
+            for (int j = 9; j < 11; j++)
             {
-                walls.Add(new Wall(9, j, "Map/wall_right"));
+                walls.Add(new Wall(4, j, "Map/wall_right"));
             }
-            for (int j = 1; j < 10; j++)
+            for (int j = 10; j < 15; j++)
+            {
+                walls.Add(new Wall(11, j, "Map/wall_right"));
+            }
+            for (int j = 10; j < 15; j++)
+            {
+                walls.Add(new Wall(16, j, "Map/wall_right"));
+            }
+            for (int j = 6; j < 10; j++)
             {
                 walls.Add(new Wall(21, j, "Map/wall_right"));
             }
@@ -413,30 +412,32 @@ namespace FancyKlepto.GameStates
                 walls.Add(new Wall(28, j, "Map/wall_right"));
             }
             #endregion
-            #region wall_corners
-            walls.Add(new Wall(10, 6, "Map/wall_right_top"));
-            walls.Add(new Wall(13, 10, "Map/wall_right_top"));
-
-            walls.Add(new Wall(17, 10, "Map/wall_left_top"));
-            #endregion
             #region wall_inside
+            
             walls.Add(new Wall(0, 0, "Map/wall_inside_left_top"));
-            walls.Add(new Wall(22, 0, "Map/wall_inside_left_top"));
-            walls.Add(new Wall(0, 7, "Map/wall_inside_left_top"));
+            walls.Add(new Wall(5, 9, "Map/wall_inside_left_top"));
 
 
-            walls.Add(new Wall(0, 6, "Map/wall_inside_left_bot"));
             walls.Add(new Wall(0, 15, "Map/wall_inside_left_bot"));
-            walls.Add(new Wall(10, 10, "Map/wall_inside_left_bot"));
+            walls.Add(new Wall(12, 15, "Map/wall_inside_left_bot"));
+            walls.Add(new Wall(17, 15, "Map/wall_inside_left_bot"));
 
-
-            walls.Add(new Wall(21, 10, "Map/wall_inside_right_bot"));
             walls.Add(new Wall(28, 15, "Map/wall_inside_right_bot"));
+            walls.Add(new Wall(16, 15, "Map/wall_inside_right_bot"));
+            walls.Add(new Wall(11, 15, "Map/wall_inside_right_bot"));
 
+            walls.Add(new Wall(28, 0, "Map/wall_inside_right_top"));
+            walls.Add(new Wall(21, 5, "Map/wall_inside_right_top"));
+            walls.Add(new Wall(11, 9, "Map/wall_inside_right_top"));
+            #endregion
+            #region corners
+            walls.Add(new Wall(12, 8, "Map/wall_right_top"));
+            walls.Add(new Wall(17, 9, "Map/wall_right_top"));
+            walls.Add(new Wall(22, 4, "Map/wall_right_top"));
 
-            walls.Add(new Wall(28,0, "Map/wall_inside_right_top"));
-            walls.Add(new Wall(9,7, "Map/wall_inside_right_top"));
-            walls.Add(new Wall(21, 0, "Map/wall_inside_right_top"));
+            walls.Add(new Wall(4, 4, "Map/wall_left_top"));
+            walls.Add(new Wall(4, 8, "Map/wall_left_top"));
+            walls.Add(new Wall(16, 9, "Map/wall_left_top"));
             #endregion
         }
         public void SoundSetup()
