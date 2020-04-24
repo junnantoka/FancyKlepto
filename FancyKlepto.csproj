@@ -50,7 +50,6 @@
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Collision.cs" />
     <Compile Include="GameManagement\DrawingHelper.cs" />
-    <Compile Include="GameManagement\FracMethod.cs" />
     <Compile Include="GameManagement\GameEnvironment.cs" />
     <Compile Include="GameManagement\GameObject.cs" />
     <Compile Include="GameManagement\GameObjectGrid.cs" />

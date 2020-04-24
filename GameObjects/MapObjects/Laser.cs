@@ -51,9 +51,6 @@ class Laser : SpriteGameObject
         slopeY = (formulPos.Y - formulPos2.Y);
         slope = slopeY / slopeX;
 
-        //Console.WriteLine(gridPos + " " + gridPos2 + " " + slope);
-        //Console.WriteLine(formulPos + " " + formulPos2 + " " + slope);
-
         cTop = slopeX*formulPos.Y-slopeY*formulPos.X;
         cBot = slopeX;
         c = cTop / cBot;
@@ -61,7 +58,8 @@ class Laser : SpriteGameObject
         if (slope % 1 == 0)
         {
             slope_string = slope.ToString();
-            Formula = slope_string;
+            if (slope != 0)
+                Formula = slope_string;
             if (slope == 1)
             {
                 Formula = "";
@@ -92,12 +90,12 @@ class Laser : SpriteGameObject
                 Formula = slopeY_string + "/" + slopeX_string;
             }
         }
-
+        if(slope!=0)
         Formula += "X";
 
         if (c % 1 == 0)
         {
-            if (c > 0)
+            if (c > 0&&slope!=0)
             {
                 c_string = "+" + c.ToString();
             }
