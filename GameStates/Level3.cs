@@ -8,15 +8,16 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
+using System.Linq;
 
 namespace FancyKlepto.GameStates
 {
     class Level3 : GameObjectList
     {
+        SwitchBoard currentSwitchboard;
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
         SoundEffect Input_Correct, Input_Wrong;
-
 
         Player thePlayer;
         MainGoal goal;
@@ -187,22 +188,9 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (SwitchBoard switchBoard in switchBoards.Children)
             {
-                if (!thePlayer.PixelCollision(switchBoard))
+                if (thePlayer.PixelCollision(switchBoard))
                 {
-                    if (venster.open)
-                    {
-                        venster.Timer = 1;
-                    }
-                    venster.open = false;
-                    inputanswer.open = false;
-                    inputanswer.Reset();
-                    foreach (TimeBar timebar in times.Children)
-                    {
-                        timebar.open = false;
-                    }
-                }
-                else if (thePlayer.PixelCollision(switchBoard))
-                {
+                    currentSwitchboard = switchBoard;
                     if (inputHelper.KeyPressed(Keys.Space))
                     {
                         if (!venster.open)
@@ -228,7 +216,20 @@ namespace FancyKlepto.GameStates
                         }
                     }
                 }
-
+                if (currentSwitchboard!=null && !thePlayer.CollidesWith(currentSwitchboard))
+                {
+                    if (venster.open)
+                    {
+                        venster.Timer = 1;
+                    }
+                    venster.open = false;
+                    inputanswer.open = false;
+                    inputanswer.Reset();
+                    foreach (TimeBar timebar in times.Children)
+                    {
+                        timebar.open = false;
+                    }
+                }
             }
             if (inputHelper.KeyPressed(Keys.Enter) && venster.open)
             {

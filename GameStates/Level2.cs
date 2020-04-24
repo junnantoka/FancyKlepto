@@ -13,18 +13,16 @@ namespace FancyKlepto.GameStates
 {
     class Level2 : GameObjectList
     {
+        SwitchBoard currentSwitchboard;
         Song Loop;
         SoundEffect Level_Win, Level_Lose;
         SoundEffect Input_Correct, Input_Wrong;
-
 
         Player thePlayer;
         MainGoal goal;
         Door door;
         Xaxis xaxis;
         Yaxis yaxis;
-        SwitchBoard switchBoard1;
-        SwitchBoard switchBoard2;
         Venster venster;
         Score score;
         InputAnswer inputanswer;
@@ -36,6 +34,7 @@ namespace FancyKlepto.GameStates
         GameObjectList guards;
         GameObjectList lasers;
         GameObjectList vensters;
+        GameObjectList switchBoards;
 
         public float timer, total_time, time;
         public float timebarSpace;
@@ -48,8 +47,6 @@ namespace FancyKlepto.GameStates
             this.Add(new SpriteGameObject("spr_background"));
 
             thePlayer = new Player(3, 3);
-            switchBoard1 = new SwitchBoard(22, 2, Color.Red);
-            switchBoard2 = new SwitchBoard(4, 7, Color.Blue);
             door = new Door(14, 0);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
@@ -71,8 +68,6 @@ namespace FancyKlepto.GameStates
 
             this.Add(floors);
             this.Add(walls);
-            this.Add(switchBoard1);
-            this.Add(switchBoard2);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
@@ -94,14 +89,6 @@ namespace FancyKlepto.GameStates
             SoundSetup();
             lasers.Add(new Laser(new Vector2(11, 6), new Vector2(14, 10), Color.Red, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(23, 10), new Vector2(28, 7), Color.Blue, xaxis.gridPos, yaxis.gridPos));
-
-            foreach (Laser laser in lasers.Children)
-            {
-                laser.formulPos.X = laser.gridPos.X - xaxis.gridPos;
-                laser.formulPos.Y = laser.gridPos.Y - yaxis.gridPos;
-                laser.formulPos2.X = laser.gridPos.X - xaxis.gridPos;
-                laser.formulPos2.Y = laser.gridPos.Y - yaxis.gridPos;
-            }
         }
         public override void Reset()
         {
@@ -166,64 +153,48 @@ namespace FancyKlepto.GameStates
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            if (thePlayer.PixelCollision(switchBoard1) || thePlayer.PixelCollision(switchBoard2))
+            foreach (SwitchBoard switchBoard in switchBoards.Children)
             {
-                if (inputHelper.KeyPressed(Keys.Space))
+                if (thePlayer.PixelCollision(switchBoard))
                 {
-                    if (!venster.open)
+                    currentSwitchboard = switchBoard;
+                    if (inputHelper.KeyPressed(Keys.Space))
+                    {
+                        if (!venster.open)
+                        {
+                            venster.Timer = 1;
+                            venster.open = true;
+                            inputanswer.open = true;
+                        }
+                        foreach (TimeBar timebar in times.Children)
+                        {
+                            timebar.open = true;
+                        }
+                    }
+                    foreach (Laser laser in lasers.Children)
+                    {
+                        if (laser.color == switchBoard.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                        {
+                            score.score -= 500;
+                        }
+                        if (laser.color == switchBoard.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                        {
+                            laser.Active = false;
+                        }
+                    }
+                }
+                if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
+                {
+                    if (venster.open)
                     {
                         venster.Timer = 1;
-                        venster.open = true;
-                        inputanswer.open = true;
                     }
+                    venster.open = false;
+                    inputanswer.open = false;
+                    inputanswer.Reset();
                     foreach (TimeBar timebar in times.Children)
                     {
-                        timebar.open = true;
-                    }
-                }
-            }
-            else if (!thePlayer.PixelCollision(switchBoard1) && !thePlayer.PixelCollision(switchBoard2))
-            {
-                if (venster.open)
-                {
-                    venster.Timer = 1;
-                }
-                venster.open = false;
-                inputanswer.open = false;
-                inputanswer.Reset();
-                foreach (TimeBar timebar in times.Children)
-                {
-                    timebar.open = false;
-                }
-            }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (thePlayer.PixelCollision(switchBoard1))
-            {
-                foreach (Laser laser in lasers.Children)
-                {
-                    if (laser.color == switchBoard1.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
-                    {
-                        score.score -= 500;
-                    }
-                    if (laser.color == switchBoard1.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
-                    {
-                        laser.Active = false;
-                    }
-                }
-            }
-
-            if (thePlayer.PixelCollision(switchBoard2))
-            {
-                foreach (Laser laser in lasers.Children)
-                {
-                    if (laser.color == switchBoard2.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
-                    {
-                        score.score -= 500;
-                    }
-                    if (laser.color == switchBoard2.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
-                    {
-                        laser.Active = false;
+                        timebar.open = false;
                     }
                 }
             }
@@ -241,10 +212,6 @@ namespace FancyKlepto.GameStates
                     {
                         wall.Die = true;
                     }
-                }
-                if (switchBoard1.CollidesWith(wall) || switchBoard2.CollidesWith(wall))
-                {
-                    wall.Die = true;
                 }
 
                 if (thePlayer.XaxisCol(wall))
@@ -268,6 +235,14 @@ namespace FancyKlepto.GameStates
                     {
                         if (guard.Intersection(wall).X > 0)
                             guard.Xcol(wall);
+                    }
+                }
+                foreach(SwitchBoard sw in switchBoards.Children)
+                {
+
+                    if (sw.CollidesWith(wall) )
+                    {
+                        wall.Die = true;
                     }
                 }
             }
