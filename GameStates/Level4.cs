@@ -178,22 +178,9 @@ namespace FancyKlepto.GameStates
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (SwitchBoard switchBoard in switchBoards.Children)
             {
-                if (!thePlayer.PixelCollision(switchBoard))
+                if (thePlayer.PixelCollision(switchBoard))
                 {
-                    if (venster.open)
-                    {
-                        venster.Timer = 1;
-                    }
-                    venster.open = false;
-                    inputanswer.open = false;
-                    inputanswer.Reset();
-                    foreach (TimeBar timebar in times.Children)
-                    {
-                        timebar.open = false;
-                    }
-                }
-                else if (thePlayer.PixelCollision(switchBoard))
-                {
+                    currentSwitchboard = switchBoard;
                     if (inputHelper.KeyPressed(Keys.Space))
                     {
                         if (!venster.open)
@@ -219,7 +206,23 @@ namespace FancyKlepto.GameStates
                         }
                     }
                 }
-
+            }
+            if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
+            {
+                foreach (Laser laser in lasers.Children)
+                {
+                    if (venster.open)
+                    {
+                        venster.Timer = 1;
+                    }
+                    venster.open = false;
+                    inputanswer.open = false;
+                    inputanswer.Reset();
+                    foreach (TimeBar timebar in times.Children)
+                    {
+                        timebar.open = false;
+                    }
+                }
             }
             if (inputHelper.KeyPressed(Keys.Enter) && venster.open)
             {

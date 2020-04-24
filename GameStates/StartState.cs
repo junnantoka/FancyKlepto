@@ -20,7 +20,7 @@ namespace FancyKlepto.GameStates
 
             if (inputHelper.KeyPressed(Keys.Enter))
             {
-                GameEnvironment.GameStateManager.SwitchTo("Level1");
+                GameEnvironment.GameStateManager.SwitchTo("Level5");
             }
         }
     }

@@ -187,7 +187,10 @@ namespace FancyKlepto.GameStates
                         }
                     }
                 }
-                if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
+            }
+            if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
+            {
+                foreach (Laser laser in lasers.Children)
                 {
                     if (venster.open)
                     {
