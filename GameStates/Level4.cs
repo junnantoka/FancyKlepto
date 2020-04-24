@@ -65,7 +65,7 @@ namespace FancyKlepto.GameStates
             switchBoards = new GameObjectList();
             vensters = new GameObjectList();
 
-            score = new Score((int)time);
+            score = new Score(6, 20, (int)time);
             inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);

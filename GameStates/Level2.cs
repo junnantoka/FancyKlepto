@@ -66,7 +66,7 @@ namespace FancyKlepto.GameStates
             guards = new GameObjectList();
             lasers = new GameObjectList();
             times = new GameObjectList();
-            score = new Score(0,0, (int)time);
+            score = new Score(11, 20, (int)time);
             inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);

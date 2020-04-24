@@ -46,7 +46,7 @@ namespace FancyKlepto.GameStates
             timebarSpace = 10.768F;
             this.Add(new SpriteGameObject("spr_background"));
             venster = new Venster(0, 0, "Map/spr_venster_352");
-            thePlayer = new Player(25, 3);
+            thePlayer = new Player(25, 4);
             door = new Door(24, 0);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
@@ -65,7 +65,7 @@ namespace FancyKlepto.GameStates
             switchBoards = new GameObjectList();
             vensters = new GameObjectList();
 
-            score = new Score((int)time);
+            score = new Score(14, 20, (int)time);
             inputanswer = new InputAnswer(75, 720);
 
             this.Add(floors);
