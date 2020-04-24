@@ -47,8 +47,6 @@ namespace FancyKlepto.GameStates
             this.Add(new SpriteGameObject("spr_background"));
 
             thePlayer = new Player(3, 13);
-            switchBoard1 = new SwitchBoard(14, 10, Color.Red);
-            switchBoard2 = new SwitchBoard(6, 12, Color.Blue);
             door = new Door(2, 0);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
@@ -71,8 +69,6 @@ namespace FancyKlepto.GameStates
 
             this.Add(floors);
             this.Add(walls);
-            this.Add(switchBoard1);
-            this.Add(switchBoard2);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
@@ -94,14 +90,6 @@ namespace FancyKlepto.GameStates
             SoundSetup();
             lasers.Add(new Laser(new Vector2(1, 11), new Vector2(6, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue, xaxis.gridPos, yaxis.gridPos));
-
-            foreach (Laser laser in lasers.Children)
-            {
-                laser.formulPos.X = laser.gridPos.X - xaxis.gridPos;
-                laser.formulPos.Y = laser.gridPos.Y - yaxis.gridPos;
-                laser.formulPos2.X = laser.gridPos.X - xaxis.gridPos;
-                laser.formulPos2.Y = laser.gridPos.Y - yaxis.gridPos;
-            }
         }
         public override void Reset()
         {
@@ -196,14 +184,8 @@ namespace FancyKlepto.GameStates
                         }
                     }
                 }
-                if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
             }
-            else
-            {
-                inputanswer.text = "";
-            }
-
-            if (thePlayer.PixelCollision(switchBoard2))
+            if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
             {
                 foreach (Laser laser in lasers.Children)
                 {
@@ -235,10 +217,6 @@ namespace FancyKlepto.GameStates
                         wall.Die = true;
                     }
                 }
-                if (switchBoard1.CollidesWith(wall) || switchBoard2.CollidesWith(wall))
-                {
-                    wall.Die = true;
-                }
 
                 if (thePlayer.XaxisCol(wall))
                 {
@@ -261,6 +239,14 @@ namespace FancyKlepto.GameStates
                     {
                         if (guard.Intersection(wall).X > 0)
                             guard.Xcol(wall);
+                    }
+                }
+                foreach (SwitchBoard sw in switchBoards.Children)
+                {
+
+                    if (sw.CollidesWith(wall))
+                    {
+                        wall.Die = true;
                     }
                 }
             }
