@@ -24,21 +24,24 @@ namespace FancyKlepto.GameStates
         Door door;
         Xaxis xaxis;
         Yaxis yaxis;
-        Venster venster;
         Score score;
+
+        InputScreen inputScreen;
         InputAnswer inputanswer;
 
+        SpriteGameObject timeGround;
         GameObjectList times;
         GameObjectList floors;
         GameObjectList walls;
         GameObjectList goals;
         GameObjectList guards;
         GameObjectList lasers;
-        GameObjectList vensters;
         GameObjectList switchBoards;
+        GameObjectList Xaxis_nums;
 
         public float timer, total_time, time;
         public float timebarSpace;
+        public int timebarCounter;
 
         public Level3()
         {
@@ -46,32 +49,33 @@ namespace FancyKlepto.GameStates
             Reset();
             timebarSpace = 10.768F;
             this.Add(new SpriteGameObject("spr_background"));
-            venster = new Venster(0, 0, "Map/spr_venster_352");
             thePlayer = new Player(2, 3);
             door = new Door(1, 0);
-
-            Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
-
 
             xaxis = new Xaxis(8, "Map/spr_horizontal_art_blue_lvl1");
             yaxis = new Yaxis(13, "Map/spr_vertical_art_blue_lvl1");
             goal = new MainGoal(23, 13);
 
-            guards = new GameObjectList();
-            lasers = new GameObjectList();
-            times = new GameObjectList();
+            Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
+
             floors = new GameObjectList();
             walls = new GameObjectList();
             goals = new GameObjectList();
-            switchBoards = new GameObjectList();
-            vensters = new GameObjectList();
 
-            score = new Score(6, 20, (int)time);
-            inputanswer = new InputAnswer(75, 720);
+            inputScreen = new InputScreen(GameEnvironment.Screen.X / 2 - 64 * 2, GameEnvironment.Screen.Y);
+            inputanswer = new InputAnswer(GameEnvironment.Screen.X / 2 - 64 * 2, GameEnvironment.Screen.Y);
+            timeGround = new SpriteGameObject("Map/time_ground");
+
+            guards = new GameObjectList();
+            lasers = new GameObjectList();
+            times = new GameObjectList();
+            score = new Score(12, 20, (int)time);
+            Xaxis_nums = new GameObjectList();
+            switchBoards = new GameObjectList();
 
             this.Add(floors);
-            this.Add(walls);
             this.Add(switchBoards);
+            this.Add(walls);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
@@ -80,7 +84,8 @@ namespace FancyKlepto.GameStates
             this.Add(goals);
             this.Add(guards);
             this.Add(thePlayer);
-            this.Add(venster);
+            this.Add(inputScreen);
+            this.Add(timeGround);
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
@@ -129,6 +134,7 @@ namespace FancyKlepto.GameStates
             total_time = 5 * 60;
             time = total_time;
             timer = 0;
+            timebarCounter = 0;
         }
         public override void HandleInput(InputHelper inputHelper)
         {
@@ -140,6 +146,7 @@ namespace FancyKlepto.GameStates
                 {
                     gameObject.Reset();
                 }
+                Reset();
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -193,10 +200,10 @@ namespace FancyKlepto.GameStates
                     currentSwitchboard = switchBoard;
                     if (inputHelper.KeyPressed(Keys.Space))
                     {
-                        if (!venster.open)
+                        if (!inputScreen.open)
                         {
-                            venster.Timer = 1;
-                            venster.open = true;
+                            inputScreen.Timer = 1;
+                            inputScreen.open = true;
                             inputanswer.open = true;
                         }
                         foreach (TimeBar timebar in times.Children)
@@ -221,11 +228,11 @@ namespace FancyKlepto.GameStates
             {
                 foreach (Laser laser in lasers.Children)
                 {
-                    if (venster.open)
+                    if (inputScreen.open)
                     {
-                        venster.Timer = 1;
+                        inputScreen.Timer = 1;
                     }
-                    venster.open = false;
+                    inputScreen.open = false;
                     inputanswer.open = false;
                     inputanswer.Reset();
                     foreach (TimeBar timebar in times.Children)
@@ -234,7 +241,8 @@ namespace FancyKlepto.GameStates
                     }
                 }
             }
-            if (inputHelper.KeyPressed(Keys.Enter) && venster.open)
+
+            if (inputHelper.KeyPressed(Keys.Enter) && inputScreen.open)
             {
                 inputanswer.Button_Enter.Play();
             }
@@ -244,13 +252,6 @@ namespace FancyKlepto.GameStates
                 if (door.Open)
                 {
                     if (wall.CollidesWith(door))
-                    {
-                        wall.Die = true;
-                    }
-                }
-                foreach (SwitchBoard switchBoard in switchBoards.Children)
-                {
-                    if (switchBoard.CollidesWith(wall))
                     {
                         wall.Die = true;
                     }
@@ -277,6 +278,14 @@ namespace FancyKlepto.GameStates
                     {
                         if (guard.Intersection(wall).X > 0)
                             guard.Xcol(wall);
+                    }
+                }
+                foreach (SwitchBoard sw in switchBoards.Children)
+                {
+
+                    if (sw.CollidesWith(wall))
+                    {
+                        wall.Die = true;
                     }
                 }
             }
@@ -306,7 +315,7 @@ namespace FancyKlepto.GameStates
             {
                 if (goal.hold && thePlayer.PixelCollision(door))
                 {
-                    GameEnvironment.GameStateManager.SwitchTo("Level4");
+                    GameEnvironment.GameStateManager.SwitchTo("Level2");
                     Level_Win.Play();
                     Reset();
                     score.Reset();
@@ -318,6 +327,20 @@ namespace FancyKlepto.GameStates
             else
             {
                 GameEnvironment.GameStateManager.SwitchTo("EndStateLost");
+                Reset();
+                score.Reset();
+                thePlayer.Reset();
+                lasers.Reset();
+                door.Reset();
+            }
+            if (timebarCounter == 100)
+            {
+                GameEnvironment.GameStateManager.SwitchTo("EndStateLost");
+                Reset();
+                score.Reset();
+                thePlayer.Reset();
+                lasers.Reset();
+                door.Reset();
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (thePlayer.CollidesWith(door) && !door.open)
@@ -362,6 +385,7 @@ namespace FancyKlepto.GameStates
                     if (timebar.Sprite.color != Color.DarkBlue && timebar.open)
                     {
                         timebar.Color_Off.Play();
+                        timebarCounter++;
                     }
                     timebar.Sprite.color = Color.DarkBlue;
                 }

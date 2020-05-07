@@ -3,22 +3,20 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using FancyKlepto.GameObjects.MapObjects;
-class Venster : SpriteGameObject
+class InputScreen : SpriteGameObject
 {
     SoundEffect SlideSound;
     public int Timer;
     private Vector2 openPos;
-    private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 
-    public Venster(int x, int y, string pObject) : base(pObject)
+    public InputScreen(int x, int y) : base("Map/spr_inputbar")
     {
         SlideSound = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Slide");
-        velocity = new Vector2(15, 0);
+        velocity = new Vector2(0, 5);
         position = new Vector2(x, y);
-        position.X += screenWidth;
         defPos = position;
-        // 352 is total width of the open window
-        openPos.X = defPos.X - 352;
+
+        openPos.Y = defPos.Y - 65-30;
     }
     public override void Update(GameTime gameTime)
     {
@@ -33,20 +31,20 @@ class Venster : SpriteGameObject
 
     public void Move()
     {
-        if (open && position.X > openPos.X)
+        if (open && position.Y > openPos.Y)
         {
-            position.X -= velocity.X;
-            if (position.X < openPos.X)
+            position.Y -= velocity.Y;
+            if (position.Y < openPos.Y)
             {
-                position.X = openPos.X;
+                position.Y = openPos.Y;
             }
         }
-        else if (!open && position.X < defPos.X)
+        else if (!open && position.Y < defPos.Y)
         {
-            position.X += velocity.X;
-            if (position.X > defPos.X)
+            position.Y += velocity.Y;
+            if (position.Y > defPos.Y)
             {
-                position.X = defPos.X;
+                position.Y = defPos.Y;
             }
         }
     }
