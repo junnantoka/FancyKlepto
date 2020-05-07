@@ -40,7 +40,6 @@ namespace FancyKlepto.GameStates
                 {
                     start.Open = true;
                     timer = 0;
-                    seconds = 0;
                 }
             }
         }
