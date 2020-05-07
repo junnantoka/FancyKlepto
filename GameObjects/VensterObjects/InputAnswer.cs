@@ -15,7 +15,8 @@ namespace FancyKlepto.GameObjects
         private string[] _OldText = new string[12];
         private string _stringValue = string.Empty;
 
-        private Vector2 openPos; private float screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+        private Vector2 openPos;
+        private float screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         public InputAnswer(float x, float y) : base("Input")
         {
             Button_Typing1 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing1");
@@ -23,12 +24,13 @@ namespace FancyKlepto.GameObjects
             Button_Typing3 = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/typing3");
             Button_Enter = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Enter");
             color = Color.Gray;
-            velocity = new Vector2(15, 0);
 
-            position = new Vector2(x + screenWidth, y);
+            velocity = new Vector2(0, 5);
+            position = new Vector2(x+10, y);
             defPos = position;
-            // 352 is total width of the open window            
-            openPos.X = defPos.X - 352;
+
+            openPos.X = defPos.X;
+            openPos.Y = defPos.Y - 65 - 15;
 
             text = "";
             for (int i = 0; i < _OldText.Length; i++)
@@ -44,142 +46,151 @@ namespace FancyKlepto.GameObjects
         }
         public void Move()
         {
-            if (open && position.X > openPos.X)
+            if (open && position.Y > openPos.Y)
             {
-                position.X -= velocity.X;
-                if (position.X < openPos.X)
+                position.Y -= velocity.Y;
+                if (position.Y < openPos.Y)
                 {
-                    position.X = openPos.X;
+                    position.Y = openPos.Y;
                 }
             }
-            else if (!open && position.X < defPos.X)
+            else if (!open && position.Y < defPos.Y)
             {
-                position.X += velocity.X;
-                if (position.X > defPos.X)
+                position.Y += velocity.Y;
+                if (position.Y > defPos.Y)
                 {
-                    position.X = defPos.X;
+                    position.Y = defPos.Y;
                     text = "";
                 }
             }
         }
 
+
         public override void HandleInput(InputHelper inputHelper)
         {
-            if (length < maxLength)
+            if (open)
             {
-                if (inputHelper.KeyPressed(Keys.NumPad0) || inputHelper.KeyPressed(Keys.D0))
+                if (length < maxLength)
                 {
-                    pressed = true;
-                    _stringValue = "0";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad1) || inputHelper.KeyPressed(Keys.D1))
-                {
-                    pressed = true;
-                    _stringValue = "1";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad2) || inputHelper.KeyPressed(Keys.D2))
-                {
-                    pressed = true;
-                    _stringValue = "2";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad3) || inputHelper.KeyPressed(Keys.D3))
-                {
-                    pressed = true;
-                    _stringValue = "3";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad4) || inputHelper.KeyPressed(Keys.D4))
-                {
-                    pressed = true;
-                    _stringValue = "4";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad5) || inputHelper.KeyPressed(Keys.D5))
-                {
-                    pressed = true;
-                    _stringValue = "5";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad6) || inputHelper.KeyPressed(Keys.D6))
-                {
-                    pressed = true;
-                    _stringValue = "6";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad7) || inputHelper.KeyPressed(Keys.D7))
-                {
-                    pressed = true;
-                    _stringValue = "7";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad8) || inputHelper.KeyPressed(Keys.D8))
-                {
-                    pressed = true;
-                    _stringValue = "8";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad9) || inputHelper.KeyPressed(Keys.D9))
-                {
-                    pressed = true;
-                    _stringValue = "9";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.NumPad9) || inputHelper.KeyPressed(Keys.D9))
-                {
-                    pressed = true;
-                    _stringValue = "9";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.X))
-                {
-                    pressed = true;
-                    _stringValue = "X";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.Y))
-                {
-                    pressed = true;
-                    _stringValue = "Y";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.OemComma))
-                {
-                    pressed = true;
-                    _stringValue = ",";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.Divide))
-                {
-                    pressed = true;
-                    _stringValue = "/";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.OemPlus))
-                {
-                    pressed = true;
-                    _stringValue = "+";
-                    length++;
-                }
-                else if (inputHelper.KeyPressed(Keys.OemMinus))
-                {
-                    pressed = true;
-                    _stringValue = "-";
-                    length++;
-                }
-                else
-                {
-                    _stringValue = "";
-                }
+                    if (inputHelper.KeyPressed(Keys.NumPad0) || inputHelper.KeyPressed(Keys.D0))
+                    {
+                        pressed = true;
+                        _stringValue = "0";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad1) || inputHelper.KeyPressed(Keys.D1))
+                    {
+                        pressed = true;
+                        _stringValue = "1";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad2) || inputHelper.KeyPressed(Keys.D2))
+                    {
+                        pressed = true;
+                        _stringValue = "2";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad3) || inputHelper.KeyPressed(Keys.D3))
+                    {
+                        pressed = true;
+                        _stringValue = "3";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad4) || inputHelper.KeyPressed(Keys.D4))
+                    {
+                        pressed = true;
+                        _stringValue = "4";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad5) || inputHelper.KeyPressed(Keys.D5))
+                    {
+                        pressed = true;
+                        _stringValue = "5";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad6) || inputHelper.KeyPressed(Keys.D6))
+                    {
+                        pressed = true;
+                        _stringValue = "6";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad7) || inputHelper.KeyPressed(Keys.D7))
+                    {
+                        pressed = true;
+                        _stringValue = "7";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad8) || inputHelper.KeyPressed(Keys.D8))
+                    {
+                        pressed = true;
+                        _stringValue = "8";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad9) || inputHelper.KeyPressed(Keys.D9))
+                    {
+                        pressed = true;
+                        _stringValue = "9";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.NumPad9) || inputHelper.KeyPressed(Keys.D9))
+                    {
+                        pressed = true;
+                        _stringValue = "9";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.X))
+                    {
+                        pressed = true;
+                        _stringValue = "X";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.Y))
+                    {
+                        pressed = true;
+                        _stringValue = "Y";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.OemComma))
+                    {
+                        pressed = true;
+                        _stringValue = ",";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.Divide))
+                    {
+                        pressed = true;
+                        _stringValue = "/";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.OemPlus))
+                    {
+                        pressed = true;
+                        _stringValue = "+";
+                        length++;
+                    }
+                    else if (inputHelper.KeyPressed(Keys.OemMinus))
+                    {
+                        pressed = true;
+                        _stringValue = "-";
+                        length++;
+                    }
+                    else
+                    {
+                        _stringValue = "";
+                    }
 
-                if (_stringValue != "")
-                {
-                    _OldText[length - 1] = text;
-                }
+                    if (_stringValue != "")
+                    {
+                        _OldText[length - 1] = text;
+                    }
 
-                text += _stringValue;
+                    text += _stringValue;
+                }
+            }
+            if (!open)
+            {
+                text = "";
+                length = 0;
             }
             if (inputHelper.KeyPressed(Keys.Back) && length > 0)
             {
