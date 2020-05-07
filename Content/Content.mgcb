@@ -404,6 +404,18 @@
 /processorParam:TextureFormat=Color
 /build:Map/spr_horizontal_art_blue_lvl2.png
 
+#begin Map/spr_inputbar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Map/spr_inputbar.png
+
 #begin Map/spr_nachtwacht_frame.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1034,4 +1046,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spr_text.png
+
+#begin TitleScreen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TitleScreen.png
 

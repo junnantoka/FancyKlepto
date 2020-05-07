@@ -54,7 +54,7 @@ namespace FancyKlepto.GameStates
 
             floors = new GameObjectList();
             walls = new GameObjectList();
-            venster = new Venster(0, 0, "Map/spr_venster_352");
+            venster = new Venster(0, 0, "Map/spr_inputbar");
             goals = new GameObjectList();
             vensters = new GameObjectList();
 
