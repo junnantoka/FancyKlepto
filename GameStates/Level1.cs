@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
+using FancyKlepto.GameObjects.MapObjects.axis;
 
 namespace FancyKlepto.GameStates
 {
@@ -35,7 +36,7 @@ namespace FancyKlepto.GameStates
         GameObjectList lasers;
         GameObjectList vensters;
         GameObjectList switchBoards;
-        GameObjectList Xaxis_nums;
+        GameObjectList Axis_nums;
 
         public float timer, total_time, time;
         public float timebarSpace;
@@ -65,7 +66,7 @@ namespace FancyKlepto.GameStates
             times = new GameObjectList();
             score = new Score(12, 20, (int)time);
             inputanswer = new InputAnswer(75, 720);
-            Xaxis_nums = new GameObjectList();
+            Axis_nums = new GameObjectList();
             switchBoards = new GameObjectList();
 
             this.Add(floors);
@@ -94,6 +95,7 @@ namespace FancyKlepto.GameStates
             lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue, xaxis.gridPos, yaxis.gridPos));
             switchBoards.Add(new SwitchBoard(6, 12, Color.Blue));
             switchBoards.Add(new SwitchBoard(14, 10, Color.Red));
+            Axis_nums.Add(new TextGameObject("Score"));
         }
         public override void Reset()
         {
