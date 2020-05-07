@@ -347,6 +347,8 @@ namespace FancyKlepto.GameStates
                     timebar.Sprite.color = Color.DarkBlue;
                 }
             }
+
+            Axis_nums.position = new Vector2(0, 0);
         }
 
         public void FloorSetup()
