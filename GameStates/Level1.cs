@@ -69,8 +69,6 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
             times = new GameObjectList();
             score = new Score(12, 20, (int)time);
-            Xaxis_nums = new GameObjectList();
-            inputanswer = new InputAnswer(75, 720);
             Axis_nums = new GameObjectList();
             switchBoards = new GameObjectList();
 
