@@ -1,22 +1,26 @@
-﻿using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using MonoSprites;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace FancyKlepto.GameStates
 {
-    class StartState : GameObjectList
+    class ExplanationState : GameObjectList
     {
         SpriteGameObject background;
         SpriteGameObject startButton;
 
-        
         int timer;
         int seconds;
-        int offset = 300;
-        public StartState()
+        int offset = 400;
+
+        public ExplanationState()
         {
-            background = new SpriteGameObject("TitleScreen");
+            background = new SpriteGameObject("UitlegScherm");
             startButton = new SpriteGameObject("startButton");
             this.Add(background);
             this.Add(startButton);
@@ -27,7 +31,7 @@ namespace FancyKlepto.GameStates
             startButton.position.X = GameEnvironment.Screen.X - startButton.Width / 2;
             startButton.position.Y = GameEnvironment.Screen.Y - startButton.Height / 2 + offset;
             startButton.Origin = new Vector2(background.Width / 2, background.Height / 2);
-            
+
             startButton.Open = true;
             timer = 0;
         }
@@ -37,7 +41,7 @@ namespace FancyKlepto.GameStates
 
             if (inputHelper.KeyPressed(Keys.Enter))
             {
-                GameEnvironment.GameStateManager.SwitchTo("ExplanationState");
+                GameEnvironment.GameStateManager.SwitchTo("Level1");
             }
         }
 

@@ -25,6 +25,8 @@ namespace FancyKlepto
             GameStateManager.AddGameState("Level5", new Level5());
             GameStateManager.AddGameState("EndStateWon", new EndStateWon());
             GameStateManager.AddGameState("EndStateLost", new EndStateLost());
+            GameStateManager.AddGameState("ExplanationState", new ExplanationState());
+
 
             GameStateManager.SwitchTo("StartState");
         }
