@@ -9,29 +9,40 @@ namespace FancyKlepto.GameObjects.MapObjects.axis
 {
     class Axis_numbers : GameObjectList
     {
-        TextGameObject text;
-        public Axis_numbers(int x, int y)
+        TextGameObject xaxis_Numbers;
+        TextGameObject yaxis_Numbers;
+        public Axis_numbers(Vector2 position, Vector2 position2)
         {
             Reset();
-            for (int i = 0; i < 29; i++)
+            xaxis_Numbers = new TextGameObject("Score");
+            yaxis_Numbers = new TextGameObject("Score");
+
+            for (int i = 0; i < 30; i++)
             {
-                this.Add(text);
-                text.position.X = i;
-                text.position.Y = y;
-                text.text = (x - i).ToString();
+                this.Add(xaxis_Numbers);
+                xaxis_Numbers.text = i.ToString();
+                xaxis_Numbers.position = position - new Vector2(0, i * (unitSize + unitSpacing));
             }
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 17; i++)
             {
-                this.Add(text);
-                text.position.X = x;
-                text.position.Y = i;
-                text.text = (y - i).ToString();
+                this.Add(yaxis_Numbers);
+                yaxis_Numbers.text = i.ToString();
+                xaxis_Numbers.position = position - new Vector2(i, 0) * (unitSize + unitSpacing);
             }
+
+            xaxis_Numbers.position = position * (unitSize + unitSpacing);
+            yaxis_Numbers.position = position2 * (unitSize + unitSpacing);
         }
 
         public override void Reset()
         {
             base.Reset();
+            velocity = Vector2.Zero;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }
