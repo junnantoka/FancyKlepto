@@ -37,7 +37,7 @@ namespace FancyKlepto.GameStates
         GameObjectList guards;
         GameObjectList lasers;
         GameObjectList switchBoards;
-        GameObjectList Axis_nums;
+        Axis_numbers Axis_nums;
 
         public float timer, total_time, time;
         public float timebarSpace;
@@ -69,8 +69,8 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
             times = new GameObjectList();
             score = new Score(12, 20, (int)time);
-            Axis_nums = new GameObjectList();
             switchBoards = new GameObjectList();
+            Axis_nums = new Axis_numbers(new Vector2(29, 6), new Vector2(8, 16));
 
             this.Add(floors);
             this.Add(switchBoards);
@@ -88,6 +88,7 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
+            this.Add(Axis_nums);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
@@ -99,7 +100,6 @@ namespace FancyKlepto.GameStates
             lasers.Add(new Laser(new Vector2(23, 8), new Vector2(26, 15), Color.Blue, xaxis.gridPos, yaxis.gridPos));
             switchBoards.Add(new SwitchBoard(6, 12, Color.Blue));
             switchBoards.Add(new SwitchBoard(14, 10, Color.Red));
-            Axis_nums.Add(new TextGameObject("Score"));
         }
         public override void Reset()
         {
@@ -363,8 +363,6 @@ namespace FancyKlepto.GameStates
                     timebar.Sprite.color = Color.DarkBlue;
                 }
             }
-
-            Axis_nums.position = new Vector2(0, 0);
         }
 
         public void FloorSetup()
