@@ -95,8 +95,8 @@ namespace FancyKlepto.GameStates
             WallSetup();
             TimeBarSetup();
             SoundSetup();
-            lasers.Add(new Laser(new Vector2(1, 11), new Vector2(6, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
-            lasers.Add(new Laser(new Vector2(23, 7), new Vector2(28, 12), Color.Blue, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(1, 9), new Vector2(6, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(23, 8), new Vector2(26, 15), Color.Blue, xaxis.gridPos, yaxis.gridPos));
             switchBoards.Add(new SwitchBoard(6, 12, Color.Blue));
             switchBoards.Add(new SwitchBoard(14, 10, Color.Red));
             Axis_nums.Add(new TextGameObject("Score"));

@@ -106,8 +106,8 @@ namespace FancyKlepto.GameStates
             lasers.Add(new Laser(new Vector2(21, 9), new Vector2(28, 6), Color.Red, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(13, 10), new Vector2(19, 4), Color.Blue, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(14, 12), new Vector2(26, 15), Color.Yellow, xaxis.gridPos, yaxis.gridPos));
-            lasers.Add(new Laser(new Vector2(5, 12), new Vector2(5, 15), Color.Purple, xaxis.gridPos, yaxis.gridPos));
-            lasers.Add(new Laser(new Vector2(1, 11), new Vector2(5, 11), Color.Green, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(7, 12), new Vector2(5, 15), Color.Purple, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(1, 9), new Vector2(5, 11), Color.Green, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(26, 5), new Vector2(28, 5), Color.DarkGray, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(1, 5), new Vector2(6, 10), Color.Aqua, xaxis.gridPos, yaxis.gridPos));
             switchBoards.Add(new SwitchBoard(15, 10, Color.Red));

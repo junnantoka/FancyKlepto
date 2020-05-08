@@ -95,10 +95,10 @@ namespace FancyKlepto.GameStates
             WallSetup();
             TimeBarSetup();
             SoundSetup();
-            lasers.Add(new Laser(new Vector2(1,5), new Vector2(4, 8), Color.Red, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(1,6), new Vector2(4, 8), Color.Red, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(13, 13), new Vector2(16, 10), Color.Blue, xaxis.gridPos, yaxis.gridPos));
-            lasers.Add(new Laser(new Vector2(21, 11), new Vector2(21, 15), Color.Yellow, xaxis.gridPos, yaxis.gridPos));
-            lasers.Add(new Laser(new Vector2(23, 10), new Vector2(28, 10), Color.Purple, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(21, 11), new Vector2(24, 15), Color.Yellow, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(23, 10), new Vector2(28, 9), Color.Purple, xaxis.gridPos, yaxis.gridPos));
             switchBoards.Add(new SwitchBoard(13, 4, Color.Red));
             switchBoards.Add(new SwitchBoard(4, 9, Color.Blue));
             switchBoards.Add(new SwitchBoard(12, 11, Color.Yellow));
