@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
 using System.Linq;
+using FancyKlepto.GameObjects.MapObjects.axis;
 
 namespace FancyKlepto.GameStates
 {
@@ -37,7 +38,7 @@ namespace FancyKlepto.GameStates
         GameObjectList guards;
         GameObjectList lasers;
         GameObjectList switchBoards;
-        GameObjectList Xaxis_nums;
+        Axis_numbers Axis_nums;
 
         public float timer, total_time, time;
         public float timebarSpace;
@@ -52,8 +53,8 @@ namespace FancyKlepto.GameStates
             thePlayer = new Player(2, 3);
             door = new Door(1, 0);
 
-            xaxis = new Xaxis(8, "Map/spr_horizontal_art_blue_lvl1");
-            yaxis = new Yaxis(13, "Map/spr_vertical_art_blue_lvl1");
+            xaxis = new Xaxis(8, "Map/spr_horizontal_art_blue");
+            yaxis = new Yaxis(13, "Map/spr_vertical_art_blue");
             goal = new MainGoal(23, 13);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
@@ -70,7 +71,7 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
             times = new GameObjectList();
             score = new Score(12, 20, (int)time);
-            Xaxis_nums = new GameObjectList();
+            Axis_nums = new Axis_numbers(20, 8);
             switchBoards = new GameObjectList();
 
             this.Add(floors);
@@ -89,6 +90,7 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
+            this.Add(Axis_nums);
 
             FloorSetup();
             WallSetup();
