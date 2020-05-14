@@ -76,11 +76,11 @@ namespace FancyKlepto.GameStates
 
             this.Add(floors);
             this.Add(switchBoards);
+            this.Add(lasers);
             this.Add(walls);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
-            this.Add(lasers);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
@@ -114,17 +114,15 @@ namespace FancyKlepto.GameStates
             goals.Add(new ExtraGoal(25, 3));
             goals.Add(new ExtraGoal(25, 4));
 
-            lasers.Add(new Laser(new Vector2(1, 10), new Vector2(28, 10), Color.Red, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(1, 10), new Vector2(28, 9), Color.Red, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(16, 6), new Vector2(28, 12), Color.Blue, xaxis.gridPos, yaxis.gridPos));
-            lasers.Add(new Laser(new Vector2(1, 6), new Vector2(28, 6), Color.Yellow, xaxis.gridPos, yaxis.gridPos));
+            lasers.Add(new Laser(new Vector2(1, 6), new Vector2(28, 7), Color.Yellow, xaxis.gridPos, yaxis.gridPos));
             lasers.Add(new Laser(new Vector2(16, 10), new Vector2(28, 4), Color.DarkGray, xaxis.gridPos, yaxis.gridPos));
-            lasers.Add(new Laser(new Vector2(16, 6), new Vector2(28, 12), Color.Aqua, xaxis.gridPos, yaxis.gridPos));
 
             switchBoards.Add(new SwitchBoard(9, 3, Color.Red));
             switchBoards.Add(new SwitchBoard(14, 3, Color.Blue));
             switchBoards.Add(new SwitchBoard(4, 3, Color.Yellow));
             switchBoards.Add(new SwitchBoard(19, 3, Color.DarkGray));
-            switchBoards.Add(new SwitchBoard(14, 3, Color.Aqua));
         }
         public override void Reset()
         {

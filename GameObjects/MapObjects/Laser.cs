@@ -8,8 +8,10 @@ using Newtonsoft.Json;
 using Zds;
 using FancyKlepto;
 
-class Laser : SpriteGameObject
+class Laser : RotatingSpriteGameObject
 {
+    protected SpriteSheet laser_corner1, laser_corner2,laser_corner_small1,laser_corner_small2;
+
     SoundEffect Lazer_Off, Lazer_Alert, Lazer_Col, Lazer_Col_Alarm, Lazer_Spark;
     public int Off, Alert, Col, Col_Alarm, Spark;
     public bool Active;
@@ -24,8 +26,14 @@ class Laser : SpriteGameObject
     public float slopeX, slopeY, slope, c, cTop, cBot;
     public string Formula;
     public string slope_string, slopeX_string, slopeY_string, c_string, cTop_string, cBot_string;
-    public Laser(Vector2 position, Vector2 position2, Color color, int xaxis, int yaxis) : base("Laser/lazer")
+    public Laser(Vector2 position, Vector2 position2, Color color, int xaxis, int yaxis) : base("big_laser")
     {
+
+        laser_corner1 = new SpriteSheet("Laser/laser_corner2_dirty", 0);
+        laser_corner2 = new SpriteSheet("Laser/laser_corner2_dirty", 0);
+        laser_corner_small1 = new SpriteSheet("Laser/laser_corner",0);
+        laser_corner_small2 = new SpriteSheet("Laser/laser_corner", 0);
+
         Active = true;
         #region sound
         Lazer_Off = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Lazer_Off");
@@ -153,7 +161,33 @@ class Laser : SpriteGameObject
                 Lazer_Spark.Play();
                 Spark = GameEnvironment.Random.Next(600, 1000);
             }
-            spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 7), new Rectangle(0, 0, 1, 1), color, angle, new Vector2(0, 0), SpriteEffects.None, 1);
+            if (slope<0) {
+                laser_corner1.Draw(spriteBatch, position - new Vector2(24, 24), origin);
+                laser_corner2.Draw(spriteBatch, position2 - new Vector2(24, 24), origin);
+
+                spriteBatch.Draw(texture, new Rectangle((int)position.X - 6, (int)position.Y - 6, (int)radius, 24), new Rectangle(0, 0, 1, 1), new Color(color, 50), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X - 4, (int)position.Y - 4, (int)radius, 15), new Rectangle(0, 0, 1, 1), new Color(color, 50), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X - 2, (int)position.Y - 2, (int)radius, 8), new Rectangle(0, 0, 1, 1), new Color(color, 50), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X - 1, (int)position.Y - 1, (int)radius, 5), new Rectangle(0, 0, 1, 1), new Color(color, 50), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 4), new Rectangle(0, 0, 1, 1), new Color(color, 200), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+
+                laser_corner_small1.Draw(spriteBatch, position - new Vector2(12, 12), origin);
+                laser_corner_small2.Draw(spriteBatch, position2 - new Vector2(12, 12), origin);
+            } else if (slope>0)
+            {
+                laser_corner1.Draw(spriteBatch, position - new Vector2(24, 24), origin);
+                laser_corner2.Draw(spriteBatch, position2 - new Vector2(24, 24), origin);
+
+                spriteBatch.Draw(texture, new Rectangle((int)position.X + 6, (int)position.Y - 6, (int)radius, 24), new Rectangle(0, 0, 1, 1), new Color(color, 50), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X + 4, (int)position.Y - 4, (int)radius, 15), new Rectangle(0, 0, 1, 1), new Color(color, 50), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X + 2, (int)position.Y - 2, (int)radius, 8), new Rectangle(0, 0, 1, 1), new Color(color, 50), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X + 1, (int)position.Y - 1, (int)radius, 5), new Rectangle(0, 0, 1, 1), new Color(color, 50), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 4), new Rectangle(0, 0, 1, 1), new Color(color, 200), angle, new Vector2(0, 0), SpriteEffects.None, 1);
+
+                laser_corner_small1.Draw(spriteBatch, position - new Vector2(12, 12), origin);
+                laser_corner_small2.Draw(spriteBatch, position2 - new Vector2(12, 12), origin);
+            }
+            //spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, (int)radius, 2), new Rectangle(0, 0, 1, 1), color, angle, new Vector2(0, 0), SpriteEffects.None, 1);
         }
     }
     public void Sound()

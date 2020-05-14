@@ -75,11 +75,11 @@ namespace FancyKlepto.GameStates
 
             this.Add(floors);
             this.Add(switchBoards);
+            this.Add(lasers);
             this.Add(walls);
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
-            this.Add(lasers);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
