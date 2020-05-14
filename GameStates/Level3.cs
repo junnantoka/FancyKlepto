@@ -71,7 +71,7 @@ namespace FancyKlepto.GameStates
             lasers = new GameObjectList();
             times = new GameObjectList();
             score = new Score(12, 20, (int)time);
-            Axis_nums = new Axis_numbers(20, 8);
+            Axis_nums = new Axis_numbers(13, 8);
             switchBoards = new GameObjectList();
 
             this.Add(floors);
