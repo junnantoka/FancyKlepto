@@ -132,7 +132,7 @@ class Laser : SpriteGameObject
                 Formula += "+" + cTop_string + "/" + cBot_string;
             }
         }
-        Console.WriteLine(Formula);
+        Console.WriteLine(Formula + " " + this.color.ToString());
     }
     public override void Update(GameTime gameTime)
     {

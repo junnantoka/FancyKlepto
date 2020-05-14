@@ -70,7 +70,7 @@ namespace FancyKlepto.GameStates
             times = new GameObjectList();
             score = new Score(12, 20, (int)time);
             switchBoards = new GameObjectList();
-            Axis_nums = new Axis_numbers(new Vector2(29, 6), new Vector2(8, 16));
+            Axis_nums = new Axis_numbers(8, 6);
 
             this.Add(floors);
             this.Add(switchBoards);

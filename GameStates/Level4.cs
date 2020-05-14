@@ -305,7 +305,7 @@ namespace FancyKlepto.GameStates
             {
                 if (goal.hold && thePlayer.PixelCollision(door))
                 {
-                    GameEnvironment.GameStateManager.SwitchTo("Level2");
+                    GameEnvironment.GameStateManager.SwitchTo("Level5");
                     Level_Win.Play();
                     Reset();
                     score.Reset();
