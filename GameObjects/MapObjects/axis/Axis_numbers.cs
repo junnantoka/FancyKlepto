@@ -9,29 +9,24 @@ namespace FancyKlepto.GameObjects.MapObjects.axis
 {
     class Axis_numbers : GameObjectList
     {
-        TextGameObject xaxis_Numbers;
-        TextGameObject yaxis_Numbers;
-        public Axis_numbers(Vector2 position, Vector2 position2)
+        public Axis_numbers(int x, int y)
         {
             Reset();
-            xaxis_Numbers = new TextGameObject("Score");
-            yaxis_Numbers = new TextGameObject("Score");
 
             for (int i = 0; i < 30; i++)
             {
-                this.Add(xaxis_Numbers);
-                xaxis_Numbers.text = i.ToString();
-                xaxis_Numbers.position = position - new Vector2(0, i * (unitSize + unitSpacing));
+                TextGameObject xaxis_Numbers = new TextGameObject("Score");
+                xaxis_Numbers.text = (i - x).ToString();
+                xaxis_Numbers.position = new Vector2(i * (unitSize + unitSpacing), y * (unitSize + unitSpacing));
+                Add(xaxis_Numbers);
             }
             for (int i = 0; i < 17; i++)
             {
-                this.Add(yaxis_Numbers);
-                yaxis_Numbers.text = i.ToString();
-                xaxis_Numbers.position = position - new Vector2(i, 0) * (unitSize + unitSpacing);
+                TextGameObject yaxis_Numbers = new TextGameObject("Score");
+                yaxis_Numbers.text = (i - y).ToString();
+                yaxis_Numbers.position = new Vector2(x * (unitSize + unitSpacing), i * (unitSize + unitSpacing));
+                Add(yaxis_Numbers);
             }
-
-            xaxis_Numbers.position = position * (unitSize + unitSpacing);
-            yaxis_Numbers.position = position2 * (unitSize + unitSpacing);
         }
 
         public override void Reset()
