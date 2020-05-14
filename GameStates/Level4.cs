@@ -52,8 +52,8 @@ namespace FancyKlepto.GameStates
 
             thePlayer = new Player(2, 2);
             door = new Door(1, 0);
-            xaxis = new Xaxis(8, "Map/spr_horizontal_art_blue_lvl1");
-            yaxis = new Yaxis(13, "Map/spr_vertical_art_blue_lvl1");
+            xaxis = new Xaxis(8, "Map/spr_horizontal_art_blue");
+            yaxis = new Yaxis(13, "Map/spr_vertical_art_blue");
             goal = new MainGoal(3, 13);
 
             Mouse.SetPosition(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
