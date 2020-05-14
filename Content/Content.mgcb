@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:Druk Enter.png;startButton.png
 
+#begin GameOver.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GameOver.png
+
 #begin Input.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -1094,4 +1106,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UitlegScherm.png
+
+#begin WinState.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:WinState.png
 

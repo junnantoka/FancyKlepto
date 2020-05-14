@@ -14,7 +14,7 @@ namespace FancyKlepto.GameStates
         SpriteGameObject background;
         public EndStateLost()
         {
-            background = new SpriteGameObject("spr_background_end");
+            background = new SpriteGameObject("GameOver");
             this.Add(background);
 
             background.Position = GameEnvironment.Screen.ToVector2() / 2;
@@ -25,7 +25,7 @@ namespace FancyKlepto.GameStates
         {
             base.HandleInput(inputHelper);
 
-            if (inputHelper.KeyPressed(Keys.Enter))
+            if (inputHelper.KeyPressed(Keys.Space))
             {
                 GameEnvironment.GameStateManager.SwitchTo("StartState");
             }

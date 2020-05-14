@@ -43,7 +43,7 @@ namespace FancyKlepto.GameStates
             //Check for keyboard input
             if (inputHelper.KeyPressed(Keys.Enter))
             {
-                GameEnvironment.GameStateManager.SwitchTo("ExplanationState");
+                GameEnvironment.GameStateManager.SwitchTo("EndStateWon");
             }
         }
 
