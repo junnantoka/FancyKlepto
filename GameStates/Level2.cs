@@ -80,6 +80,7 @@ namespace FancyKlepto.GameStates
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
+            this.Add(Axis_nums);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
@@ -89,7 +90,6 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
-            this.Add(Axis_nums);
 
             goals.Add(new ExtraGoal(11, 9));
             guards.Add(new Guard(new Vector2(3, 13), new Vector2(25, 13)));
