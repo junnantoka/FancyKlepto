@@ -216,6 +216,10 @@ namespace FancyKlepto.GameStates
                     }
                 }
             }
+            if (inputHelper.KeyPressed(Keys.Enter))
+            {
+                inputanswer.Reset();
+            }
             if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
             {
                 foreach (Laser laser in lasers.Children)

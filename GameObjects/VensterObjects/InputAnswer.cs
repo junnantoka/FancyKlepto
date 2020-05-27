@@ -189,15 +189,23 @@ namespace FancyKlepto.GameObjects
             }
             if (!open)
             {
-                text = "";
-                length = 0;
+                Reset();
             }
             if (inputHelper.KeyPressed(Keys.Back) && length > 0)
             {
-                text = _OldText[length - 1];
-                length -= 1;
-                pressed = true;
+                Remove();
             }
+        }
+        public override void Reset()
+        {
+            text = "";
+            length = 0;
+        }
+        public void Remove()
+        {
+            text = _OldText[length - 1];
+            length -= 1;
+            pressed = true;
         }
         public void Sound()
         {
