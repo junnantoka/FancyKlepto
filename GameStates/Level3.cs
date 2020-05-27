@@ -90,6 +90,7 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
+            this.Add(Axis_nums);
 
             FloorSetup();
             WallSetup();

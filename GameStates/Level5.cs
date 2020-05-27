@@ -88,6 +88,7 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
+            this.Add(Axis_nums);
 
             goals.Add(new ExtraGoal(14, 13));
             goals.Add(new ExtraGoal(19, 7));
