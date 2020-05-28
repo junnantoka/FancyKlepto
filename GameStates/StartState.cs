@@ -11,6 +11,7 @@ namespace FancyKlepto.GameStates
         SpriteGameObject background;
         SpriteGameObject startButton;
         
+        
         int frames;
         float seconds;
         int offset = 300;
@@ -20,9 +21,14 @@ namespace FancyKlepto.GameStates
             background = new SpriteGameObject("TitleScreen");
             startButton = new SpriteGameObject("startButton");
 
+            TextGameObject controls = new TextGameObject("Score");
+            controls.text = "W, A, S, D to move. SPACE to interact with objects, ENTER to confirm your formula";
+            controls.position = new Vector2(GameEnvironment.Screen.X / 2 - 550, GameEnvironment.Screen.Y / 2);
+
             //Add to list
             this.Add(background);
             this.Add(startButton);
+            this.Add(controls);
 
             //Background position and origin
             background.Position = GameEnvironment.Screen.ToVector2() / 2;

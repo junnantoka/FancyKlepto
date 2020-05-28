@@ -79,6 +79,7 @@ namespace FancyKlepto.GameStates
             this.Add(door);
             this.Add(xaxis);
             this.Add(yaxis);
+            this.Add(Axis_nums);
             this.Add(goal);
             this.Add(goals);
             this.Add(guards);
@@ -88,7 +89,6 @@ namespace FancyKlepto.GameStates
             this.Add(times);
             this.Add(score);
             this.Add(inputanswer);
-            this.Add(Axis_nums);
 
             goals.Add(new ExtraGoal(14, 13));
             goals.Add(new ExtraGoal(19, 7));
@@ -201,6 +201,10 @@ namespace FancyKlepto.GameStates
                         }
                     }
                 }
+            }
+            if (inputHelper.KeyPressed(Keys.Enter))
+            {
+                inputanswer.Reset();
             }
             if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
             {
