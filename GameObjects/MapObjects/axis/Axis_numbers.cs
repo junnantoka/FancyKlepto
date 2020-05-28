@@ -12,9 +12,11 @@ namespace FancyKlepto.GameObjects.MapObjects.axis
         public Axis_numbers(int x, int y)
         {
             Reset();
+            //Variables
             const int NEGATIVE = -1;
             const int OFFSET = 2;
 
+            //Make 60 TextGameObjects for the X-axis
             for (int i = 0; i < 30; i++)
             {
                 TextGameObject xaxis_Numbers = new TextGameObject("Axis_text");
@@ -31,6 +33,7 @@ namespace FancyKlepto.GameObjects.MapObjects.axis
                 xaxis_Numbers.Color = Color.Yellow;
                 Add(xaxis_Numbers);
             }
+            //Make 34 TextGameObjects for Y-axis
             for (int i = 0; i < 17; i++)
             {
                 TextGameObject yaxis_Numbers = new TextGameObject("Axis_text");
