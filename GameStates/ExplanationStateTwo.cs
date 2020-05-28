@@ -16,7 +16,7 @@ namespace FancyKlepto.GameStates
 
         int timer;
         int seconds;
-        int offset = 400;
+        int offset = 250;
 
         public ExplanationStateTwo()
         {
