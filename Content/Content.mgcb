@@ -910,6 +910,12 @@
 /processorParam:Quality=Best
 /build:Sound/Appear.wav
 
+#begin Sound/Background_music.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Background_music.wav
+
 #begin Sound/beep.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
