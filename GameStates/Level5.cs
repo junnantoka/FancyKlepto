@@ -93,6 +93,9 @@ namespace FancyKlepto.GameStates
             goals.Add(new ExtraGoal(14, 13));
             goals.Add(new ExtraGoal(19, 7));
             guards.Add(new Guard(new Vector2(2, 2), new Vector2(25, 2)));
+            guards.Add(new Guard(new Vector2(3, 3), new Vector2(1, 13)));
+            guards.Add(new Guard(new Vector2(26, 5), new Vector2(23, 15)));
+            guards.Add(new Guard(new Vector2(21, 8), new Vector2(2, 6)));
             FloorSetup();
             WallSetup();
             TimeBarSetup();
