@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace FancyKlepto.GameStates
 {
-    class ExplanationState : GameObjectList
+    class ExplanationStateTwo : GameObjectList
     {
         SpriteGameObject background;
         SpriteGameObject startButton;
@@ -18,9 +18,9 @@ namespace FancyKlepto.GameStates
         int seconds;
         int offset = 400;
 
-        public ExplanationState()
+        public ExplanationStateTwo()
         {
-            background = new SpriteGameObject("UitlegScherm");
+            background = new SpriteGameObject("UitlegSchermDeel2");
             startButton = new SpriteGameObject("startButton");
             this.Add(background);
             this.Add(startButton);
@@ -41,7 +41,7 @@ namespace FancyKlepto.GameStates
 
             if (inputHelper.KeyPressed(Keys.Enter))
             {
-                GameEnvironment.GameStateManager.SwitchTo("ExplanationStateTwo");
+                GameEnvironment.GameStateManager.SwitchTo("Level1");
             }
         }
 
@@ -61,4 +61,5 @@ namespace FancyKlepto.GameStates
             }
         }
     }
+
 }

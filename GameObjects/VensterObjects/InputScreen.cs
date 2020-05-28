@@ -16,7 +16,7 @@ class InputScreen : SpriteGameObject
         position = new Vector2(x, y);
         defPos = position;
 
-        openPos.Y = defPos.Y - 65-30;
+        openPos.Y = defPos.Y - 975-30;
     }
     public override void Update(GameTime gameTime)
     {

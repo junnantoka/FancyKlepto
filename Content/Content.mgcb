@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:agent.png
 
+#begin Axis_text.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Axis_text.spritefont
+
 #begin big_laser.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,12 +43,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:big_laser.png
-#begin Axis_text.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Axis_text.spritefont
 
 #begin Druk Enter.png
 /importer:TextureImporter
@@ -1112,6 +1113,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UitlegScherm.png
+
+#begin UitlegSchermDeel2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UitlegSchermDeel2.png
 
 #begin WinState.png
 /importer:TextureImporter

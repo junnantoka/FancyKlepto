@@ -30,7 +30,7 @@ namespace FancyKlepto.GameObjects
             defPos = position;
 
             openPos.X = defPos.X;
-            openPos.Y = defPos.Y - 65 - 15;
+            openPos.Y = defPos.Y - 975 - 15;
 
             text = "";
             for (int i = 0; i < _OldText.Length; i++)

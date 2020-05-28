@@ -81,6 +81,7 @@
     <Compile Include="GameStates\EndStateLost.cs" />
     <Compile Include="GameStates\EndStateWon.cs" />
     <Compile Include="GameStates\ExplanationState.cs" />
+    <Compile Include="GameStates\ExplanationStateTwo.cs" />
     <Compile Include="GameStates\Level2.cs" />
     <Compile Include="GameStates\Level1.cs" />
     <Compile Include="GameStates\Level3.cs" />
