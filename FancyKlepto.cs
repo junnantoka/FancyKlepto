@@ -11,20 +11,22 @@ namespace FancyKlepto
 {
     class Fancy_Klepto : GameEnvironment
     {
+        //SoundEffect
         SoundEffect bgMusic;
         SoundEffectInstance soundEffectInstance;
         protected override void LoadContent()
         {
-            base.LoadContent();
-            bgMusic = AssetManager.Content.Load<SoundEffect>("Sound/Background_music");
-            soundEffectInstance = bgMusic.CreateInstance();
-            soundEffectInstance.IsLooped = true;
-            soundEffectInstance.Play();
-            screen = new Point(1920, 1080);
-            ApplyResolutionSettings();
+            base.LoadContent(); //Call to base method
+            bgMusic = AssetManager.Content.Load<SoundEffect>("Sound/Background_music"); //Initialize file
+            soundEffectInstance = bgMusic.CreateInstance(); //Create instance
+            soundEffectInstance.IsLooped = true; //Loop the song
+            soundEffectInstance.Play(); //Play
+            screen = new Point(1920, 1080); //Screen resolution
+            ApplyResolutionSettings(); //Apply settings
             
             FullScreen = false;
             
+            //Game States
             GameStateManager.AddGameState("StartState", new StartState());
             GameStateManager.AddGameState("Level1", new Level1());
             GameStateManager.AddGameState("Level2", new Level2());
@@ -35,8 +37,7 @@ namespace FancyKlepto
             GameStateManager.AddGameState("EndStateLost", new EndStateLost());
             GameStateManager.AddGameState("ExplanationState", new ExplanationState());
             GameStateManager.AddGameState("ExplanationStateTwo", new ExplanationStateTwo());
-
-
+            //Switch to another state
             GameStateManager.SwitchTo("StartState");
         }
     }
