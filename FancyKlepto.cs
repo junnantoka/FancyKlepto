@@ -4,17 +4,25 @@ using Microsoft.Xna.Framework.Input;
 using FancyKlepto.GameStates;
 using FancyKlepto.GameObjects;
 using FancyKlepto;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace FancyKlepto
 {
     class Fancy_Klepto : GameEnvironment
     {
+        SoundEffect bgMusic;
+        SoundEffectInstance soundEffectInstance;
         protected override void LoadContent()
         {
             base.LoadContent();
+            bgMusic = AssetManager.Content.Load<SoundEffect>("Sound/Background_music");
+            soundEffectInstance = bgMusic.CreateInstance();
+            soundEffectInstance.IsLooped = true;
+            soundEffectInstance.Play();
             screen = new Point(1920, 1080);
             ApplyResolutionSettings();
-
+            
             FullScreen = false;
             
             GameStateManager.AddGameState("StartState", new StartState());

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using MonoSprites;
+using Microsoft.Xna.Framework.Audio;
 
 namespace FancyKlepto.GameStates
 {
@@ -10,7 +11,7 @@ namespace FancyKlepto.GameStates
         //Variables
         SpriteGameObject background;
         SpriteGameObject startButton;
-        
+
         int frames;
         float seconds;
         int offset = 300;
