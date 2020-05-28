@@ -119,6 +119,9 @@ namespace FancyKlepto.GameStates
             switchBoards.Add(new SwitchBoard(10, 11, Color.Green));
             switchBoards.Add(new SwitchBoard(17, 11, Color.DarkGray));
             switchBoards.Add(new SwitchBoard(4, 4, Color.Aqua));
+            guards.Add(new Guard(new Vector2(2, 13), new Vector2(25, 13)));
+            guards.Add(new Guard(new Vector2(26, 13), new Vector2(27, 1)));
+            guards.Add(new Guard(new Vector2(5, 8), new Vector2(11, 2)));
         }
         public override void Reset()
         {
