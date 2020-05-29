@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace FancyKlepto.GameObjects
 {
-    class Guard : SpriteGameObject
+    class Guard : RotatingSpriteGameObject
     {
         List<SoundEffect> walkEffects;
 
@@ -52,7 +52,10 @@ namespace FancyKlepto.GameObjects
             Rotate();
             if (Moves)
             {
-                Move();/*
+                Move();
+                
+                //Choosing walking soundeffect
+                /*
                 if (Timer == 3)
                 {
                     walkEffects[Timer].Play();
@@ -82,7 +85,8 @@ namespace FancyKlepto.GameObjects
 
         public void DestChange()
         {
-            if(destination == posB)
+            //changes the destination variable to the destination which have been earlier determined when the guard have been created
+            if (destination == posB)
             {
                 destination = posA;
             } else if (destination == posA)
@@ -92,6 +96,7 @@ namespace FancyKlepto.GameObjects
         }
         public void Move()
         {
+            ///////////////////////////// Changes the moving destination
             if (Math.Abs(destination.X-position.X)<velocity.X)
             {
                 position.X = destination.X;

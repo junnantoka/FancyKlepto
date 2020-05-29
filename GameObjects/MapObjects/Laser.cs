@@ -47,27 +47,35 @@ class Laser : RotatingSpriteGameObject
         this.position = new Vector2(18 + position.X * (unitSize + unitSpacing), 10 + position.Y * (unitSize + unitSpacing));
         this.position2 = new Vector2(18 + position2.X * (unitSize + unitSpacing), 10 + position2.Y * (unitSize + unitSpacing));
 
+        //gridPosition from map (0,0) is topLeft of the screen
         gridPos = position;
         gridPos2 = position2;
 
+        //Here you get the grid position depending on axises
         formulPos.X = gridPos.X - yaxis;
         formulPos.Y = gridPos.Y -  xaxis;
         formulPos2.X = gridPos2.X - yaxis;
         formulPos2.Y = gridPos2.Y -  xaxis;
 
+        //variables of the slope of the formula is determined here
         slopeX = (formulPos.X - formulPos2.X);
         slopeY = (formulPos.Y - formulPos2.Y);
         slope = slopeY / slopeX;
 
+        //variables of the c value of the formula is determined here
         cTop = slopeX*formulPos.Y-slopeY*formulPos.X;
         cBot = slopeX;
         c = cTop / cBot;
 
+
+        //if slope is an integer I adds slope to the formula 
         if (slope % 1 == 0)
         {
             slope_string = slope.ToString();
+            //creates the first step of the formula
             if (slope != 0)
                 Formula = slope_string;
+            //because we dont want -1X in our formula we must write exceptions for it
             if (slope == 1)
             {
                 Formula = "";
@@ -79,6 +87,7 @@ class Laser : RotatingSpriteGameObject
         }
         else
         {
+            // If slope isn't an integer It but be calculated separately for top and bottom variable of the slope 
             slopeX_string = Math.Abs(slopeX).ToString();
             slopeY_string = Math.Abs(slopeY).ToString();
             if (slopeX < 0 && slopeY < 0)
@@ -98,9 +107,10 @@ class Laser : RotatingSpriteGameObject
                 Formula = slopeY_string + "/" + slopeX_string;
             }
         }
+        //here it adds X string to the slope so it can be writen like -1/3X
         if(slope!=0)
         Formula += "X";
-
+        //it is calculated here if c value is an separately
         if (c % 1 == 0)
         {
             if (c > 0&&slope!=0)
@@ -119,6 +129,7 @@ class Laser : RotatingSpriteGameObject
         }
         else
         {
+            //Like slope floats must be calculated separately
             cTop_string = Math.Abs(cTop).ToString();
             cBot_string = Math.Abs(cBot).ToString();
             if (cTop > 0 && cBot > 0)
@@ -145,6 +156,7 @@ class Laser : RotatingSpriteGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //Spark soundeffect timer
         Spark--;
         //Calculates the size of the line and the angle of the line based on the given position
         radius = (float)Math.Sqrt((position.X - position2.X) * (position.X - position2.X) + (position.Y - position2.Y) * (position.Y - position2.Y));
@@ -161,6 +173,7 @@ class Laser : RotatingSpriteGameObject
                 Lazer_Spark.Play();
                 Spark = GameEnvironment.Random.Next(600, 1000);
             }
+            //the lazer texture must be replaced depending on slope
             if (slope<0) {
                 laser_corner1.Draw(spriteBatch, position - new Vector2(24, 24), origin);
                 laser_corner2.Draw(spriteBatch, position2 - new Vector2(24, 24), origin);

@@ -156,7 +156,7 @@ namespace FancyKlepto.GameStates
                     goal.Hold(thePlayer);
                     if (!door.open)
                     {
-                        door.Timer = 1;
+                        door.Timer = true;
                     }
                     door.open = true;
                     if (!goal.hold)

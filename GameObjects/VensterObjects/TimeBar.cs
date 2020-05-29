@@ -17,6 +17,7 @@ namespace FancyKlepto.GameObjects
         }
         public override void Reset()
         {
+            //Depending on position on screen the texture gets a tint
             base.Reset(); if (position.Y >= 0 && position.Y <= 540)
                 sprite.color = Color.Green;
             if (position.Y > 540 && position.Y <= 945)

@@ -29,6 +29,7 @@ class ExtraGoal : SpriteGameObject
     }
     public override void Update(GameTime gameTime)
     {
+        //int Timer helps to choose random sounds
         if (Timer == 1)
         {
             Item_Collected1.Play();

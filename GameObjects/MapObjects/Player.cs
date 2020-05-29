@@ -106,6 +106,7 @@ class Player : RotatingSpriteGameObject
 
     public override void HandleInput(InputHelper inputHelper)
     {
+        //that helps the player to move depending on he's offsetdegree
         if (inputHelper.IsKeyDown(Keys.W) && !inputHelper.IsKeyDown(Keys.S))
         {
             position.X += (float)Math.Cos(offsetDegrees * radius) * velocity.X;
@@ -120,10 +121,12 @@ class Player : RotatingSpriteGameObject
             position.Y += (float)Math.Sin(offsetDegrees * radius) * velocity.Y;
             velocity += Acceleration;
         }
+        //walk disabler
         if(!inputHelper.IsKeyDown(Keys.S)&& !inputHelper.IsKeyDown(Keys.W))
         {
             walk = false;
         }
+        //rotating buttons
         if (inputHelper.IsKeyDown(Keys.A))
         {
             offsetDegrees += degreeRotater;
@@ -137,6 +140,7 @@ class Player : RotatingSpriteGameObject
     {
         base.Draw(gameTime, spriteBatch);
         
+        //That helps to draw the character as a moving object
         if (walk)
         {
             if (walkTimer > 0 && walkTimer<=5)

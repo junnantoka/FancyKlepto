@@ -15,7 +15,7 @@ namespace FancyKlepto.GameObjects.MapObjects
     {
         protected SpriteSheet open_sprite;
         SoundEffect Door_Appear;
-        public int Timer;
+        public bool Timer;
         public Door (int x, int y): base("Map/Door_Close")
         {
             Reset();
@@ -36,14 +36,17 @@ namespace FancyKlepto.GameObjects.MapObjects
         public  override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (Timer == 1)
+
+            //door opening sound
+            if (Timer)
             {
                 Door_Appear.Play();
-                Timer = 0;
+                Timer = false;
             }
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //It changes the texture depending on open state
             if (open) {
                 open_sprite.Draw(spriteBatch, this.GlobalPosition, origin);
             } else
