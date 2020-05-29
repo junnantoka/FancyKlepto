@@ -17,6 +17,7 @@ class Player : RotatingSpriteGameObject
     public bool walk;
     public int walkTimer;
     int degreeRotater = 5;
+    //degree to radius
     double radius = 0.0174532925;
 
     public Player(int x, int y) : base("Player/idle")

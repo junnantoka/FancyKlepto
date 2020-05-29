@@ -5,7 +5,7 @@ class SwitchBoard : SpriteGameObject
 {
     public Color color;
     private Texture2D light1, light2, light3;
-    bool blink,solved;
+    public bool blink,solved;
     int blink_timer;
 
     private Vector2 lightpos1, lightpos2, lightpos3;

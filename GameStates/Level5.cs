@@ -201,6 +201,7 @@ namespace FancyKlepto.GameStates
                         if (laser.color == switchBoard.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
                         {
                             laser.Active = false;
+                            switchBoard.solved = true;
                         }
                     }
                 }
