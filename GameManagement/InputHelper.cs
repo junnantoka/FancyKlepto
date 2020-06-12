@@ -53,6 +53,12 @@ public class InputHelper
         return currentKeyboardState.IsKeyDown(k) && previousKeyboardState.IsKeyUp(k);
     }
 
+    //Methode om de huidige lijst van ingedrukte toetsen weer te geven.
+    public Keys[] GetPressedKeys()
+    {
+        return currentKeyboardState.GetPressedKeys();
+    }
+
     public bool IsKeyDown(Keys k)
     {
         return currentKeyboardState.IsKeyDown(k);

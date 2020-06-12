@@ -152,7 +152,7 @@ namespace FancyKlepto.GameStates
                     goal.Hold(thePlayer);
                     if (!door.open)
                     {
-                        door.Timer = true;
+                        door.timer = true;
                     }
                     door.open = true;
                     if (!goal.hold)
@@ -197,7 +197,7 @@ namespace FancyKlepto.GameStates
                     {
                         if (!inputScreen.open)
                         {
-                            inputScreen.Timer = 1;
+                            inputScreen.timer = 1;
                             inputScreen.open = true;
                             inputanswer.open = true;
                         }
@@ -230,7 +230,7 @@ namespace FancyKlepto.GameStates
                 {
                     if (inputScreen.open)
                     {
-                        inputScreen.Timer = 1;
+                        inputScreen.timer = 1;
                     }
                     inputScreen.open = false;
                     inputanswer.open = false;

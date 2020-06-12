@@ -14,15 +14,15 @@ namespace FancyKlepto.GameObjects.MapObjects
     class Door : SpriteGameObject
     {
         protected SpriteSheet open_sprite;
-        SoundEffect Door_Appear;
-        public bool Timer;
+        SoundEffect doorAppear;
+        public bool timer;
         public Door (int x, int y): base("Map/Door_Close")
         {
             Reset();
             position = new Vector2(18 + x * (unitSize + unitSpacing), 10 + y * (unitSize + unitSpacing));
             defPos = position;
 
-            Door_Appear = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Appear");
+            doorAppear = GameEnvironment.AssetManager.Content.Load<SoundEffect>("Sound/Appear");
         }
 
         public override void Reset()
@@ -37,11 +37,11 @@ namespace FancyKlepto.GameObjects.MapObjects
         {
             base.Update(gameTime);
 
-            //door opening sound
-            if (Timer)
+            //Door opening sound
+            if (timer)
             {
-                Door_Appear.Play();
-                Timer = false;
+                doorAppear.Play();
+                timer = false;
             }
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

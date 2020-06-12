@@ -27,7 +27,7 @@ namespace FancyKlepto.GameStates
         Score score;
 
         InputScreen inputScreen;
-        InputAnswer inputanswer;
+        InputAnswer inputAnwser;
 
         SpriteGameObject timeGround;
         GameObjectList times;
@@ -62,7 +62,7 @@ namespace FancyKlepto.GameStates
             goals = new GameObjectList();
 
             inputScreen = new InputScreen(GameEnvironment.Screen.X / 2-64*2, GameEnvironment.Screen.Y);
-            inputanswer = new InputAnswer(GameEnvironment.Screen.X / 2-64*2, GameEnvironment.Screen.Y);
+            inputAnwser = new InputAnswer(GameEnvironment.Screen.X / 2-64*2, GameEnvironment.Screen.Y);
             timeGround = new SpriteGameObject("Map/time_ground");
 
             guards = new GameObjectList();
@@ -88,7 +88,7 @@ namespace FancyKlepto.GameStates
             this.Add(timeGround);
             this.Add(times);
             this.Add(score);
-            this.Add(inputanswer);
+            this.Add(inputAnwser);
 
             goals.Add(new ExtraGoal(3, 3));
             guards.Add(new Guard(new Vector2(13, 2), new Vector2(25, 7)));
@@ -130,7 +130,7 @@ namespace FancyKlepto.GameStates
                     goal.Hold(thePlayer);
                     if (!door.open)
                     {
-                        door.Timer = true;
+                        door.timer = true;
                     }
                     door.open = true;
                     if (!goal.hold)
@@ -175,9 +175,9 @@ namespace FancyKlepto.GameStates
                     {
                         if (!inputScreen.open)
                         {
-                            inputScreen.Timer = 1;
+                            inputScreen.timer = 1;
                             inputScreen.open = true;
-                            inputanswer.open = true;
+                            inputAnwser.open = true;
                         }
                         foreach (TimeBar timebar in times.Children)
                         {
@@ -186,11 +186,11 @@ namespace FancyKlepto.GameStates
                     }
                     foreach (Laser laser in lasers.Children)
                     {
-                        if (laser.color == switchBoard.color && laser.Formula != inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                        if (laser.color == switchBoard.color && laser.Formula != inputAnwser.text && inputHelper.KeyPressed(Keys.Enter))
                         {
                             score.score -= 500;
                         }
-                        if (laser.color == switchBoard.color && laser.Formula == inputanswer.text && inputHelper.KeyPressed(Keys.Enter))
+                        if (laser.color == switchBoard.color && laser.Formula == inputAnwser.text && inputHelper.KeyPressed(Keys.Enter))
                         {
                             laser.Active = false;
                             switchBoard.solved = true;
@@ -200,7 +200,7 @@ namespace FancyKlepto.GameStates
             }
             if (inputHelper.KeyPressed(Keys.Enter))
             {
-                inputanswer.Reset();
+                inputAnwser.Reset();
             }
             if (currentSwitchboard != null && !thePlayer.CollidesWith(currentSwitchboard))
             {
@@ -208,11 +208,11 @@ namespace FancyKlepto.GameStates
                 {
                     if (inputScreen.open)
                     {
-                        inputScreen.Timer = 1;
+                        inputScreen.timer = 1;
                     }
                     inputScreen.open = false;
-                    inputanswer.open = false;
-                    inputanswer.Reset();
+                    inputAnwser.open = false;
+                    inputAnwser.Reset();
                     foreach (TimeBar timebar in times.Children)
                     {
                         timebar.open = false;
@@ -222,7 +222,7 @@ namespace FancyKlepto.GameStates
 
             if (inputHelper.KeyPressed(Keys.Enter) && inputScreen.open)
             {
-                inputanswer.Button_Enter.Play();
+                inputAnwser.Button_Enter.Play();
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             foreach (Wall wall in walls.Children)

@@ -6,7 +6,7 @@ using FancyKlepto.GameObjects.MapObjects;
 class InputScreen : SpriteGameObject
 {
     SoundEffect SlideSound;
-    public int Timer;
+    public int timer;
     private Vector2 openPos;
 
     public InputScreen(int x, int y) : base("Map/spr_inputbar")
@@ -21,10 +21,10 @@ class InputScreen : SpriteGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        if (Timer == 1)
+        if (timer == 1)
         {
             SlideSound.Play();
-            Timer = 0;
+            timer = 0;
         }
         Move();
     }
