@@ -53,26 +53,6 @@ namespace FancyKlepto.GameObjects
             if (Moves)
             {
                 Move();
-                
-                //Choosing walking soundeffect
-                /*
-                if (Timer == 3)
-                {
-                    walkEffects[Timer].Play();
-                    Timer = 2;
-                } else if (Timer == 2)
-                {
-                    walkEffects[Timer].Play();
-                    Timer = 1;
-                } else if (Timer == 1)
-                {
-                    walkEffects[Timer].Play();
-                    Timer = 0;
-                } else if (Timer == 0)
-                {
-                    walkEffects[Timer].Play();
-                    Timer = 3;
-                }*/
             }
         }
         public void Rotate()
