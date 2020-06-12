@@ -69,7 +69,8 @@ namespace FancyKlepto.GameObjects
             if (destination == posB)
             {
                 destination = posA;
-            } else if (destination == posA)
+            }
+            else if (destination == posA)
             {
                 destination = posB;
             }
@@ -77,7 +78,7 @@ namespace FancyKlepto.GameObjects
         public void Move()
         {
             ///////////////////////////// Changes the moving destination
-            if (Math.Abs(destination.X-position.X)<velocity.X)
+            if (Math.Abs(destination.X - position.X) < velocity.X)
             {
                 position.X = destination.X;
             }
@@ -89,7 +90,8 @@ namespace FancyKlepto.GameObjects
             if (position.X < destination.X)
             {
                 position.X += velocity.X;
-            } else if (position.X > destination.X)
+            }
+            else if (position.X > destination.X)
             {
                 position.X -= velocity.X;
             }
